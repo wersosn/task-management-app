@@ -7,6 +7,8 @@ namespace TaskManager
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Dzień dobry wszystkim :)");
+
+			Manager manager = Manager.Instance;
 		}
 	}
 }
