@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TaskManager
+namespace TaskManager.Controller
 {
 	public class Manager
 	{
@@ -16,7 +16,7 @@ namespace TaskManager
 		public static Manager Instance
 		{
 			get
-			{ 
+			{
 				if (instance == null)
 				{
 					instance = new Manager();
