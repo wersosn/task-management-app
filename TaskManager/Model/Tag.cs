@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskManager.Model
 {
-	internal class Tag
+	public class Tag
 	{
 	}
 }
