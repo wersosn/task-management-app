@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace TaskManager.Model
 {
-	public class Tag
-	{
-	}
+    public interface ITag
+    {
+        string Name { get; }
+    }
+
+    public class Tag : ITag
+    {
+        public string Name { get; }
+
+        public Tag(string name)
+        {
+            Name = name;
+        }
+    }
 }

@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace TaskManager.Model
 {
-	public class Category
-	{
-	}
+    public interface ICategory
+    {
+        string CategoryName { get; }
+    }
+
+    public class Category : ICategory
+    {
+        public string CategoryName { get; }
+
+        public Category(string categoryName)
+        {
+            CategoryName = categoryName;
+        }
+    }
 }
