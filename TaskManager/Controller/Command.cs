@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManager.Model;
 
 namespace TaskManager.Controller
 {
@@ -118,6 +119,39 @@ namespace TaskManager.Controller
             }
         }
     }
+
+    public class DodajNotatke : ICommand
+    {
+        private List<Note> notes;
+        private Note newNote;
+
+        public DodajNotatke(List<Note> notes, Note newNote)
+        {
+            this.notes = notes;
+            this.newNote = newNote;
+        }
+
+        public void Wykonaj()
+        {
+            var noteCopy = new Note
+            {
+                Title = newNote.Title,
+                Description = newNote.Description,
+                Tag = newNote.Tag,
+                Category = newNote.Category
+            };
+            
+            notes.Add(noteCopy);
+            Console.WriteLine($"Dodano element: {newNote}");
+        }
+
+        public void Cofnij()
+        {
+            notes.Remove(newNote);
+            Console.WriteLine($"Cofnięto dodanie elementu: {newNote}");
+        }
+    }
+
     public class CommandInvoker
     {
         private readonly List<ICommand> historiaOperacji = new List<ICommand>();

@@ -48,14 +48,25 @@ namespace TaskManager
             }
 
             // Test tworzenia notatki:
-            var notatka = new NoteBuilder()
+            List<Note> notes = new List<Note>(); 
+            NoteBuilder noteBuilder = new NoteBuilder();
+
+            var notatka = noteBuilder
                 .setTytul("Pierwsza część projektu ZTP")
                 .setOpis("Należy przygotować diagram UML oraz prototyp programu")
                 .setTagi(new Tag("Studia"))
                 .setKategorie(new Category("Zaawansowane techniki programistyczne"))
                 .build();
-
-            Console.WriteLine(notatka);
+            invoker.DodajOperacje(new DodajNotatke(notes, notatka));
+            invoker.Wykonaj();
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("Aktualna lista notatek:");
+            id = 1;
+            for (int i = 0; i < notes.Count; i++)
+            {
+                Console.WriteLine(id++ + ".\n" + notes[i]);
+                Console.WriteLine("---------------------------------------");
+            }
         }
     }
 }
