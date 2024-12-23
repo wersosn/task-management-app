@@ -1,0 +1,30 @@
+﻿<Window x:Class="SuperZTP.Views.AddTask"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SuperZTP.Views"
+        mc:Ignorable="d"
+        Title="Dodaj zadanie" Height="450" Width="800">
+    <Grid>
+        <!--Tymczasowy kod do testów dodawania zadania, potem będzie podmieniony MenuView-->
+        <Label Content="Tytuł zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
+        <TextBox Name="TitleTextBox" HorizontalAlignment="Left" Margin="120,20,0,0" VerticalAlignment="Top" Width="200" Height="25"/>
+        <Label Content="Opis zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,19,0,0"/>
+        <TextBox Name="DescriptionTextBox" HorizontalAlignment="Left" Margin="490,20,0,0" VerticalAlignment="Top" Width="200" Height="50"/>
+        <Label Content="Priorytet:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,85,0,0"/>
+        <ComboBox Name="PriorityComboBox" HorizontalAlignment="Left" Margin="120,81,0,0" VerticalAlignment="Top" Width="200" Height="30">
+            <ComboBoxItem Content="Niski"/>
+            <ComboBoxItem Content="Średni"/>
+            <ComboBoxItem Content="Wysoki"/>
+        </ComboBox>
+        <Label Content="Termin zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,98,0,0"/>
+        <DatePicker Name="TaskDatePicker" HorizontalAlignment="Left" Margin="490,98,0,0" VerticalAlignment="Top" Width="200" Height="30"/>
+        <Label Content="Status ukończenia:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,147,0,0"/>
+        <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" HorizontalAlignment="Left" Margin="142,153,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
+        <Button Name="AddTaskButton" Content="Dodaj zadanie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="323,187,0,0" Click="AddTaskButton_Click"/>
+
+        <ListBox Name="TasksListBox" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="500" Margin="123,250,0,0"/>
+
+    </Grid>
+</Window>

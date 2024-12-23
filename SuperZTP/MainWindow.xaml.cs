@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using SuperZTP.Controller;
+using SuperZTP.Model;
+using SuperZTP.Views;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +22,18 @@ namespace SuperZTP
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public void AddTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddTask addTask = new AddTask();
+            addTask.Show();
+        }
+
+        public void AddNoteButton_Click(object sender, RoutedEventArgs e) 
+        {
+            AddNote addNote = new AddNote();
+            addNote.Show();
         }
     }
 }

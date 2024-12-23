@@ -10,7 +10,7 @@ namespace SuperZTP
 {
     public class Program
     {
-        static void Main(string[] args)
+        /*static void Main(string[] args)
         {
             // Command + Builder taska:
             int id = 1;
@@ -71,6 +71,6 @@ namespace SuperZTP
                 Console.WriteLine(id++ + ".\n" + notes[i]);
                 Console.WriteLine("---------------------------------------");
             }
-        }
+        }*/
     }
 }
