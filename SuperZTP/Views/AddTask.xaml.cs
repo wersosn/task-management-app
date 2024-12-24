@@ -1,4 +1,5 @@
-﻿using SuperZTP.Controller;
+﻿using SuperZTP.Builder;
+using SuperZTP.Command;
 using SuperZTP.Model;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,15 @@ namespace SuperZTP.Views
     public partial class AddTask : Window
     {
         // Lista zadań
-        private List<SuperZTP.Model.Task> tasks = new List<SuperZTP.Model.Task>();
+        private List<SuperZTP.Model.Task> tasks;
         private CommandInvoker invoker = new CommandInvoker();
         private TaskBuilder taskBuilder = new TaskBuilder();
         private int id = 1;
 
-        public AddTask()
+        public AddTask(List<SuperZTP.Model.Task> tasks)
         {
             InitializeComponent();
+            this.tasks = tasks;
         }
 
         // Kliknięcie przycisku Dodaj zadanie
@@ -65,7 +67,7 @@ namespace SuperZTP.Views
             }
 
             // Dodaj zadanie do listy
-            invoker.DodajOperacje(new DodajElement(tasks, zadanie));
+            invoker.DodajOperacje(new DodajZadanie(tasks, zadanie));
             invoker.Wykonaj();
 
             // Wyświetl zaktualizowaną listę zadań

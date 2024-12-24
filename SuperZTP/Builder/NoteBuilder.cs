@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperZTP.Model;
 
-namespace SuperZTP.Model
+namespace SuperZTP.Builder
 {
     // Builder Notatki
     public class NoteBuilder

@@ -27,7 +27,7 @@ namespace SuperZTP
                 .build();
             zadanie.UstalTermin(DateTime.Now.AddDays(2));
             zadanie.UstawPriorytet("Wysoki");
-            invoker.DodajOperacje(new DodajElement(tasks, zadanie));
+            invoker.DodajOperacje(new DodajZadanie(tasks, zadanie));
             invoker.Wykonaj();
             Console.WriteLine("---------------------------------------");
 
@@ -40,7 +40,7 @@ namespace SuperZTP
             zadanie2.UstalTermin(DateTime.Now);
             zadanie2.UstawPriorytet("Niski");
             zadanie2.OznaczJakoWykonane();
-            invoker.DodajOperacje(new DodajElement(tasks, zadanie2));
+            invoker.DodajOperacje(new DodajZadanie(tasks, zadanie2));
             invoker.Wykonaj();
             Console.WriteLine("---------------------------------------");
 

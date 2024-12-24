@@ -1,4 +1,5 @@
-﻿using SuperZTP.Controller;
+﻿using SuperZTP.Builder;
+using SuperZTP.Command;
 using SuperZTP.Model;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,15 @@ namespace SuperZTP.Views
     public partial class AddNote : Window
     {
         // Lista notatek
-        private List<Note> notes = new List<Note>();
+        private List<Note> notes;
         private CommandInvoker invoker = new CommandInvoker();
         private NoteBuilder noteBuilder = new NoteBuilder();
         private int id = 1;
 
-        public AddNote()
+        public AddNote(List<Note> notes)
         {
             InitializeComponent();
+            this.notes = notes;
         }
 
         private void AddNoteButton_Click(object sender, RoutedEventArgs e)

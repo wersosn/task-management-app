@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperZTP.Model;
 
-namespace SuperZTP.Model
+namespace SuperZTP.Builder
 {
     // Builder Zadania
     public class TaskBuilder
     {
-        private readonly Task task = new Task();
+        private readonly Model.Task task = new Model.Task();
         public TaskBuilder setTytul(string title)
         {
             task.Title = title;
@@ -18,13 +19,13 @@ namespace SuperZTP.Model
 
         public TaskBuilder setOpis(string description)
         {
-            task.Description = description; 
+            task.Description = description;
             return this;
         }
 
         public TaskBuilder setTagi(ITag tag)
         {
-            task.Tag = tag; 
+            task.Tag = tag;
             return this;
         }
 
@@ -34,7 +35,7 @@ namespace SuperZTP.Model
             return this;
         }
 
-        public Task build()
+        public Model.Task build()
         {
             return task;
         }

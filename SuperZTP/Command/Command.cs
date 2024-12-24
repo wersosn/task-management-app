@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SuperZTP.Model;
 
-namespace SuperZTP.Controller
+namespace SuperZTP.Command
 {
     public interface ICommand
     {
@@ -13,20 +13,20 @@ namespace SuperZTP.Controller
         void Cofnij();
     }
 
-    public class DodajElement : ICommand
+    public class DodajZadanie : ICommand
     {
-        private List<SuperZTP.Model.Task> tasks;
-        private SuperZTP.Model.Task newTask;
+        private List<Model.Task> tasks;
+        private Model.Task newTask;
 
-        public DodajElement(List<SuperZTP.Model.Task> tasks, SuperZTP.Model.Task newTask)
-        { 
-            this.tasks = tasks; 
+        public DodajZadanie(List<Model.Task> tasks, Model.Task newTask)
+        {
+            this.tasks = tasks;
             this.newTask = newTask;
         }
 
         public void Wykonaj()
         {
-            var taskCopy = new SuperZTP.Model.Task
+            var taskCopy = new Model.Task
             {
                 Title = newTask.Title,
                 Description = newTask.Description,
@@ -54,12 +54,12 @@ namespace SuperZTP.Controller
 
     public class EdytujElement : ICommand
     {
-        private List<SuperZTP.Model.Task> tasks;
-        private SuperZTP.Model.Task newTask;
-        private SuperZTP.Model.Task oldTask;
+        private List<Model.Task> tasks;
+        private Model.Task newTask;
+        private Model.Task oldTask;
         private int id;
 
-        public EdytujElement(List<SuperZTP.Model.Task> tasks, SuperZTP.Model.Task newTask, SuperZTP.Model.Task oldTask, int id)
+        public EdytujElement(List<Model.Task> tasks, Model.Task newTask, Model.Task oldTask, int id)
         {
             this.tasks = tasks;
             this.newTask = newTask;
@@ -79,7 +79,7 @@ namespace SuperZTP.Controller
 
         public void Cofnij()
         {
-            if(oldTask != null)
+            if (oldTask != null)
             {
                 tasks[id] = oldTask;
                 Console.WriteLine($"Cofnięto edycję: {newTask} -> {oldTask}");
@@ -89,14 +89,14 @@ namespace SuperZTP.Controller
 
     public class UsunElement : ICommand
     {
-        private List<SuperZTP.Model.Task> tasks;
-        private SuperZTP.Model.Task task;
+        private List<Model.Task> tasks;
+        private Model.Task task;
         private int id;
 
-        public UsunElement(List<SuperZTP.Model.Task> tasks, SuperZTP.Model.Task newTask, int id)
+        public UsunElement(List<Model.Task> tasks, Model.Task newTask, int id)
         {
             this.tasks = tasks;
-            this.task = newTask;
+            task = newTask;
             this.id = id;
         }
 
@@ -112,7 +112,7 @@ namespace SuperZTP.Controller
 
         public void Cofnij()
         {
-            if(task  != null)
+            if (task != null)
             {
                 tasks.Insert(id, task);
                 Console.WriteLine("Przywrócono usunięty element");
@@ -140,7 +140,7 @@ namespace SuperZTP.Controller
                 Tag = newNote.Tag,
                 Category = newNote.Category
             };
-            
+
             notes.Add(noteCopy);
             Console.WriteLine($"Dodano element: {newNote}");
         }
