@@ -22,11 +22,9 @@ namespace SuperZTP.Views
     /// </summary>
     public partial class AddNote : Window
     {
-        // Lista notatek
         private List<Note> notes;
         private CommandInvoker invoker = new CommandInvoker();
         private NoteBuilder noteBuilder = new NoteBuilder();
-        private int id = 1;
 
         public AddNote(List<Note> notes)
         {
@@ -36,34 +34,17 @@ namespace SuperZTP.Views
 
         private void AddNoteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Pobierz dane z TextBoxów
             string title = NoteTitleTextBox.Text;
             string description = NoteDescriptionTextBox.Text;
-
-            // Stwórz notatkę
             var notatka = noteBuilder
                 .setTytul(title)
                 .setOpis(description)
                 .setTagi(new Tag("Studia"))  // Przykładowe tagi
                 .setKategorie(new Category("Zaawansowane techniki programistyczne"))  // Przykładowa kategoria
                 .build();
-
-            // Dodaj notatkę do listy
             invoker.DodajOperacje(new DodajNotatke(notes, notatka));
             invoker.Wykonaj();
-
-            // Wyświetl zaktualizowaną listę notatek
-            DisplayNotes();
-        }
-
-        // Wyświetlanie listy notatek
-        private void DisplayNotes()
-        {
-            NotesListBox.Items.Clear();  // Czyszczenie listy przed ponownym załadowaniem
-            foreach (var note in notes)
-            {
-                NotesListBox.Items.Add($"{id++}. {note}");
-            }
+            DialogResult = true;
         }
     }
 }

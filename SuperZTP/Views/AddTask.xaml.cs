@@ -22,11 +22,9 @@ namespace SuperZTP.Views
     /// </summary>
     public partial class AddTask : Window
     {
-        // Lista zadań
         private List<SuperZTP.Model.Task> tasks;
         private CommandInvoker invoker = new CommandInvoker();
         private TaskBuilder taskBuilder = new TaskBuilder();
-        private int id = 1;
 
         public AddTask(List<SuperZTP.Model.Task> tasks)
         {
@@ -34,54 +32,36 @@ namespace SuperZTP.Views
             this.tasks = tasks;
         }
 
-        // Kliknięcie przycisku Dodaj zadanie
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            // Pobierz dane z TextBoxów
+            int taskId = tasks.Count > 0 ? tasks.Max(t => t.Id) + 1 : 1;
             string title = TitleTextBox.Text;
             string description = DescriptionTextBox.Text;
-
-            // Pobierz wybrany priorytet
             string priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString() ?? "Niski";
-
-            // Pobierz wybraną datę
-            DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now; // domyślnie bieżąca data, jeśli brak wyboru
-
-            // Pobierz status ukończenia
+            DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now; // Domyślnie bieżąca data, jeśli brak wyboru
             bool isCompleted = IsCompletedCheckBox.IsChecked ?? false;
 
-            // Stwórz zadanie
             var zadanie = taskBuilder
                 .setTytul(title)
                 .setOpis(description)
                 .setTagi(new Tag("Edukacja"))  // Przykładowe tagi
                 .setKategorie(new Category("Programowanie"))  // Przykładowa kategoria
                 .build();
+            zadanie.Id = taskId;
             zadanie.UstalTermin(selectedDate);
             zadanie.UstawPriorytet(priority);
-
-            // Ustaw status ukończenia
             if (isCompleted)
             {
                 zadanie.OznaczJakoWykonane();
             }
-
-            // Dodaj zadanie do listy
             invoker.DodajOperacje(new DodajZadanie(tasks, zadanie));
             invoker.Wykonaj();
-
-            // Wyświetl zaktualizowaną listę zadań
-            DisplayTasks();
+            DialogResult = true;
         }
 
-        // Wyświetlanie listy zadań
-        private void DisplayTasks()
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            TasksListBox.Items.Clear();  // Czyszczenie listy przed ponownym załadowaniem
-            foreach (var task in tasks)
-            {
-                TasksListBox.Items.Add($"{id++}. {task}");
-            }
+            DialogResult = false;
         }
     }
 }

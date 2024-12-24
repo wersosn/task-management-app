@@ -16,14 +16,15 @@ namespace SuperZTP.Model
         public string Description { get; set; }
         public ITag Tag { get; set; }
         public ICategory Category { get; set; }
-        public DateTime Deadline { get; private set; }
-        public string Priority { get; private set; }
-        public bool IsDone { get; private set; }
+        public DateTime Deadline { get; set; }
+        public string Priority { get; set; }
+        public bool IsDone { get; set; }
 
         public Task() { }
 
-        public Task(string title, string description, ITag tag, ICategory category, DateTime deadline, string priority, bool isDone)
+        public Task(int id, string title, string description, ITag tag, ICategory category, DateTime deadline, string priority, bool isDone)
         {
+            Id = id;
             Title = title;
             Description = description;
             Tag = tag;

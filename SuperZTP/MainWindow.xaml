@@ -10,7 +10,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="5" />
-            <!-- Kolumna na linię -->
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -18,7 +17,7 @@
         <StackPanel Grid.Column="0" Margin="10">
             <Label Content="Sekcja 1: Lista zadań" FontWeight="Bold" />
             <ListBox Name="TasksListBox" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="370" Margin="0,0,0,0"/>
-            <Button Name="AddTaskButton" Content="Dodaj zadanie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="60,30,0,0" Click="AddTaskButton_Click"/>
+            <Button x:Name="AddTaskButton" Content="Dodaj zadanie" Width="100" Height="30" Click="AddTaskButton_Click"/>
         </StackPanel>
 
         <!-- Pionowa linia -->
@@ -28,9 +27,8 @@
         <StackPanel Grid.Column="2" Margin="10">
             <Label Content="Sekcja 2: Lista notatek" FontWeight="Bold" />
             <ListBox Name="NotesListBox" HorizontalAlignment="Center" Height="150" VerticalAlignment="Top" Width="370" Margin="0,0,0,0"/>
-            <Button Name="AddNoteButton" Content="Dodaj notatke" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Click="AddNoteButton_Click" Margin="60,30,0,0"/>
+            <Button x:Name="AddNoteButton" Content="Dodaj notatke" Width="100" Height="30" Click="AddNoteButton_Click"/>
         </StackPanel>
-        <!--Tymczasowy kod do testów, potem będzie podmieniony MenuView-->
-        
+        <!--Tymczasowy kod do testów, potem będzie podmieniony na odpowiedni MenuView-->
     </Grid>
 </Window>

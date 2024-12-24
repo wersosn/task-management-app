@@ -1,0 +1,48 @@
+﻿<Window x:Class="SuperZTP.Views.EditTask"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SuperZTP.Views"
+        mc:Ignorable="d"
+        Title="Edytuj zadanie" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Tytuł:" Grid.Row="0" Grid.Column="0" Margin="5" />
+        <TextBox x:Name="TitleTextBox" Grid.Row="0" Grid.Column="1" Margin="5" />
+
+        <Label Content="Opis:" Grid.Row="1" Grid.Column="0" Margin="5" />
+        <TextBox x:Name="DescriptionTextBox" Grid.Row="1" Grid.Column="1" Margin="5" />
+
+        <Label Content="Priorytet:" Grid.Row="2" Grid.Column="0" Margin="5" />
+        <ComboBox x:Name="PriorityComboBox" Grid.Row="2" Grid.Column="1" Margin="5">
+            <ComboBoxItem Content="Niski" />
+            <ComboBoxItem Content="Średni" />
+            <ComboBoxItem Content="Wysoki" />
+        </ComboBox>
+        <DatePicker x:Name="DeadlineDatePicker" Margin="5,10,371,230" Grid.ColumnSpan="2" Grid.Row="3" />
+        <CheckBox x:Name="IsCompletedCheckBox" Content="Ukończone" Margin="418,12,53,229" Grid.Row="3" Grid.Column="1" RenderTransformOrigin="0.5,0.5" >
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.674"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.53"/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <Button Content="Zapisz" Click="SaveButton_Click" Margin="57,130,390,126" Grid.Row="3" Grid.ColumnSpan="2"/>
+        <Button Content="Anuluj" Click="CancelButton_Click" Margin="327,130,54,126" Grid.Row="3" Grid.Column="1"/>
+
+    </Grid>
+</Window>

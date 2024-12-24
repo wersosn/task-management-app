@@ -50,72 +50,111 @@ namespace SuperZTP.Command
         }
     }
 
-    //TODO - Zmienić edycję i usuwanie, aby pracowały na kopii elementu a nie referencji!!!
-
-    public class EdytujElement : ICommand
+    public class EdytujZadanie : ICommand
     {
         private List<Model.Task> tasks;
-        private Model.Task newTask;
+        private Model.Task newTaskCopy;
         private Model.Task oldTask;
         private int id;
 
-        public EdytujElement(List<Model.Task> tasks, Model.Task newTask, Model.Task oldTask, int id)
+        public EdytujZadanie(List<Model.Task> tasks, Model.Task newTask, int id)
         {
             this.tasks = tasks;
-            this.newTask = newTask;
-            this.oldTask = oldTask;
             this.id = id;
+            if (id > 0 && id < tasks.Count)
+            {
+                oldTask = new Model.Task
+                {
+                    Title = tasks[id].Title,
+                    Description = tasks[id].Description,
+                    Tag = tasks[id].Tag,
+                    Category = tasks[id].Category
+                };
+                oldTask.UstawPriorytet(tasks[id].Priority);
+                oldTask.UstalTermin(tasks[id].Deadline);
+                if (tasks[id].IsDone)
+                {
+                    oldTask.OznaczJakoWykonane();
+                }
+
+                newTaskCopy = new Model.Task
+                {
+                    Title = newTask.Title,
+                    Description = newTask.Description,
+                    Tag = newTask.Tag,
+                    Category = newTask.Category
+                };
+                newTaskCopy.UstawPriorytet(newTask.Priority);
+                newTaskCopy.UstalTermin(newTask.Deadline);
+                if (newTask.IsDone)
+                {
+                    newTaskCopy.OznaczJakoWykonane();
+                }
+            }
         }
 
         public void Wykonaj()
         {
-            if (id > 0 && id < tasks.Count)
+            if (id >= 0 && id < tasks.Count)
             {
-                oldTask = tasks[id];
-                tasks[id] = newTask;
-                Console.WriteLine($"Zedytowano element: {oldTask} -> {newTask}");
+                tasks[id] = newTaskCopy;
+                Console.WriteLine($"Zedytowano zadanie: {oldTask} -> {newTaskCopy}");
             }
         }
 
         public void Cofnij()
         {
-            if (oldTask != null)
+            if (oldTask != null && id >= 0 && id < tasks.Count)
             {
                 tasks[id] = oldTask;
-                Console.WriteLine($"Cofnięto edycję: {newTask} -> {oldTask}");
+                Console.WriteLine($"Cofnięto edycję: {newTaskCopy} -> {oldTask}");
             }
         }
     }
 
-    public class UsunElement : ICommand
+    public class UsunZadanie : ICommand
     {
         private List<Model.Task> tasks;
-        private Model.Task task;
+        private Model.Task taskCopy;
         private int id;
 
-        public UsunElement(List<Model.Task> tasks, Model.Task newTask, int id)
+        public UsunZadanie(List<Model.Task> tasks, Model.Task task, int id)
         {
             this.tasks = tasks;
-            task = newTask;
             this.id = id;
+            if (id >= 0 && id < tasks.Count)
+            {
+                taskCopy = new Model.Task
+                {
+                    Title = tasks[id].Title,
+                    Description = tasks[id].Description,
+                    Tag = tasks[id].Tag,
+                    Category = tasks[id].Category,
+                };
+                taskCopy.UstawPriorytet(task.Priority);
+                taskCopy.UstalTermin(task.Deadline);
+                if (task.IsDone)
+                {
+                    taskCopy.OznaczJakoWykonane();
+                }
+            }
         }
 
         public void Wykonaj()
         {
             if (id > 0 && id < tasks.Count)
             {
-                task = tasks[id];
                 tasks.RemoveAt(id);
-                Console.WriteLine($"usunięto element: {task}");
+                Console.WriteLine($"Usunięto zadanie: {tasks[id]}");
             }
         }
 
         public void Cofnij()
         {
-            if (task != null)
+            if (taskCopy != null && id >= 0 && id <= tasks.Count)
             {
-                tasks.Insert(id, task);
-                Console.WriteLine("Przywrócono usunięty element");
+                tasks.Insert(id, taskCopy);
+                Console.WriteLine("Przywrócono usunięte zadanie");
             }
         }
     }

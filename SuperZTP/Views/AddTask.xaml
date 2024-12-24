@@ -23,8 +23,6 @@
         <Label Content="Status ukończenia:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,147,0,0"/>
         <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" HorizontalAlignment="Left" Margin="142,153,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
         <Button Name="AddTaskButton" Content="Dodaj zadanie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="323,187,0,0" Click="AddTaskButton_Click"/>
-
-        <ListBox Name="TasksListBox" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="500" Margin="123,250,0,0"/>
-
+        <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="430,187,0,0" />
     </Grid>
 </Window>
