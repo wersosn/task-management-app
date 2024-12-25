@@ -63,9 +63,9 @@ namespace SuperZTP.Model
         }
 
         // Wczytywanie z pliku:
-        public static Task FromFile(string csvLine)
+        public static Task FromFile(string line)
         {
-            var values = csvLine.Split(';');
+            var values = line.Split(';');
             return new Task
             {
                 Id = int.Parse(values[0]),

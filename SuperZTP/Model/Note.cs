@@ -40,9 +40,9 @@ namespace SuperZTP.Model
         }
 
         // Wczytywanie z pliku:
-        public static Note FromFile(string csvLine)
+        public static Note FromFile(string line)
         {
-            var values = csvLine.Split(';');
+            var values = line.Split(';');
             return new Note
             {
                 Id = int.Parse(values[0]),
