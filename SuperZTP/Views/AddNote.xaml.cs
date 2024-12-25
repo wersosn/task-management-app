@@ -1,6 +1,7 @@
 ﻿using SuperZTP.Builder;
 using SuperZTP.Command;
 using SuperZTP.Model;
+using SuperZTP.TemplateMethod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,13 @@ namespace SuperZTP.Views
         private List<Note> notes;
         private CommandInvoker invoker = new CommandInvoker();
         private NoteBuilder noteBuilder = new NoteBuilder();
+        private FileHandler fileHandler;
 
-        public AddNote(List<Note> notes)
+        public AddNote(List<Note> notes, FileHandler fileHandler)
         {
             InitializeComponent();
             this.notes = notes;
+            this.fileHandler = fileHandler;
         }
 
         private void AddNoteButton_Click(object sender, RoutedEventArgs e)
@@ -45,6 +48,7 @@ namespace SuperZTP.Views
             notatka.Id = GetNextNoteId(notes);
             invoker.DodajOperacje(new DodajNotatke(notes, notatka));
             invoker.Wykonaj();
+            fileHandler.SaveNotesToFile("notes.txt");
             DialogResult = true;
         }
 

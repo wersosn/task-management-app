@@ -31,6 +31,10 @@ namespace SuperZTP
         {
             InitializeComponent();
             fileHandler = new FileHandler(tasks, notes);
+            fileHandler.LoadTasksFromFile("tasks.txt");
+            fileHandler.LoadNotesFromFile("notes.txt");
+            DisplayTasks();
+            DisplayNotes();
         }
 
         // TASKI
@@ -51,7 +55,7 @@ namespace SuperZTP
             if (taskToEdit == null)
                 return;
 
-            var editTaskWindow = new EditTask(taskToEdit);
+            var editTaskWindow = new EditTask(taskToEdit, fileHandler);
             if (editTaskWindow.ShowDialog() == true)
             {
                 var editedTask = editTaskWindow.EditedTask;
@@ -77,6 +81,7 @@ namespace SuperZTP
                 if (MessageBox.Show($"Czy na pewno chcesz usunąć zadanie: {taskToDelete.Title}?", "Usuń zadanie", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     tasks.Remove(taskToDelete);
+                    fileHandler.SaveTasksToFile("tasks.txt");
                     DisplayTasks();
                 }
             }
@@ -135,7 +140,7 @@ namespace SuperZTP
         // Dodawanie notatki
         public void AddNoteButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNote addNote = new AddNote(notes);
+            AddNote addNote = new AddNote(notes, fileHandler);
             addNote.ShowDialog();
             DisplayNotes();
         }
@@ -151,7 +156,7 @@ namespace SuperZTP
                 return;
             }
 
-            var editNoteWindow = new EditNote(noteToEdit);
+            var editNoteWindow = new EditNote(noteToEdit, fileHandler);
             if (editNoteWindow.ShowDialog() == true)
             {
                 var editedNote = editNoteWindow.EditedNote;
@@ -177,6 +182,7 @@ namespace SuperZTP
                 if (MessageBox.Show($"Czy na pewno chcesz usunąć zadanie: {noteToDelete.Title}?", "Usuń zadanie", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     notes.Remove(noteToDelete);
+                    fileHandler.SaveNotesToFile("notes.txt");
                     DisplayNotes();
                 }
             }

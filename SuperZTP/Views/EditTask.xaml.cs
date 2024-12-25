@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperZTP.TemplateMethod;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,9 @@ namespace SuperZTP.Views
     public partial class EditTask : Window
     {
         public Model.Task EditedTask { get; private set; }
+        private FileHandler fileHandler;
 
-        public EditTask(Model.Task taskToEdit)
+        public EditTask(Model.Task taskToEdit, FileHandler fileHandler)
         {
             InitializeComponent();
             TitleTextBox.Text = taskToEdit.Title;
@@ -32,6 +34,7 @@ namespace SuperZTP.Views
             DeadlineDatePicker.SelectedDate = taskToEdit.Deadline;
             IsCompletedCheckBox.IsChecked = taskToEdit.IsDone;
             EditedTask = taskToEdit;
+            this.fileHandler = fileHandler;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -41,6 +44,7 @@ namespace SuperZTP.Views
             EditedTask.Priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString();
             EditedTask.Deadline = DeadlineDatePicker.SelectedDate ?? DateTime.Now;
             EditedTask.IsDone = IsCompletedCheckBox.IsChecked ?? false;
+            fileHandler.SaveTasksToFile("tasks.txt");
             DialogResult = true;
         }
 

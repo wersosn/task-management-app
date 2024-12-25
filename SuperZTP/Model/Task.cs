@@ -57,9 +57,26 @@ namespace SuperZTP.Model
         }
 
         // Zapisywanie do pliku (możliwe, że będzie zmienione):
-        public string ToCsv()
+        public string ToFile()
         {
             return $"{Id};{Title};{Description};{Tag?.Name};{Category?.CategoryName};{Deadline:yyyy-MM-dd};{Priority};{IsDone}";
+        }
+
+        // Wczytywanie z pliku:
+        public static Task FromFile(string csvLine)
+        {
+            var values = csvLine.Split(';');
+            return new Task
+            {
+                Id = int.Parse(values[0]),
+                Title = values[1],
+                Description = values[2],
+                Tag = new Tag(values[3]),
+                Category = new Category(values[4]),
+                Deadline = DateTime.Parse(values[5]),
+                Priority = values[6],
+                IsDone = bool.Parse(values[7])
+            };
         }
     }
 }

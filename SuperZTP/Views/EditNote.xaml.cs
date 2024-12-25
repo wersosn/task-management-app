@@ -1,4 +1,5 @@
 ﻿using SuperZTP.Model;
+using SuperZTP.TemplateMethod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +22,22 @@ namespace SuperZTP.Views
     public partial class EditNote : Window
     {
         public Note EditedNote { get; set; }
+        private FileHandler fileHandler;
 
-        public EditNote(Note noteToEdit)
+        public EditNote(Note noteToEdit, FileHandler fileHandler)
         {
             InitializeComponent();
             NoteTitleTextBox.Text = noteToEdit.Title;
             NoteDescriptionTextBox.Text = noteToEdit.Description;
             EditedNote = noteToEdit;
+            this.fileHandler = fileHandler;
         }
 
         public void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             EditedNote.Title = NoteTitleTextBox.Text;
             EditedNote.Description = NoteDescriptionTextBox.Text;
+            fileHandler.SaveNotesToFile("notes.txt");
             DialogResult = true;
         }
 
