@@ -7,12 +7,6 @@ using SuperZTP.Model;
 
 namespace SuperZTP.Command
 {
-    public interface ICommand
-    {
-        void Wykonaj();
-        void Cofnij();
-    }
-
     public class DodajZadanie : ICommand
     {
         private List<Model.Task> tasks;
@@ -28,6 +22,7 @@ namespace SuperZTP.Command
         {
             var taskCopy = new Model.Task
             {
+                Id = newTask.Id,
                 Title = newTask.Title,
                 Description = newTask.Description,
                 Tag = newTask.Tag,
@@ -40,13 +35,11 @@ namespace SuperZTP.Command
                 taskCopy.OznaczJakoWykonane();
             }
             tasks.Add(taskCopy);
-            Console.WriteLine($"Dodano element: {newTask}");
         }
 
         public void Cofnij()
         {
             tasks.Remove(newTask);
-            Console.WriteLine($"Cofnięto dodanie elementu: {newTask}");
         }
     }
 
@@ -65,6 +58,7 @@ namespace SuperZTP.Command
             {
                 oldTask = new Model.Task
                 {
+                    Id = tasks[id].Id,
                     Title = tasks[id].Title,
                     Description = tasks[id].Description,
                     Tag = tasks[id].Tag,
@@ -79,6 +73,7 @@ namespace SuperZTP.Command
 
                 newTaskCopy = new Model.Task
                 {
+                    Id = newTask.Id,
                     Title = newTask.Title,
                     Description = newTask.Description,
                     Tag = newTask.Tag,
@@ -98,7 +93,6 @@ namespace SuperZTP.Command
             if (id >= 0 && id < tasks.Count)
             {
                 tasks[id] = newTaskCopy;
-                Console.WriteLine($"Zedytowano zadanie: {oldTask} -> {newTaskCopy}");
             }
         }
 
@@ -107,7 +101,6 @@ namespace SuperZTP.Command
             if (oldTask != null && id >= 0 && id < tasks.Count)
             {
                 tasks[id] = oldTask;
-                Console.WriteLine($"Cofnięto edycję: {newTaskCopy} -> {oldTask}");
             }
         }
     }
@@ -126,6 +119,7 @@ namespace SuperZTP.Command
             {
                 taskCopy = new Model.Task
                 {
+                    Id = tasks[id].Id,
                     Title = tasks[id].Title,
                     Description = tasks[id].Description,
                     Tag = tasks[id].Tag,
@@ -145,7 +139,6 @@ namespace SuperZTP.Command
             if (id > 0 && id < tasks.Count)
             {
                 tasks.RemoveAt(id);
-                Console.WriteLine($"Usunięto zadanie: {tasks[id]}");
             }
         }
 
@@ -154,77 +147,7 @@ namespace SuperZTP.Command
             if (taskCopy != null && id >= 0 && id <= tasks.Count)
             {
                 tasks.Insert(id, taskCopy);
-                Console.WriteLine("Przywrócono usunięte zadanie");
             }
-        }
-    }
-
-    public class DodajNotatke : ICommand
-    {
-        private List<Note> notes;
-        private Note newNote;
-
-        public DodajNotatke(List<Note> notes, Note newNote)
-        {
-            this.notes = notes;
-            this.newNote = newNote;
-        }
-
-        public void Wykonaj()
-        {
-            var noteCopy = new Note
-            {
-                Title = newNote.Title,
-                Description = newNote.Description,
-                Tag = newNote.Tag,
-                Category = newNote.Category
-            };
-
-            notes.Add(noteCopy);
-            Console.WriteLine($"Dodano element: {newNote}");
-        }
-
-        public void Cofnij()
-        {
-            notes.Remove(newNote);
-            Console.WriteLine($"Cofnięto dodanie elementu: {newNote}");
-        }
-    }
-
-    public class CommandInvoker
-    {
-        private readonly List<ICommand> historiaOperacji = new List<ICommand>();
-        private readonly Queue<ICommand> operacjeDoWykonania = new Queue<ICommand>();
-
-        public void DodajOperacje(ICommand command)
-        {
-            operacjeDoWykonania.Enqueue(command);
-        }
-
-        public void Wykonaj()
-        {
-            if (operacjeDoWykonania.Count > 0)
-            {
-                ICommand command = operacjeDoWykonania.Dequeue();
-                command.Wykonaj();
-                historiaOperacji.Add(command);
-            }
-        }
-
-        public void CofnijOstatniaOperacje()
-        {
-            if (historiaOperacji.Count > 0)
-            {
-                ICommand command = historiaOperacji.Last();
-                command.Cofnij();
-                historiaOperacji.RemoveAt(historiaOperacji.Count - 1);
-            }
-        }
-
-        public void WyczyscHistorie()
-        {
-            historiaOperacji.Clear();
-            Console.WriteLine("Historia operacji została wyczyszczona");
         }
     }
 }

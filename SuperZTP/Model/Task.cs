@@ -55,6 +55,12 @@ namespace SuperZTP.Model
         {
             return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.CategoryName}\nTermin: {Deadline}\nPriorytet: {Priority}\nWykonane: {IsDone}";
         }
+
+        // Zapisywanie do pliku (możliwe, że będzie zmienione):
+        public string ToCsv()
+        {
+            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.CategoryName};{Deadline:yyyy-MM-dd};{Priority};{IsDone}";
+        }
     }
 }
 

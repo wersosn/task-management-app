@@ -1,6 +1,7 @@
 ﻿using SuperZTP.Builder;
 using SuperZTP.Command;
 using SuperZTP.Model;
+using SuperZTP.TemplateMethod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,13 @@ namespace SuperZTP.Views
         private List<SuperZTP.Model.Task> tasks;
         private CommandInvoker invoker = new CommandInvoker();
         private TaskBuilder taskBuilder = new TaskBuilder();
+        private FileHandler fileHandler;
 
-        public AddTask(List<SuperZTP.Model.Task> tasks)
+        public AddTask(List<SuperZTP.Model.Task> tasks, FileHandler fileHandler)
         {
             InitializeComponent();
             this.tasks = tasks;
+            this.fileHandler = fileHandler;
         }
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
@@ -47,7 +50,7 @@ namespace SuperZTP.Views
                 .setTagi(new Tag("Edukacja"))  // Przykładowe tagi
                 .setKategorie(new Category("Programowanie"))  // Przykładowa kategoria
                 .build();
-            zadanie.Id = taskId;
+            zadanie.Id = GetNextTaskId(tasks);
             zadanie.UstalTermin(selectedDate);
             zadanie.UstawPriorytet(priority);
             if (isCompleted)
@@ -56,12 +59,18 @@ namespace SuperZTP.Views
             }
             invoker.DodajOperacje(new DodajZadanie(tasks, zadanie));
             invoker.Wykonaj();
+            fileHandler.SaveTasksToFile("tasks.txt");
             DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        public static int GetNextTaskId(List<Model.Task> tasks)
+        {
+            return tasks.Any() ?tasks.Max(t => t.Id) + 1 : 1;
         }
     }
 }

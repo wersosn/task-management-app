@@ -42,9 +42,20 @@ namespace SuperZTP.Views
                 .setTagi(new Tag("Studia"))  // Przykładowe tagi
                 .setKategorie(new Category("Zaawansowane techniki programistyczne"))  // Przykładowa kategoria
                 .build();
+            notatka.Id = GetNextNoteId(notes);
             invoker.DodajOperacje(new DodajNotatke(notes, notatka));
             invoker.Wykonaj();
             DialogResult = true;
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        public static int GetNextNoteId(List<Note> notes)
+        {
+            return notes.Any() ? notes.Max(t => t.Id) + 1 : 1;
         }
     }
 }
