@@ -1,4 +1,4 @@
-Version: [Polish](#Aplikacja-do-zarządzania-notatkami-i-zadaniami) | [English](#Notes-and-tasks-nanagement-app)
+Version: [Polish](#Aplikacja-do-zarządzania-notatkami-i-zadaniami) | [English](#Notes-and-tasks-management-app)
 
 # Aplikacja do zarządzania notatkami i zadaniami
 ## Spis treści
