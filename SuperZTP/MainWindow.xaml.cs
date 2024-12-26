@@ -1,4 +1,5 @@
-﻿using SuperZTP.Controller;
+﻿using SuperZTP.Command;
+using SuperZTP.Controller;
 using SuperZTP.Model;
 using SuperZTP.TemplateMethod;
 using SuperZTP.Views;
@@ -26,6 +27,10 @@ namespace SuperZTP
         private List<Model.Task> tasks = new List<Model.Task>();
         private List<Note> notes = new List<Note>();
         private FileHandler fileHandler;
+        private GrupujZadania grupujZadania = new GrupujZadania();
+        private GrupujNotatki grupujNotatki = new GrupujNotatki();
+        private SortujZadania sortujZadania = new SortujZadania();
+        private SortujNotatki sortujNotatki = new SortujNotatki();
 
         public MainWindow()
         {
@@ -106,7 +111,7 @@ namespace SuperZTP
 
                 var taskText = new TextBlock
                 {
-                    Text = $"{task.Id}. {task.Title} (Priorytet: {task.Priority}, Termin: {task.Deadline:yyyy-MM-dd})\n{status}\n",
+                    Text = $"{task.Id}. {task.Title} (Priorytet: {task.Priority}, Termin: {task.Deadline:yyyy-MM-dd})\n{task.Description}\n{status}\n",
                     VerticalAlignment = VerticalAlignment.Center,
                     Width = 270
                 };
@@ -134,6 +139,94 @@ namespace SuperZTP
                 taskPanel.Children.Add(deleteButton);
                 TasksListBox.Items.Add(taskPanel);
             }
+        }
+
+        // Grupowanie - Zadań
+        private void GroupByCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var groupedTasks = grupujZadania.GrupujZadaniaPoKategorii(tasks);
+            DisplayGroupedTasks(groupedTasks);
+        }
+
+        private void GroupByTagButton_Click(object sender, RoutedEventArgs e)
+        {
+            var groupedTasks = grupujZadania.GrupujZadaniaPoTagach(tasks);
+            DisplayGroupedTasks(groupedTasks);
+        }
+
+        private void DisplayGroupedTasks(List<IGrouping<string, Model.Task>> groupedTasks)
+        {
+            TasksListBox.Items.Clear();
+
+            foreach (var group in groupedTasks)
+            {
+                var groupHeader = new TextBlock
+                {
+                    Text = $"Grupa: {group.Key}",
+                    FontWeight = FontWeights.Bold,
+                    Margin = new Thickness(5, 10, 5, 5)
+                };
+                TasksListBox.Items.Add(groupHeader);
+
+                foreach (var task in group)
+                {
+                    var taskText = new TextBlock
+                    {
+                        Text = $"{task.Id}. {task.Title} (Priorytet: {task.Priority}, Termin: {task.Deadline:yyyy-MM-dd}, Wykonane: {task.IsDone})",
+                        Margin = new Thickness(10, 0, 5, 5)
+                    };
+                    TasksListBox.Items.Add(taskText);
+                }
+            }
+        }
+
+        // Sortowanie - Zadań
+        private void SortTasksByTitleAsc_Click(object sender, RoutedEventArgs e)
+        {
+            SortTasksByTitle(ascending: true);
+        }
+
+        private void SortTasksByTitleDesc_Click(object sender, RoutedEventArgs e)
+        {
+            SortTasksByTitle(ascending: false);
+        }
+
+        private void SortTasksByPriorityDesc_Click(object sender, RoutedEventArgs e)
+        {
+            SortTasksByPriority(ascending: false);
+        }
+
+        private void SortTasksByPriorityAsc_Click(object sender, RoutedEventArgs e)
+        {
+            SortTasksByPriority(ascending: true);
+        }
+
+        private void SortTasksByDeadlineAsc_Click(object sender, RoutedEventArgs e)
+        {
+            SortTasksByDeadline(ascending: true);
+        }
+
+        private void SortTasksByDeadlineDesc_Click(object sender, RoutedEventArgs e)
+        {
+            SortTasksByDeadline(ascending: false);
+        }
+
+        private void SortTasksByTitle(bool ascending)
+        {
+            tasks = sortujZadania.SortujZadaniaPoTytule(tasks, ascending);
+            DisplayTasks();
+        }
+
+        private void SortTasksByPriority(bool ascending)
+        {
+            tasks = sortujZadania.SortujZadaniaPoPriorytecie(tasks, ascending);
+            DisplayTasks();
+        }
+
+        private void SortTasksByDeadline(bool ascending)
+        {
+            tasks = sortujZadania.SortujZadaniaPoTerminie(tasks, ascending);
+            DisplayTasks();
         }
 
         // NOTATKI
@@ -179,7 +272,7 @@ namespace SuperZTP
 
             if (noteToDelete != null)
             {
-                if (MessageBox.Show($"Czy na pewno chcesz usunąć zadanie: {noteToDelete.Title}?", "Usuń zadanie", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Czy na pewno chcesz usunąć notatkę: {noteToDelete.Title}?", "Usuń notatkę", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     notes.Remove(noteToDelete);
                     fileHandler.SaveNotesToFile("notes.txt");
@@ -197,7 +290,7 @@ namespace SuperZTP
                 var notePanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(5) };
                 var noteText = new TextBlock
                 {
-                    Text = $"{note.Id}. {note.Title} {note.Description}",
+                    Text = $"{note.Id}. {note.Title}\n{note.Description}",
                     VerticalAlignment = VerticalAlignment.Center,
                     Width = 270
                 };
@@ -225,6 +318,62 @@ namespace SuperZTP
                 notePanel.Children.Add(deleteButton);
                 NotesListBox.Items.Add(notePanel);
             }
+        }
+
+        // Grupowanie - Notatek
+        private void GroupByCategoryNButton_Click(object sender, RoutedEventArgs e)
+        {
+            var groupedNotes = grupujNotatki.GrupujNotatkiPoKategorii(notes);
+            DisplayGroupedNotes(groupedNotes);
+        }
+
+        private void GroupByTagNButton_Click(object sender, RoutedEventArgs e)
+        {
+            var groupedNotes = grupujNotatki.GrupujNotatkiPoTagach(notes);
+            DisplayGroupedNotes(groupedNotes);
+        }
+
+        private void DisplayGroupedNotes(List<IGrouping<string, Note>> groupedNotes)
+        {
+            NotesListBox.Items.Clear();
+
+            foreach (var group in groupedNotes)
+            {
+                var groupHeader = new TextBlock
+                {
+                    Text = $"Grupa: {group.Key}",
+                    FontWeight = FontWeights.Bold,
+                    Margin = new Thickness(5, 10, 5, 5)
+                };
+                NotesListBox.Items.Add(groupHeader);
+
+                foreach (var note in group)
+                {
+                    var noteText = new TextBlock
+                    {
+                        Text = $"{note.Id}. {note.Title}\n{note.Description}",
+                        Margin = new Thickness(10, 0, 5, 5)
+                    };
+                    NotesListBox.Items.Add(noteText);
+                }
+            }
+        }
+
+        // Sortowanie - Notatek
+        private void SortNotesByTitleAsc_Click(object sender, RoutedEventArgs e)
+        {
+            SortNotesByTitle(ascending: true);
+        }
+
+        private void SortNotesByTitleDesc_Click(object sender, RoutedEventArgs e)
+        {
+            SortNotesByTitle(ascending: false);
+        }
+
+        private void SortNotesByTitle(bool ascending)
+        {
+            notes = sortujNotatki.SortujNotatkiPoTytule(notes, ascending);
+            DisplayNotes();
         }
     }
 }

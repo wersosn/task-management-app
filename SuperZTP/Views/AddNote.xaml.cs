@@ -42,8 +42,8 @@ namespace SuperZTP.Views
             var notatka = noteBuilder
                 .setTytul(title)
                 .setOpis(description)
-                .setTagi(new Tag("Studia"))  // Przykładowe tagi
-                .setKategorie(new Category("Zaawansowane techniki programistyczne"))  // Przykładowa kategoria
+                .setTagi(new Tag("Gra"))  // Przykładowe tagi
+                .setKategorie(new Category("Systemy mobilne"))  // Przykładowa kategoria
                 .build();
             notatka.Id = GetNextNoteId(notes);
             invoker.DodajOperacje(new DodajNotatke(notes, notatka));

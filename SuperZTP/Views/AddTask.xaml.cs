@@ -47,8 +47,8 @@ namespace SuperZTP.Views
             var zadanie = taskBuilder
                 .setTytul(title)
                 .setOpis(description)
-                .setTagi(new Tag("Edukacja"))  // Przykładowe tagi
-                .setKategorie(new Category("Programowanie"))  // Przykładowa kategoria
+                .setTagi(new Tag("Dom"))  // Przykładowe tagi
+                .setKategorie(new Category("Zabawa"))  // Przykładowa kategoria
                 .build();
             zadanie.Id = GetNextTaskId(tasks);
             zadanie.UstalTermin(selectedDate);

@@ -34,7 +34,6 @@ namespace SuperZTP.Model
             IsDone = false;
         }
 
-
         // Metody do ustawiania terminów, priorytetów i oznaczania jako wykonane
         public void UstalTermin(DateTime deadline)
         {

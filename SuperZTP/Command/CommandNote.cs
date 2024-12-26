@@ -128,4 +128,38 @@ namespace SuperZTP.Command
             }
         }
     }
+
+    public class GrupujNotatki
+    {
+        public List<IGrouping<string, Note>> GrupujNotatkiPoKategorii(List<Note> notes)
+        {
+            var groupedNotes = notes
+                .GroupBy(note => note.Category?.CategoryName ?? "Brak kategorii")
+                .OrderBy(group => group.Key)
+                .ToList();
+            return groupedNotes;
+        }
+
+        public List<IGrouping<string, Note>> GrupujNotatkiPoTagach(List<Note> notes)
+        {
+            var groupedNotes = notes
+                .GroupBy(note => note.Tag?.Name ?? "Brak tagu")
+                .OrderBy(group => group.Key)
+                .ToList();
+            return groupedNotes;
+        }
+    }
+
+    public class SortujNotatki
+    {
+        public List<Note> SortujNotatkiPoTytule(List<Note> notes, bool ascending = true)
+        {
+            var sortedNotes = ascending
+                ? notes.OrderBy(note => note.Title).ToList()
+                : notes.OrderByDescending(note => note.Title).ToList();
+
+            notes = sortedNotes;
+            return notes;
+        }
+    }
 }

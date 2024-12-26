@@ -150,4 +150,65 @@ namespace SuperZTP.Command
             }
         }
     }
+
+    public class GrupujZadania
+    {
+        public List<IGrouping<string, Model.Task>> GrupujZadaniaPoKategorii(List<Model.Task> tasks)
+        {
+            var groupedTasks = tasks
+                .GroupBy(task => task.Category?.CategoryName ?? "Brak kategorii")
+                .OrderBy(group => group.Key)
+                .ToList();
+            return groupedTasks;
+        }
+
+        public List<IGrouping<string, Model.Task>> GrupujZadaniaPoTagach(List<Model.Task> tasks)
+        {
+            var groupedTasks = tasks
+               .GroupBy(task => task.Tag?.Name ?? "Brak tagu")
+               .OrderBy(group => group.Key)
+               .ToList();
+            return groupedTasks;
+        }
+    }
+
+    public class SortujZadania
+    {
+        public List<Model.Task> SortujZadaniaPoTytule(List<Model.Task> tasks, bool ascending = true)
+        {
+            var sortedTasks = ascending
+                ? tasks.OrderBy(task => task.Title).ToList()
+                : tasks.OrderByDescending(task => task.Title).ToList();
+
+            tasks = sortedTasks;
+            return tasks;
+        }
+
+        public List<Model.Task> SortujZadaniaPoPriorytecie(List<Model.Task> tasks, bool ascending = true)
+        {
+            var priorityOrder = new Dictionary<string, int>
+            {
+                { "Niski", 1 },
+                { "Średni", 2 },
+                { "Wysoki", 3 }
+            };
+
+            var sortedTasks = ascending
+                ? tasks.OrderBy(task => priorityOrder.ContainsKey(task.Priority) ? priorityOrder[task.Priority] : 0).ToList()
+                : tasks.OrderByDescending(task => priorityOrder.ContainsKey(task.Priority) ? priorityOrder[task.Priority] : 0).ToList();
+
+            tasks = sortedTasks;
+            return tasks;
+        }
+
+        public List<Model.Task> SortujZadaniaPoTerminie(List<Model.Task> tasks, bool ascending = true)
+        {
+            var sortedTasks = ascending
+                ? tasks.OrderBy(task => task.Deadline).ToList()
+                : tasks.OrderByDescending(task => task.Deadline).ToList();
+
+            tasks = sortedTasks;
+            return tasks;
+        }
+    }
 }
