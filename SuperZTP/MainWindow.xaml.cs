@@ -31,6 +31,9 @@ namespace SuperZTP
         private GrupujNotatki grupujNotatki = new GrupujNotatki();
         private SortujZadania sortujZadania = new SortujZadania();
         private SortujNotatki sortujNotatki = new SortujNotatki();
+        private GenerujTXT txt;
+        private GenerujPDF pdf;
+        private GenerujDOCX docx;
 
         public MainWindow()
         {
@@ -40,6 +43,10 @@ namespace SuperZTP
             fileHandler.LoadNotesFromFile("notes.txt");
             DisplayTasks();
             DisplayNotes();
+
+            txt = new GenerujTXT(tasks);
+            pdf = new GenerujPDF(tasks);
+            docx = new GenerujDOCX(tasks);
         }
 
         // TASKI
@@ -374,6 +381,24 @@ namespace SuperZTP
         {
             notes = sortujNotatki.SortujNotatkiPoTytule(notes, ascending);
             DisplayNotes();
+        }
+
+
+        // RAPORTY I PODSUMOWANIA (obecnie wszystkie rodzaje pod jednym przyciskiem dla testów)
+        private void GenerateRaportButton_Click(object sender, RoutedEventArgs e)
+        {
+            txt.GenerateRaport("raportTXT.txt");
+            pdf.GenerateRaport("raportPDF.pdf");
+            docx.GenerateRaport("raportDOCX.docx");
+            MessageBox.Show("Wygenerowano raport");
+        }
+
+        private void GenerateSummaryButton_Click(object sender, RoutedEventArgs e)
+        {
+            txt.GenerateSummary("podsumowanieTXT.txt");
+            pdf.GenerateSummary("podsumowaniePDF.pdf");
+            docx.GenerateSummary("podsumowanieDOCX.docx");
+            MessageBox.Show("Wygenerowano podsumowanie");
         }
     }
 }

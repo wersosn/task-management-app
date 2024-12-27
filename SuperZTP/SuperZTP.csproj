@@ -12,4 +12,9 @@
     <Folder Include="Composite\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.2.0" />
+    <PackageReference Include="PdfSharp" Version="6.1.1" />
+  </ItemGroup>
+
 </Project>
