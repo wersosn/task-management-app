@@ -46,11 +46,22 @@ Poniżej zostały wypisane wszystkie funkcjonalności naszego projektu:
 ## Wymagania
 - .Net 6+
 - Visual Studio 2022
+- Biblioteki: PdfSharp, DocumentFormat.OpenXml
 
 ## Instrukcja użytkowania
 Aby uruchomić ten projekt należy sklonować to repozytorium:
 ```bash
 git clone https://github.com/Ing862/SuperZTP-projekt
+```
+Następnie należy zainstalować następujące biblioteki:
+```bash
+# Obsługa plików .pdf
+Install-Package PdfSharp
+```
+oraz 
+```bash
+# Obsługa plików .docx
+Install-Package DocumentFormat.OpenXml
 ```
 
 ---
