@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperZTP.Composite;
 
 namespace SuperZTP.Model
 {
@@ -52,13 +53,13 @@ namespace SuperZTP.Model
 
         public override string ToString()
         {
-            return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.CategoryName}\nTermin: {Deadline}\nPriorytet: {Priority}\nWykonane: {IsDone}";
+            return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}\nTermin: {Deadline}\nPriorytet: {Priority}\nWykonane: {IsDone}";
         }
 
         // Zapisywanie do pliku (możliwe, że będzie zmienione):
         public string ToFile()
         {
-            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.CategoryName};{Deadline:yyyy-MM-dd};{Priority};{IsDone}";
+            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.Name};{Deadline:yyyy-MM-dd};{Priority};{IsDone}";
         }
 
         // Wczytywanie z pliku:
@@ -71,7 +72,7 @@ namespace SuperZTP.Model
                 Title = values[1],
                 Description = values[2],
                 Tag = new Tag(values[3]),
-                Category = new Category(values[4]),
+                Category = new SubCategory(values[4]),
                 Deadline = DateTime.Parse(values[5]),
                 Priority = values[6],
                 IsDone = bool.Parse(values[7])

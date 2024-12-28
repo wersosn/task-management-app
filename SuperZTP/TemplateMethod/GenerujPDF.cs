@@ -8,7 +8,6 @@ using System.Windows;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 
-
 namespace SuperZTP.TemplateMethod
 {
     public class GenerujPDF : Generuj

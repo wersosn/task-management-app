@@ -134,7 +134,7 @@ namespace SuperZTP.Command
         public List<IGrouping<string, Note>> GrupujNotatkiPoKategorii(List<Note> notes)
         {
             var groupedNotes = notes
-                .GroupBy(note => note.Category?.CategoryName ?? "Brak kategorii")
+                .GroupBy(note => note.Category?.Name ?? "Brak kategorii")
                 .OrderBy(group => group.Key)
                 .ToList();
             return groupedNotes;

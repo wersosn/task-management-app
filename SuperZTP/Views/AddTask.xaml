@@ -12,17 +12,25 @@
         <TextBox Name="TitleTextBox" HorizontalAlignment="Left" Margin="120,20,0,0" VerticalAlignment="Top" Width="200" Height="25"/>
         <Label Content="Opis zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,19,0,0"/>
         <TextBox Name="DescriptionTextBox" HorizontalAlignment="Left" Margin="490,20,0,0" VerticalAlignment="Top" Width="200" Height="50"/>
+        <Label Content="Kategoria:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,139,0,0"/>
+        <ComboBox x:Name="CategoryComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="120,141,0,0" Height="24">
+            <ComboBoxItem Content="Inne" IsSelected="True"/>
+        </ComboBox>
+        <Label Content="Tag:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,142,0,0"/>
+        <ComboBox x:Name="TagComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="490,142,0,0" Height="23">
+            <ComboBoxItem Content="Inne" IsSelected="True"/>
+        </ComboBox>
         <Label Content="Priorytet:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,85,0,0"/>
         <ComboBox Name="PriorityComboBox" HorizontalAlignment="Left" Margin="120,81,0,0" VerticalAlignment="Top" Width="200" Height="30">
             <ComboBoxItem Content="Niski"/>
             <ComboBoxItem Content="Średni"/>
             <ComboBoxItem Content="Wysoki"/>
         </ComboBox>
-        <Label Content="Termin zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,98,0,0"/>
-        <DatePicker Name="TaskDatePicker" HorizontalAlignment="Left" Margin="490,98,0,0" VerticalAlignment="Top" Width="200" Height="30"/>
-        <Label Content="Status ukończenia:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,147,0,0"/>
-        <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" HorizontalAlignment="Left" Margin="142,153,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
-        <Button Name="AddTaskButton" Content="Dodaj zadanie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="323,187,0,0" Click="AddTaskButton_Click"/>
-        <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="430,187,0,0" />
+        <Label Content="Termin zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,83,0,0"/>
+        <DatePicker Name="TaskDatePicker" HorizontalAlignment="Left" Margin="490,85,0,0" VerticalAlignment="Top" Width="200" Height="30"/>
+        <Label Content="Status ukończenia:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,200,0,0"/>
+        <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" HorizontalAlignment="Left" Margin="156,206,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
+        <Button Name="AddTaskButton" Content="Dodaj zadanie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="289,237,0,0" Click="AddTaskButton_Click"/>
+        <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="400,237,0,0" />
     </Grid>
 </Window>

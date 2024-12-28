@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using SuperZTP.Composite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace SuperZTP.Model
 {
-	// Model Notatki
-	public class Note
+    // Model Notatki
+    public class Note
 	{
         // Atrybuty:
         public int Id { get; set; }
@@ -30,13 +31,13 @@ namespace SuperZTP.Model
 
         public override string ToString()
         {
-            return $"Notatka: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.CategoryName}";
+            return $"Notatka: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}";
         }
 
         // Zapisywanie do pliku (możliwe, że będzie zmienione):
         public string ToFile()
         {
-            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.CategoryName}";
+            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.Name}";
         }
 
         // Wczytywanie z pliku:
@@ -49,7 +50,7 @@ namespace SuperZTP.Model
                 Title = values[1],
                 Description = values[2],
                 Tag = new Tag(values[3]),
-                Category = new Category(values[4])
+                Category = new SubCategory(values[4])
             };
         }
     }

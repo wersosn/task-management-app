@@ -156,7 +156,7 @@ namespace SuperZTP.Command
         public List<IGrouping<string, Model.Task>> GrupujZadaniaPoKategorii(List<Model.Task> tasks)
         {
             var groupedTasks = tasks
-                .GroupBy(task => task.Category?.CategoryName ?? "Brak kategorii")
+                .GroupBy(task => task.Category?.Name ?? "Brak kategorii")
                 .OrderBy(group => group.Key)
                 .ToList();
             return groupedTasks;
