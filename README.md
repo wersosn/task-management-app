@@ -111,6 +111,7 @@ Below are all the functionalities of our project:
 ## Requirements
 - .Net 6+
 - Visual Studio 2022
+- Libraries: PdfSharp, DocumentFormat.OpenXml
 
 ## How to use
 To run this project, clone this repository:
