@@ -117,3 +117,13 @@ To run this project, clone this repository:
 ```bash
 git clone https://github.com/Ing862/SuperZTP-projekt
 ```
+Then you need to install the following libraries:
+```bash
+# Support for .pdf files
+Install-Package PdfSharp
+```
+oraz 
+```bash
+# Support for .docx files
+Install-Package DocumentFormat.OpenXml
+```
