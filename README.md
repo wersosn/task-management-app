@@ -122,7 +122,7 @@ Then you need to install the following libraries:
 # Support for .pdf files
 Install-Package PdfSharp
 ```
-oraz 
+and
 ```bash
 # Support for .docx files
 Install-Package DocumentFormat.OpenXml
