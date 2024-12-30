@@ -15,12 +15,12 @@ namespace SuperZTP.Composite
         {
             Name = name;
         }
-        public void Dodaj(ITag tag)
+        public void Add(ITag tag)
         {
             tags.Add(tag);
         }
 
-        public void Usun(ITag tag)
+        public void Delete(ITag tag)
         {
             tags.Remove(tag);
         }

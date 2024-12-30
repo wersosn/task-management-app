@@ -20,12 +20,12 @@ namespace SuperZTP.Views
     /// <summary>
     /// Logika interakcji dla klasy EditNote.xaml
     /// </summary>
-    public partial class EditNote : Window
+    public partial class EditNoteWindow : Window
     {
         public Note EditedNote { get; set; }
         private FileHandler fileHandler;
 
-        public EditNote(Note noteToEdit, FileHandler fileHandler)
+        public EditNoteWindow(Note noteToEdit, FileHandler fileHandler)
         {
             InitializeComponent();
             NoteTitleTextBox.Text = noteToEdit.Title;

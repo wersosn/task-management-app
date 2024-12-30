@@ -29,7 +29,7 @@
             <Button Content="Sortuj po terminie (najnowszy first)" Click="SortTasksByDeadlineDesc_Click" Width="200" Margin="5"/>
             <Button Content="Sortuj po terminie (najstarszy first)" Click="SortTasksByDeadlineAsc_Click" Width="200" Margin="5"/>
             <Button Click="GenerateRaportButton_Click" Content="Generuj raporty" Margin="5"/>
-            <Button Click="GenerateSummaryButton_Click" Content="Generuj podsumowania" Margin="5"/>
+            <Button Click="GenerateSummaryButton_Click" Content="Generyj podsumowania" Margin="5"/>
 
         </StackPanel>
 

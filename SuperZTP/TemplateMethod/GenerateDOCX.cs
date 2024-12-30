@@ -8,11 +8,11 @@ using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace SuperZTP.TemplateMethod
 {
-    public class GenerujDOCX : Generuj
+    public class GenerateDOCX : Generate
     {
-        public GenerujDOCX(List<Model.Task> tasks) : base(tasks) { }
+        public GenerateDOCX(List<Model.Task> tasks) : base(tasks) { }
 
-        protected override void Zapisz(string filepath, string content)
+        protected override void Save(string filepath, string content)
         {
             using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(filepath, DocumentFormat.OpenXml.WordprocessingDocumentType.Document))
             {

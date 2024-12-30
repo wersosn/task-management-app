@@ -27,13 +27,13 @@ namespace SuperZTP
         private List<Model.Task> tasks = new List<Model.Task>();
         private List<Note> notes = new List<Note>();
         private FileHandler fileHandler;
-        private GrupujZadania grupujZadania = new GrupujZadania();
-        private GrupujNotatki grupujNotatki = new GrupujNotatki();
-        private SortujZadania sortujZadania = new SortujZadania();
-        private SortujNotatki sortujNotatki = new SortujNotatki();
-        private GenerujTXT txt;
-        private GenerujPDF pdf;
-        private GenerujDOCX docx;
+        private GroupTasks GroupTasks = new GroupTasks();
+        private GroupNotes GroupNotes = new GroupNotes();
+        private SortTasks SortTasks = new SortTasks();
+        private SortNotes SortNotes = new SortNotes();
+        private GenerateTXT txt;
+        private GeneratePDF pdf;
+        private GenerateDOCX docx;
 
         public MainWindow()
         {
@@ -44,16 +44,16 @@ namespace SuperZTP
             DisplayTasks();
             DisplayNotes();
 
-            txt = new GenerujTXT(tasks);
-            pdf = new GenerujPDF(tasks);
-            docx = new GenerujDOCX(tasks);
+            txt = new GenerateTXT(tasks);
+            pdf = new GeneratePDF(tasks);
+            docx = new GenerateDOCX(tasks);
         }
 
         // TASKI
         // Dodawanie taska
         public void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTask addTask = new AddTask(tasks, fileHandler);
+            AddTaskWindow addTask = new AddTaskWindow(tasks, fileHandler);
             addTask.ShowDialog();
             DisplayTasks();
         }
@@ -67,7 +67,7 @@ namespace SuperZTP
             if (taskToEdit == null)
                 return;
 
-            var editTaskWindow = new EditTask(taskToEdit, fileHandler);
+            var editTaskWindow = new EditTaskWindow(taskToEdit, fileHandler);
             if (editTaskWindow.ShowDialog() == true)
             {
                 var editedTask = editTaskWindow.EditedTask;
@@ -151,13 +151,13 @@ namespace SuperZTP
         // Grupowanie - Zadań
         private void GroupByCategoryButton_Click(object sender, RoutedEventArgs e)
         {
-            var groupedTasks = grupujZadania.GrupujZadaniaPoKategorii(tasks);
+            var groupedTasks = GroupTasks.GroupTasksByCategory(tasks);
             DisplayGroupedTasks(groupedTasks);
         }
 
         private void GroupByTagButton_Click(object sender, RoutedEventArgs e)
         {
-            var groupedTasks = grupujZadania.GrupujZadaniaPoTagach(tasks);
+            var groupedTasks = GroupTasks.GroupTasksByTag(tasks);
             DisplayGroupedTasks(groupedTasks);
         }
 
@@ -220,19 +220,19 @@ namespace SuperZTP
 
         private void SortTasksByTitle(bool ascending)
         {
-            tasks = sortujZadania.SortujZadaniaPoTytule(tasks, ascending);
+            tasks = SortTasks.SortTasksByTitle(tasks, ascending);
             DisplayTasks();
         }
 
         private void SortTasksByPriority(bool ascending)
         {
-            tasks = sortujZadania.SortujZadaniaPoPriorytecie(tasks, ascending);
+            tasks = SortTasks.SortTasksByPriority(tasks, ascending);
             DisplayTasks();
         }
 
         private void SortTasksByDeadline(bool ascending)
         {
-            tasks = sortujZadania.SortujZadaniaPoTerminie(tasks, ascending);
+            tasks = SortTasks.SortTasksByDeadline(tasks, ascending);
             DisplayTasks();
         }
 
@@ -240,7 +240,7 @@ namespace SuperZTP
         // Dodawanie notatki
         public void AddNoteButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNote addNote = new AddNote(notes, fileHandler);
+            AddNoteWindow addNote = new AddNoteWindow(notes, fileHandler);
             addNote.ShowDialog();
             DisplayNotes();
         }
@@ -256,7 +256,7 @@ namespace SuperZTP
                 return;
             }
 
-            var editNoteWindow = new EditNote(noteToEdit, fileHandler);
+            var editNoteWindow = new EditNoteWindow(noteToEdit, fileHandler);
             if (editNoteWindow.ShowDialog() == true)
             {
                 var editedNote = editNoteWindow.EditedNote;
@@ -330,13 +330,13 @@ namespace SuperZTP
         // Grupowanie - Notatek
         private void GroupByCategoryNButton_Click(object sender, RoutedEventArgs e)
         {
-            var groupedNotes = grupujNotatki.GrupujNotatkiPoKategorii(notes);
+            var groupedNotes = GroupNotes.GroupNotesByCategory(notes);
             DisplayGroupedNotes(groupedNotes);
         }
 
         private void GroupByTagNButton_Click(object sender, RoutedEventArgs e)
         {
-            var groupedNotes = grupujNotatki.GrupujNotatkiPoTagach(notes);
+            var groupedNotes = GroupNotes.GroupNotesByTag(notes);
             DisplayGroupedNotes(groupedNotes);
         }
 
@@ -379,7 +379,7 @@ namespace SuperZTP
 
         private void SortNotesByTitle(bool ascending)
         {
-            notes = sortujNotatki.SortujNotatkiPoTytule(notes, ascending);
+            notes = SortNotes.SortNotesByTitle(notes, ascending);
             DisplayNotes();
         }
 

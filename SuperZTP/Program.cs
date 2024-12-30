@@ -20,28 +20,28 @@ namespace SuperZTP
 
             // Test tworzenia zadań
             var zadanie = taskBuilder
-                .setTytul("Nauka C#")
-                .setOpis("Nauczyć się wzorca projektowego Builder")
-                .setTagi(new Tag("Edukacja"))
-                .setKategorie(new Category("Programowanie"))
+                .setTitle("Nauka C#")
+                .setDescription("Nauczyć się wzorca projektowego Builder")
+                .setTag(new Tag("Edukacja"))
+                .setCategory(new Category("Programowanie"))
                 .build();
-            zadanie.UstalTermin(DateTime.Now.AddDays(2));
-            zadanie.UstawPriorytet("Wysoki");
-            invoker.DodajOperacje(new DodajZadanie(tasks, zadanie));
-            invoker.Wykonaj();
+            zadanie.SetDeadline(DateTime.Now.AddDays(2));
+            zadanie.SetPriority("Wysoki");
+            invoker.AddCommand(new AddTask(tasks, zadanie));
+            invoker.Execute();
             Console.WriteLine("---------------------------------------");
 
             var zadanie2 = taskBuilder
-                .setTytul("Test zadań")
-                .setOpis("Sprawdzić czy dodawanie zadania działa :)")
-                .setTagi(new Tag("Studia"))
-                .setKategorie(new Category("ProjektUML"))
+                .setTitle("Test zadań")
+                .setDescription("Sprawdzić czy dodawanie zadania działa :)")
+                .setTag(new Tag("Studia"))
+                .setCategory(new Category("ProjektUML"))
                 .build();
-            zadanie2.UstalTermin(DateTime.Now);
-            zadanie2.UstawPriorytet("Niski");
-            zadanie2.OznaczJakoWykonane();
-            invoker.DodajOperacje(new DodajZadanie(tasks, zadanie2));
-            invoker.Wykonaj();
+            zadanie2.SetDeadline(DateTime.Now);
+            zadanie2.SetPriority("Niski");
+            zadanie2.MarkAsDone();
+            invoker.AddCommand(new AddTask(tasks, zadanie2));
+            invoker.Execute();
             Console.WriteLine("---------------------------------------");
 
             Console.WriteLine("Aktualna lista zadań:");
@@ -56,13 +56,13 @@ namespace SuperZTP
             NoteBuilder noteBuilder = new NoteBuilder();
 
             var notatka = noteBuilder
-                .setTytul("Pierwsza część projektu ZTP")
-                .setOpis("Należy przygotować diagram UML oraz prototyp programu")
-                .setTagi(new Tag("Studia"))
-                .setKategorie(new Category("Zaawansowane techniki programistyczne"))
+                .setTitle("Pierwsza część projektu ZTP")
+                .setDescription("Należy przygotować diagram UML oraz prototyp programu")
+                .setTag(new Tag("Studia"))
+                .setCategory(new Category("Zaawansowane techniki programistyczne"))
                 .build();
-            invoker.DodajOperacje(new DodajNotatke(notes, notatka));
-            invoker.Wykonaj();
+            invoker.AddCommand(new AddNote(notes, notatka));
+            invoker.Execute();
             Console.WriteLine("---------------------------------------");
             Console.WriteLine("Aktualna lista notatek:");
             id = 1;

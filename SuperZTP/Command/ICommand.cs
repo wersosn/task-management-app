@@ -8,7 +8,7 @@ namespace SuperZTP.Command
 {
     public interface ICommand
     {
-        void Wykonaj();
-        void Cofnij();
+        void Execute();
+        void Undo();
     }
 }

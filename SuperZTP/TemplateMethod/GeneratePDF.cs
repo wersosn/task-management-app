@@ -10,14 +10,14 @@ using PdfSharp.Drawing;
 
 namespace SuperZTP.TemplateMethod
 {
-    public class GenerujPDF : Generuj
+    public class GeneratePDF : Generate
     {
-        public GenerujPDF(List<Model.Task> tasks) : base(tasks) { }
+        public GeneratePDF(List<Model.Task> tasks) : base(tasks) { }
 
-        protected override void Zapisz(string filepath, string content)
+        protected override void Save(string filepath, string content)
         {
             PdfDocument doc = new PdfDocument();
-            doc.Info.Title = "GenerujPDF";
+            doc.Info.Title = "GeneratePDF";
 
             PdfPage page = doc.AddPage();
             XGraphics gfx = XGraphics.FromPdfPage(page);

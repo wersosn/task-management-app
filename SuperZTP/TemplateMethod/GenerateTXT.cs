@@ -7,11 +7,11 @@ using System.IO;
 
 namespace SuperZTP.TemplateMethod
 {
-    public class GenerujTXT : Generuj
+    public class GenerateTXT : Generate
     {
-        public GenerujTXT(List<Model.Task> tasks) : base(tasks) { }
+        public GenerateTXT(List<Model.Task> tasks) : base(tasks) { }
 
-        protected override void Zapisz(string filepath, string content)
+        protected override void Save(string filepath, string content)
         {
             File.WriteAllText(filepath, content);
         }

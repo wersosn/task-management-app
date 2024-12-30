@@ -17,12 +17,12 @@ namespace SuperZTP.Composite
             Name = name;
         }
 
-        public void Dodaj(ICategory category)
+        public void Add(ICategory category)
         {
             categories.Add(category);
         }
 
-        public void Usun(ICategory category)
+        public void Delete(ICategory category)
         {
             categories.Remove(category);
         }

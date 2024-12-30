@@ -8,37 +8,37 @@ namespace SuperZTP.Command
 {
     public class CommandInvoker
     {
-        private readonly List<ICommand> historiaOperacji = new List<ICommand>();
-        private readonly Queue<ICommand> operacjeDoWykonania = new Queue<ICommand>();
+        private readonly List<ICommand> commandHistory = new List<ICommand>();
+        private readonly Queue<ICommand> commandsToExecute = new Queue<ICommand>();
 
-        public void DodajOperacje(ICommand command)
+        public void AddCommand(ICommand command)
         {
-            operacjeDoWykonania.Enqueue(command);
+            commandsToExecute.Enqueue(command);
         }
 
-        public void Wykonaj()
+        public void Execute()
         {
-            if (operacjeDoWykonania.Count > 0)
+            if (commandsToExecute.Count > 0)
             {
-                ICommand command = operacjeDoWykonania.Dequeue();
-                command.Wykonaj();
-                historiaOperacji.Add(command);
+                ICommand command = commandsToExecute.Dequeue();
+                command.Execute();
+                commandHistory.Add(command);
             }
         }
 
-        public void CofnijOstatniaOperacje()
+        public void UndoLastCommand()
         {
-            if (historiaOperacji.Count > 0)
+            if (commandHistory.Count > 0)
             {
-                ICommand command = historiaOperacji.Last();
-                command.Cofnij();
-                historiaOperacji.RemoveAt(historiaOperacji.Count - 1);
+                ICommand command = commandHistory.Last();
+                command.Undo();
+                commandHistory.RemoveAt(commandHistory.Count - 1);
             }
         }
 
-        public void WyczyscHistorie()
+        public void ClearHistory()
         {
-            historiaOperacji.Clear();
+            commandHistory.Clear();
             Console.WriteLine("Historia operacji została wyczyszczona");
         }
     }

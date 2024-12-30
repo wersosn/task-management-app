@@ -44,7 +44,7 @@ namespace SuperZTP.Controller
 
 		}
 
-		// generuj
+		// Generate
 		public void Generate()
 		{
 

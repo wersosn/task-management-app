@@ -9,8 +9,8 @@ namespace SuperZTP.Composite
     public interface ICategory
     {
         string Name { get; }
-        void Dodaj(ICategory category);
-        void Usun(ICategory category); 
+        void Add(ICategory category);
+        void Delete(ICategory category); 
         IEnumerable<ICategory> GetChildren();
     }
 }

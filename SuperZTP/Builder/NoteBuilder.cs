@@ -12,25 +12,25 @@ namespace SuperZTP.Builder
     public class NoteBuilder
     {
         private readonly Note note = new Note();
-        public NoteBuilder setTytul(string title)
+        public NoteBuilder setTitle(string title)
         {
             note.Title = title;
             return this;
         }
 
-        public NoteBuilder setOpis(string description)
+        public NoteBuilder setDescription(string description)
         {
             note.Description = description;
             return this;
         }
 
-        public NoteBuilder setTagi(ITag tag)
+        public NoteBuilder setTag(ITag tag)
         {
             note.Tag = tag;
             return this;
         }
 
-        public NoteBuilder setKategorie(ICategory category)
+        public NoteBuilder setCategory(ICategory category)
         {
             note.Category = category;
             return this;

@@ -36,17 +36,17 @@ namespace SuperZTP.Model
         }
 
         // Metody do ustawiania terminów, priorytetów i oznaczania jako wykonane
-        public void UstalTermin(DateTime deadline)
+        public void SetDeadline(DateTime deadline)
         {
             Deadline = deadline;
         }
 
-        public void UstawPriorytet(string priority)
+        public void SetPriority(string priority)
         {
             Priority = priority;
         }
 
-        public void OznaczJakoWykonane()
+        public void MarkAsDone()
         {
             IsDone = true;
         }

@@ -22,7 +22,7 @@ namespace SuperZTP.Views
     /// <summary>
     /// Logika interakcji dla klasy AddNote.xaml
     /// </summary>
-    public partial class AddNote : Window
+    public partial class AddNoteWindow : Window
     {
         private List<Note> notes;
         private CommandInvoker invoker = new CommandInvoker();
@@ -31,7 +31,7 @@ namespace SuperZTP.Views
         private ICategory rootCategory;
         private ITag rootTag;
 
-        public AddNote(List<Note> notes, FileHandler fileHandler)
+        public AddNoteWindow(List<Note> notes, FileHandler fileHandler)
         {
             InitializeComponent();
             this.notes = notes;
@@ -41,21 +41,21 @@ namespace SuperZTP.Views
             rootCategory = new Category("Kategoria");
             var work = new Category("Praca");
             var personal = new Category("Osobiste");
-            work.Dodaj(new SubCategory("Spotkania"));
-            work.Dodaj(new SubCategory("Raporty"));
-            personal.Dodaj(new SubCategory("Zakupy"));
-            personal.Dodaj(new SubCategory("Siłownia"));
-            rootCategory.Dodaj(work);
-            rootCategory.Dodaj(personal);
+            work.Add(new SubCategory("Spotkania"));
+            work.Add(new SubCategory("Raporty"));
+            personal.Add(new SubCategory("Zakupy"));
+            personal.Add(new SubCategory("Siłownia"));
+            rootCategory.Add(work);
+            rootCategory.Add(personal);
             LoadCategories();
 
             // Tagi:
             rootTag = new Tag("Tag");
             var education = new Tag("Edukacja");
-            education.Dodaj(new SubTag("Kursy"));
-            education.Dodaj(new SubTag("Studia"));
-            education.Dodaj(new SubTag("Samorozwój"));
-            rootTag.Dodaj(education);
+            education.Add(new SubTag("Kursy"));
+            education.Add(new SubTag("Studia"));
+            education.Add(new SubTag("Samorozwój"));
+            rootTag.Add(education);
             LoadTags();
         }
 
@@ -68,14 +68,14 @@ namespace SuperZTP.Views
             var selectedTagItem = (ComboBoxItem)TagComboBox.SelectedItem;
             var selectedTag = selectedTagItem?.Tag?.ToString() ?? "Inne";
             var notatka = noteBuilder
-                .setTytul(title)
-                .setOpis(description)
-                .setTagi(new Tag(selectedTag))
-                .setKategorie(new Category(selectedCategory))
+                .setTitle(title)
+                .setDescription(description)
+                .setTag(new Tag(selectedTag))
+                .setCategory(new Category(selectedCategory))
                 .build();
             notatka.Id = GetNextNoteId(notes);
-            invoker.DodajOperacje(new DodajNotatke(notes, notatka));
-            invoker.Wykonaj();
+            invoker.AddCommand(new AddNote(notes, notatka));
+            invoker.Execute();
             fileHandler.SaveNotesToFile("notes.txt");
             DialogResult = true;
         }

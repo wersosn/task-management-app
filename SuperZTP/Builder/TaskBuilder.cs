@@ -11,25 +11,25 @@ namespace SuperZTP.Builder
     public class TaskBuilder
     {
         private readonly Model.Task task = new Model.Task();
-        public TaskBuilder setTytul(string title)
+        public TaskBuilder setTitle(string title)
         {
             task.Title = title;
             return this;
         }
 
-        public TaskBuilder setOpis(string description)
+        public TaskBuilder setDescription(string description)
         {
             task.Description = description;
             return this;
         }
 
-        public TaskBuilder setTagi(ITag tag)
+        public TaskBuilder setTag(ITag tag)
         {
             task.Tag = tag;
             return this;
         }
 
-        public TaskBuilder setKategorie(ICategory category)
+        public TaskBuilder setCategory(ICategory category)
         {
             task.Category = category;
             return this;

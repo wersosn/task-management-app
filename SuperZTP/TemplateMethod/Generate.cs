@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SuperZTP.TemplateMethod
 {
-    public abstract class Generuj
+    public abstract class Generate
     {
         protected List<Model.Task> tasks;
-        protected abstract void Zapisz(string filepath, string content);
+        protected abstract void Save(string filepath, string content);
 
-        public Generuj(List<Model.Task> tasks)
+        public Generate(List<Model.Task> tasks)
         {
             this.tasks = tasks;
         }
@@ -23,7 +23,7 @@ namespace SuperZTP.TemplateMethod
         {
             var upcomingDeadlines = tasks.Where(task => task.Deadline > DateTime.Now && task.Deadline <= DateTime.Now.AddDays(7));
             var content = GenerateUpcomingTaskReport(upcomingDeadlines);
-            Zapisz(filepath, content);
+            Save(filepath, content);
         }
 
         public string GenerateUpcomingTaskReport(IEnumerable<Model.Task> tasks)
@@ -40,7 +40,7 @@ namespace SuperZTP.TemplateMethod
             var content1 = GenerateCompletedTasksReport(completedTasks);
             var content2 = GenerateOverdueTasksReport(overdueTasks);
             var content = content1 + content2;
-            Zapisz(filepath, content);
+            Save(filepath, content);
         }
 
         public string GenerateCompletedTasksReport(IEnumerable<Model.Task> completedTasks)

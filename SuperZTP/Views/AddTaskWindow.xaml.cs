@@ -22,7 +22,7 @@ namespace SuperZTP.Views
     /// <summary>
     /// Logika interakcji dla klasy AddTask.xaml
     /// </summary>
-    public partial class AddTask : Window
+    public partial class AddTaskWindow : Window
     {
         private List<SuperZTP.Model.Task> tasks;
         private CommandInvoker invoker = new CommandInvoker();
@@ -31,7 +31,7 @@ namespace SuperZTP.Views
         private ICategory rootCategory;
         private ITag rootTag;
 
-        public AddTask(List<SuperZTP.Model.Task> tasks, FileHandler fileHandler)
+        public AddTaskWindow(List<SuperZTP.Model.Task> tasks, FileHandler fileHandler)
         {
             InitializeComponent();
             this.tasks = tasks;
@@ -41,21 +41,21 @@ namespace SuperZTP.Views
             rootCategory = new Category("Kategorie");
             var work = new Category("Praca");
             var personal = new Category("Osobiste");
-            work.Dodaj(new SubCategory("Spotkania"));
-            work.Dodaj(new SubCategory("Raporty"));
-            personal.Dodaj(new SubCategory("Zakupy"));
-            personal.Dodaj(new SubCategory("Siłownia"));
-            rootCategory.Dodaj(work);
-            rootCategory.Dodaj(personal);
+            work.Add(new SubCategory("Spotkania"));
+            work.Add(new SubCategory("Raporty"));
+            personal.Add(new SubCategory("Zakupy"));
+            personal.Add(new SubCategory("Siłownia"));
+            rootCategory.Add(work);
+            rootCategory.Add(personal);
             LoadCategories();
 
             // Tagi:
             rootTag = new Tag("Tag");
             var education = new Tag("Edukacja");
-            education.Dodaj(new SubTag("Kursy"));
-            education.Dodaj(new SubTag("Studia"));
-            education.Dodaj(new SubTag("Samorozwój"));
-            rootTag.Dodaj(education);
+            education.Add(new SubTag("Kursy"));
+            education.Add(new SubTag("Studia"));
+            education.Add(new SubTag("Samorozwój"));
+            rootTag.Add(education);
             LoadTags();
         }
 
@@ -73,20 +73,20 @@ namespace SuperZTP.Views
             bool isCompleted = IsCompletedCheckBox.IsChecked ?? false;
 
             var zadanie = taskBuilder
-                .setTytul(title)
-                .setOpis(description)
-                .setTagi(new Tag(selectedTag))
-                .setKategorie(new Category(selectedCategory))
+                .setTitle(title)
+                .setDescription(description)
+                .setTag(new Tag(selectedTag))
+                .setCategory(new Category(selectedCategory))
                 .build();
             zadanie.Id = GetNextTaskId(tasks);
-            zadanie.UstalTermin(selectedDate);
-            zadanie.UstawPriorytet(priority);
+            zadanie.SetDeadline(selectedDate);
+            zadanie.SetPriority(priority);
             if (isCompleted)
             {
-                zadanie.OznaczJakoWykonane();
+                zadanie.MarkAsDone();
             }
-            invoker.DodajOperacje(new DodajZadanie(tasks, zadanie));
-            invoker.Wykonaj();
+            invoker.AddCommand(new AddTask(tasks, zadanie));
+            invoker.Execute();
             fileHandler.SaveTasksToFile("tasks.txt");
             DialogResult = true;
         }

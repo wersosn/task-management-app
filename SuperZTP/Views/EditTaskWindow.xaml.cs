@@ -19,12 +19,12 @@ namespace SuperZTP.Views
     /// <summary>
     /// Logika interakcji dla klasy EditTask.xaml
     /// </summary>
-    public partial class EditTask : Window
+    public partial class EditTaskWindow : Window
     {
         public Model.Task EditedTask { get; private set; }
         private FileHandler fileHandler;
 
-        public EditTask(Model.Task taskToEdit, FileHandler fileHandler)
+        public EditTaskWindow(Model.Task taskToEdit, FileHandler fileHandler)
         {
             InitializeComponent();
             TitleTextBox.Text = taskToEdit.Title;

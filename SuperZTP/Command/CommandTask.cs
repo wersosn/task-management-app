@@ -7,18 +7,18 @@ using SuperZTP.Model;
 
 namespace SuperZTP.Command
 {
-    public class DodajZadanie : ICommand
+    public class AddTask : ICommand
     {
         private List<Model.Task> tasks;
         private Model.Task newTask;
 
-        public DodajZadanie(List<Model.Task> tasks, Model.Task newTask)
+        public AddTask(List<Model.Task> tasks, Model.Task newTask)
         {
             this.tasks = tasks;
             this.newTask = newTask;
         }
 
-        public void Wykonaj()
+        public void Execute()
         {
             var taskCopy = new Model.Task
             {
@@ -28,29 +28,29 @@ namespace SuperZTP.Command
                 Tag = newTask.Tag,
                 Category = newTask.Category
             };
-            taskCopy.UstalTermin(newTask.Deadline);
-            taskCopy.UstawPriorytet(newTask.Priority);
+            taskCopy.SetDeadline(newTask.Deadline);
+            taskCopy.SetPriority(newTask.Priority);
             if (newTask.IsDone)
             {
-                taskCopy.OznaczJakoWykonane();
+                taskCopy.MarkAsDone();
             }
             tasks.Add(taskCopy);
         }
 
-        public void Cofnij()
+        public void Undo()
         {
             tasks.Remove(newTask);
         }
     }
 
-    public class EdytujZadanie : ICommand
+    public class EditTask : ICommand
     {
         private List<Model.Task> tasks;
         private Model.Task newTaskCopy;
         private Model.Task oldTask;
         private int id;
 
-        public EdytujZadanie(List<Model.Task> tasks, Model.Task newTask, int id)
+        public EditTask(List<Model.Task> tasks, Model.Task newTask, int id)
         {
             this.tasks = tasks;
             this.id = id;
@@ -64,11 +64,11 @@ namespace SuperZTP.Command
                     Tag = tasks[id].Tag,
                     Category = tasks[id].Category
                 };
-                oldTask.UstawPriorytet(tasks[id].Priority);
-                oldTask.UstalTermin(tasks[id].Deadline);
+                oldTask.SetPriority(tasks[id].Priority);
+                oldTask.SetDeadline(tasks[id].Deadline);
                 if (tasks[id].IsDone)
                 {
-                    oldTask.OznaczJakoWykonane();
+                    oldTask.MarkAsDone();
                 }
 
                 newTaskCopy = new Model.Task
@@ -79,16 +79,16 @@ namespace SuperZTP.Command
                     Tag = newTask.Tag,
                     Category = newTask.Category
                 };
-                newTaskCopy.UstawPriorytet(newTask.Priority);
-                newTaskCopy.UstalTermin(newTask.Deadline);
+                newTaskCopy.SetPriority(newTask.Priority);
+                newTaskCopy.SetDeadline(newTask.Deadline);
                 if (newTask.IsDone)
                 {
-                    newTaskCopy.OznaczJakoWykonane();
+                    newTaskCopy.MarkAsDone();
                 }
             }
         }
 
-        public void Wykonaj()
+        public void Execute()
         {
             if (id >= 0 && id < tasks.Count)
             {
@@ -96,7 +96,7 @@ namespace SuperZTP.Command
             }
         }
 
-        public void Cofnij()
+        public void Undo()
         {
             if (oldTask != null && id >= 0 && id < tasks.Count)
             {
@@ -105,13 +105,13 @@ namespace SuperZTP.Command
         }
     }
 
-    public class UsunZadanie : ICommand
+    public class DeleteTask : ICommand
     {
         private List<Model.Task> tasks;
         private Model.Task taskCopy;
         private int id;
 
-        public UsunZadanie(List<Model.Task> tasks, Model.Task task, int id)
+        public DeleteTask(List<Model.Task> tasks, Model.Task task, int id)
         {
             this.tasks = tasks;
             this.id = id;
@@ -125,16 +125,16 @@ namespace SuperZTP.Command
                     Tag = tasks[id].Tag,
                     Category = tasks[id].Category,
                 };
-                taskCopy.UstawPriorytet(task.Priority);
-                taskCopy.UstalTermin(task.Deadline);
+                taskCopy.SetPriority(task.Priority);
+                taskCopy.SetDeadline(task.Deadline);
                 if (task.IsDone)
                 {
-                    taskCopy.OznaczJakoWykonane();
+                    taskCopy.MarkAsDone();
                 }
             }
         }
 
-        public void Wykonaj()
+        public void Execute()
         {
             if (id > 0 && id < tasks.Count)
             {
@@ -142,7 +142,7 @@ namespace SuperZTP.Command
             }
         }
 
-        public void Cofnij()
+        public void Undo()
         {
             if (taskCopy != null && id >= 0 && id <= tasks.Count)
             {
@@ -151,9 +151,9 @@ namespace SuperZTP.Command
         }
     }
 
-    public class GrupujZadania
+    public class GroupTasks
     {
-        public List<IGrouping<string, Model.Task>> GrupujZadaniaPoKategorii(List<Model.Task> tasks)
+        public List<IGrouping<string, Model.Task>> GroupTasksByCategory(List<Model.Task> tasks)
         {
             var groupedTasks = tasks
                 .GroupBy(task => task.Category?.Name ?? "Brak kategorii")
@@ -162,7 +162,7 @@ namespace SuperZTP.Command
             return groupedTasks;
         }
 
-        public List<IGrouping<string, Model.Task>> GrupujZadaniaPoTagach(List<Model.Task> tasks)
+        public List<IGrouping<string, Model.Task>> GroupTasksByTag(List<Model.Task> tasks)
         {
             var groupedTasks = tasks
                .GroupBy(task => task.Tag?.Name ?? "Brak tagu")
@@ -172,9 +172,9 @@ namespace SuperZTP.Command
         }
     }
 
-    public class SortujZadania
+    public class SortTasks
     {
-        public List<Model.Task> SortujZadaniaPoTytule(List<Model.Task> tasks, bool ascending = true)
+        public List<Model.Task> SortTasksByTitle(List<Model.Task> tasks, bool ascending = true)
         {
             var sortedTasks = ascending
                 ? tasks.OrderBy(task => task.Title).ToList()
@@ -184,7 +184,7 @@ namespace SuperZTP.Command
             return tasks;
         }
 
-        public List<Model.Task> SortujZadaniaPoPriorytecie(List<Model.Task> tasks, bool ascending = true)
+        public List<Model.Task> SortTasksByPriority(List<Model.Task> tasks, bool ascending = true)
         {
             var priorityOrder = new Dictionary<string, int>
             {
@@ -201,7 +201,7 @@ namespace SuperZTP.Command
             return tasks;
         }
 
-        public List<Model.Task> SortujZadaniaPoTerminie(List<Model.Task> tasks, bool ascending = true)
+        public List<Model.Task> SortTasksByDeadline(List<Model.Task> tasks, bool ascending = true)
         {
             var sortedTasks = ascending
                 ? tasks.OrderBy(task => task.Deadline).ToList()

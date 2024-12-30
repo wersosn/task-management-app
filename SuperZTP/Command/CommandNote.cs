@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace SuperZTP.Command
 {
-    public class DodajNotatke : ICommand
+    public class AddNote : ICommand
     {
         private List<Note> notes;
         private Note newNote;
 
-        public DodajNotatke(List<Note> notes, Note newNote)
+        public AddNote(List<Note> notes, Note newNote)
         {
             this.notes = notes;
             this.newNote = newNote;
         }
 
-        public void Wykonaj()
+        public void Execute()
         {
             var noteCopy = new Note
             {
@@ -32,20 +32,20 @@ namespace SuperZTP.Command
             notes.Add(noteCopy);
         }
 
-        public void Cofnij()
+        public void Undo()
         {
             notes.Remove(newNote);
         }
     }
 
-    public class EdytujNotatke : ICommand
+    public class EditNote : ICommand
     {
         private List<Note> notes;
         private Note newNoteCopy;
         private Note oldNote;
         private int id;
 
-        public EdytujNotatke(List<Note> notes, Note editNote, int id)
+        public EditNote(List<Note> notes, Note editNote, int id)
         {
             this.notes = notes;
             this.id = id;
@@ -72,7 +72,7 @@ namespace SuperZTP.Command
             }
         }
 
-        public void Wykonaj()
+        public void Execute()
         {
             if(id >= 0 && id <= notes.Count)
             {
@@ -80,7 +80,7 @@ namespace SuperZTP.Command
             }
         }
 
-        public void Cofnij()
+        public void Undo()
         {
             if(oldNote != null && id >= 0 && id <= notes.Count)
             {
@@ -89,13 +89,13 @@ namespace SuperZTP.Command
         }
     }
 
-    public class UsunNotatke : ICommand
+    public class DeleteNote : ICommand
     {
         private List<Note> notes;
         private Note noteCopy;
         private int id;
 
-        public UsunNotatke(List<Note> notes, Note deleteNote, int id)
+        public DeleteNote(List<Note> notes, Note deleteNote, int id)
         {
             this.notes = notes;
             this.id = id;
@@ -112,7 +112,7 @@ namespace SuperZTP.Command
             }
         }
 
-        public void Wykonaj() 
+        public void Execute() 
         { 
             if(id >= 0 && id <= notes.Count)
             {
@@ -120,7 +120,7 @@ namespace SuperZTP.Command
             }
         }
 
-        public void Cofnij()
+        public void Undo()
         {
             if(noteCopy != null && id >= 0 && id <= notes.Count)
             {
@@ -129,9 +129,9 @@ namespace SuperZTP.Command
         }
     }
 
-    public class GrupujNotatki
+    public class GroupNotes
     {
-        public List<IGrouping<string, Note>> GrupujNotatkiPoKategorii(List<Note> notes)
+        public List<IGrouping<string, Note>> GroupNotesByCategory(List<Note> notes)
         {
             var groupedNotes = notes
                 .GroupBy(note => note.Category?.Name ?? "Brak kategorii")
@@ -140,7 +140,7 @@ namespace SuperZTP.Command
             return groupedNotes;
         }
 
-        public List<IGrouping<string, Note>> GrupujNotatkiPoTagach(List<Note> notes)
+        public List<IGrouping<string, Note>> GroupNotesByTag(List<Note> notes)
         {
             var groupedNotes = notes
                 .GroupBy(note => note.Tag?.Name ?? "Brak tagu")
@@ -150,9 +150,9 @@ namespace SuperZTP.Command
         }
     }
 
-    public class SortujNotatki
+    public class SortNotes
     {
-        public List<Note> SortujNotatkiPoTytule(List<Note> notes, bool ascending = true)
+        public List<Note> SortNotesByTitle(List<Note> notes, bool ascending = true)
         {
             var sortedNotes = ascending
                 ? notes.OrderBy(note => note.Title).ToList()
