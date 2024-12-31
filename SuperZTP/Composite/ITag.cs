@@ -9,8 +9,7 @@ namespace SuperZTP.Composite
     public interface ITag
     {
         string Name { get; }
-        void Add(ITag tag);
-        void Delete(ITag tag);
-        IEnumerable<ITag> GetChildren();
+        void AddTag(ITag tag);
+        void DeleteTag(ITag tag);
     }
 }

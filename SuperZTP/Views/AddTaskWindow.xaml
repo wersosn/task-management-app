@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="Dodaj zadanie" Height="450" Width="800">
     <Grid>
-        <!--Tymczasowy kod do testów dodawania zadania, potem będzie podmieniony MenuView-->
         <Label Content="Tytuł zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
         <TextBox Name="TitleTextBox" HorizontalAlignment="Left" Margin="120,20,0,0" VerticalAlignment="Top" Width="200" Height="25"/>
         <Label Content="Opis zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,19,0,0"/>

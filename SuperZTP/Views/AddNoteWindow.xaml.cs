@@ -2,7 +2,6 @@
 using SuperZTP.Command;
 using SuperZTP.Model;
 using SuperZTP.Composite;
-using SuperZTP.TemplateMethod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,35 +27,14 @@ namespace SuperZTP.Views
         private CommandInvoker invoker = new CommandInvoker();
         private NoteBuilder noteBuilder = new NoteBuilder();
         private FileHandler fileHandler;
-        private ICategory rootCategory;
-        private ITag rootTag;
 
-        public AddNoteWindow(List<Note> notes, FileHandler fileHandler)
+        public AddNoteWindow(List<Note> notes, FileHandler fileHandler, ICategory categories, ITag tags)
         {
             InitializeComponent();
             this.notes = notes;
             this.fileHandler = fileHandler;
-
-            // Kategorie:
-            rootCategory = new Category("Kategoria");
-            var work = new Category("Praca");
-            var personal = new Category("Osobiste");
-            work.Add(new SubCategory("Spotkania"));
-            work.Add(new SubCategory("Raporty"));
-            personal.Add(new SubCategory("Zakupy"));
-            personal.Add(new SubCategory("Siłownia"));
-            rootCategory.Add(work);
-            rootCategory.Add(personal);
-            LoadCategories();
-
-            // Tagi:
-            rootTag = new Tag("Tag");
-            var education = new Tag("Edukacja");
-            education.Add(new SubTag("Kursy"));
-            education.Add(new SubTag("Studia"));
-            education.Add(new SubTag("Samorozwój"));
-            rootTag.Add(education);
-            LoadTags();
+            LoadCategoriesToComboBox(categories);
+            LoadTagsToComboBox(tags);
         }
 
         private void AddNoteButton_Click(object sender, RoutedEventArgs e)
@@ -64,14 +42,14 @@ namespace SuperZTP.Views
             string title = NoteTitleTextBox.Text;
             string description = NoteDescriptionTextBox.Text;
             var selectedCategoryItem = (ComboBoxItem)CategoryComboBox.SelectedItem;
-            var selectedCategory = selectedCategoryItem?.Tag?.ToString() ?? "Inne";
+            var selectedCategory = selectedCategoryItem?.Tag as Category;
             var selectedTagItem = (ComboBoxItem)TagComboBox.SelectedItem;
-            var selectedTag = selectedTagItem?.Tag?.ToString() ?? "Inne";
+            var selectedTag = selectedTagItem?.Tag as Tag;
             var notatka = noteBuilder
                 .setTitle(title)
                 .setDescription(description)
-                .setTag(new Tag(selectedTag))
-                .setCategory(new Category(selectedCategory))
+                .setTag(selectedTag ?? new Tag("Inna"))
+                .setCategory(selectedCategory ?? new Category("Inna"))
                 .build();
             notatka.Id = GetNextNoteId(notes);
             invoker.AddCommand(new AddNote(notes, notatka));
@@ -90,68 +68,80 @@ namespace SuperZTP.Views
             return notes.Any() ? notes.Max(t => t.Id) + 1 : 1;
         }
 
-        // Wczytanie kategorii
-        private void LoadCategories()
+        // Odczytywanie kategorii:
+        private void LoadCategoriesToComboBox(ICategory rootCategory)
         {
-            var categoryList = FlattenCategories(rootCategory);
-            foreach (var (displayName, lastName) in categoryList)
+            CategoryComboBox.Items.Clear();
+            if (rootCategory is Category cat)
             {
-                CategoryComboBox.Items.Add(new ComboBoxItem
+                foreach (var subCategory in cat.categories)
                 {
-                    Content = displayName,
-                    Tag = lastName
-                });
-            }
-        }
-
-        // Metoda pomocnicza do spłaszczenia hierarchii
-        private List<(string DisplayName, string LastName)> FlattenCategories(ICategory root)
-        {
-            var categories = new List<(string, string)>();
-            void Traverse(ICategory category, string prefix)
-            {
-                var fullName = string.IsNullOrEmpty(prefix) ? category.Name : $"{prefix} > {category.Name}";
-                categories.Add((fullName, category.Name));
-
-                foreach (var child in category.GetChildren())
-                {
-                    Traverse(child, fullName);
+                    AddCategoriesToComboBox(subCategory, "");
                 }
             }
-            Traverse(root, "");
-            return categories;
         }
 
-        // Wczytanie tagów
-        private void LoadTags()
+        private void AddCategoriesToComboBox(ICategory category, string parentPath)
         {
-            var tagList = FlattenTags(rootTag);
-            foreach (var (displayName, lastName) in tagList)
+            string fullPath = string.IsNullOrEmpty(parentPath)
+                ? category.Name
+                : $"{parentPath} > {category.Name}";
+
+            if (!string.IsNullOrEmpty(parentPath))
             {
-                TagComboBox.Items.Add(new ComboBoxItem
+                ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = displayName,
-                    Tag = lastName
-                });
+                    Content = fullPath,
+                    Tag = category
+                };
+                CategoryComboBox.Items.Add(item);
             }
-        }
 
-        // Metoda pomocnicza do spłaszczenia hierarchii
-        private List<(string DisplayName, string LastName)> FlattenTags(ITag root)
-        {
-            var tags = new List<(string, string)>();
-            void Traverse(ITag tag, string prefix)
+            if (category is Category cat)
             {
-                var fullName = string.IsNullOrEmpty(prefix) ? tag.Name : $"{prefix} > {tag.Name}";
-                tags.Add((fullName, tag.Name));
-
-                foreach (var child in tag.GetChildren())
+                foreach (var subCategory in cat.categories)
                 {
-                    Traverse(child, fullName);
+                    AddCategoriesToComboBox(subCategory, fullPath);
                 }
             }
-            Traverse(root, "");
-            return tags;
+        }
+
+        // Odczytywanie tagów:
+        private void LoadTagsToComboBox(ITag rootTag)
+        {
+            TagComboBox.Items.Clear();
+            if (rootTag is Tag t)
+            {
+                foreach (var subTag in t.tags)
+                {
+                    AddTagsToComboBox(subTag, "");
+                }
+            }
+        }
+
+        private void AddTagsToComboBox(ITag tag, string parentPath)
+        {
+            string fullPath = string.IsNullOrEmpty(parentPath)
+                ? tag.Name
+                : $"{parentPath} > {tag.Name}";
+
+            if (!string.IsNullOrEmpty(parentPath))
+            {
+                ComboBoxItem item = new ComboBoxItem
+                {
+                    Content = fullPath,
+                    Tag = tag
+                };
+                TagComboBox.Items.Add(item);
+            }
+
+            if (tag is Tag t)
+            {
+                foreach (var subTag in t.tags)
+                {
+                    AddTagsToComboBox(subTag, fullPath);
+                }
+            }
         }
     }
 }

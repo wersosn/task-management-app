@@ -17,16 +17,14 @@ namespace SuperZTP.Composite
             Name = name;
         }
 
-        public void Add(ICategory category)
+        public void AddCategory(ICategory category)
         {
             MessageBox.Show("Nie można dodać nowej kategorii do tego liścia");
         }
-
-        public void Delete(ICategory category)
+        
+        public void DeleteCategory(ICategory category)
         {
-            MessageBox.Show("Nie można Deleteąć kategorii z liścia");
+            MessageBox.Show("Nie można usunąć kategorii z liścia");
         }
-
-        public IEnumerable<ICategory> GetChildren() => Enumerable.Empty<ICategory>();
     }
 }

@@ -10,21 +10,19 @@ namespace SuperZTP.Composite
     public class Tag : ITag
     {
         public string Name { get; }
-        private readonly List<ITag> tags = new List<ITag>();
+        public List<ITag> tags { get; set; } = new List<ITag>();
         public Tag(string name)
         {
             Name = name;
         }
-        public void Add(ITag tag)
+        public void AddTag(ITag tag)
         {
             tags.Add(tag);
         }
 
-        public void Delete(ITag tag)
+        public void DeleteTag(ITag tag)
         {
             tags.Remove(tag);
         }
-
-        public IEnumerable<ITag> GetChildren() => tags;
     }
 }

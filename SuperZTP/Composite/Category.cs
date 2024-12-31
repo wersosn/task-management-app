@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace SuperZTP.Composite
@@ -10,23 +11,22 @@ namespace SuperZTP.Composite
     public class Category : ICategory
     {
         public string Name { get; }
-        private readonly List<ICategory> categories = new List<ICategory>();
+
+        public List<ICategory> categories { get; set; } = new List<ICategory>();
 
         public Category(string name)
         {
             Name = name;
         }
 
-        public void Add(ICategory category)
+        public void AddCategory(ICategory category)
         {
             categories.Add(category);
         }
 
-        public void Delete(ICategory category)
+        public void DeleteCategory(ICategory category)
         {
             categories.Remove(category);
         }
-
-        public IEnumerable<ICategory> GetChildren() => categories;
     }
 }

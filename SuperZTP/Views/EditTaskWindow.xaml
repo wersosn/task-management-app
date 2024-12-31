@@ -6,43 +6,30 @@
         xmlns:local="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
         Title="Edytuj zadanie" Height="450" Width="800">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <Label Content="Tytuł:" Grid.Row="0" Grid.Column="0" Margin="5" />
-        <TextBox x:Name="TitleTextBox" Grid.Row="0" Grid.Column="1" Margin="5" />
-
-        <Label Content="Opis:" Grid.Row="1" Grid.Column="0" Margin="5" />
-        <TextBox x:Name="DescriptionTextBox" Grid.Row="1" Grid.Column="1" Margin="5" />
-
-        <Label Content="Priorytet:" Grid.Row="2" Grid.Column="0" Margin="5" />
-        <ComboBox x:Name="PriorityComboBox" Grid.Row="2" Grid.Column="1" Margin="5">
-            <ComboBoxItem Content="Niski" />
-            <ComboBoxItem Content="Średni" />
-            <ComboBoxItem Content="Wysoki" />
+    <Grid>
+        <Label Content="Tytuł zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
+        <TextBox Name="TitleTextBox" HorizontalAlignment="Left" Margin="120,20,0,0" VerticalAlignment="Top" Width="200" Height="25"/>
+        <Label Content="Opis zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,19,0,0"/>
+        <TextBox Name="DescriptionTextBox" HorizontalAlignment="Left" Margin="490,20,0,0" VerticalAlignment="Top" Width="200" Height="50"/>
+        <Label Content="Kategoria:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,139,0,0"/>
+        <ComboBox x:Name="CategoryComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="120,141,0,0" Height="24">
+            <ComboBoxItem Content="Inne" IsSelected="True"/>
         </ComboBox>
-        <DatePicker x:Name="DeadlineDatePicker" Margin="5,10,371,230" Grid.ColumnSpan="2" Grid.Row="3" />
-        <CheckBox x:Name="IsCompletedCheckBox" Content="Ukończone" Margin="418,12,53,229" Grid.Row="3" Grid.Column="1" RenderTransformOrigin="0.5,0.5" >
-            <CheckBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleY="0.674"/>
-                    <RotateTransform/>
-                    <TranslateTransform Y="0.53"/>
-                </TransformGroup>
-            </CheckBox.RenderTransform>
-        </CheckBox>
-        <Button Content="Zapisz" Click="SaveButton_Click" Margin="57,130,390,126" Grid.Row="3" Grid.ColumnSpan="2"/>
-        <Button Content="Anuluj" Click="CancelButton_Click" Margin="327,130,54,126" Grid.Row="3" Grid.Column="1"/>
-
+        <Label Content="Tag:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,142,0,0"/>
+        <ComboBox x:Name="TagComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="490,142,0,0" Height="23">
+            <ComboBoxItem Content="Inne" IsSelected="True"/>
+        </ComboBox>
+        <Label Content="Priorytet:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,85,0,0"/>
+        <ComboBox Name="PriorityComboBox" HorizontalAlignment="Left" Margin="120,81,0,0" VerticalAlignment="Top" Width="200" Height="30">
+            <ComboBoxItem Content="Niski"/>
+            <ComboBoxItem Content="Średni"/>
+            <ComboBoxItem Content="Wysoki"/>
+        </ComboBox>
+        <Label Content="Termin zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,83,0,0"/>
+        <DatePicker Name="DeadlineDatePicker" HorizontalAlignment="Left" Margin="490,85,0,0" VerticalAlignment="Top" Width="200" Height="30"/>
+        <Label Content="Status ukończenia:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,200,0,0"/>
+        <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" HorizontalAlignment="Left" Margin="156,206,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
+        <Button Name="AddTaskButton" Content="Zapisz zmiany" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="289,237,0,0" Click="SaveButton_Click"/>
+        <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="400,237,0,0" />
     </Grid>
 </Window>

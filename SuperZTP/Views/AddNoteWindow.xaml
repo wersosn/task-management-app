@@ -23,7 +23,7 @@
             <ComboBoxItem Content="Inne" IsSelected="True"/>
         </ComboBox>
 
-        <Button Name="AddNoteButton" Content="Add notatkę" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="289,296,0,0" Click="AddNoteButton_Click"/>
+        <Button Name="AddNoteButton" Content="Dodaj notatkę" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="289,296,0,0" Click="AddNoteButton_Click"/>
         <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="400,296,0,0" />
     </Grid>
 </Window>

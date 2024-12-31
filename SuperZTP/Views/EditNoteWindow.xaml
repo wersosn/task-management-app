@@ -13,7 +13,17 @@
         <Label Content="Opis notatki:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="221,123,0,0" RenderTransformOrigin="0.646,0.465"/>
         <TextBox Name="NoteDescriptionTextBox" HorizontalAlignment="Left" Margin="323,123,0,0" VerticalAlignment="Top" Width="200" Height="50"/>
 
-        <Button Name="SaveButton" Content="Zapisz zmiany" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="30" Margin="0,197,0,0" Click="SaveButton_Click"/>
-        <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="30" Margin="0,232,0,0" />
+        <Label Content="Kategoria:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="235,190,0,0"/>
+        <ComboBox x:Name="CategoryComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="323,192,0,0" Height="25">
+            <ComboBoxItem Content="Inne" IsSelected="True"/>
+        </ComboBox>
+
+        <Label Content="Tag:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="251,236,0,0"/>
+        <ComboBox x:Name="TagComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="323,239,0,0" Height="23">
+            <ComboBoxItem Content="Inne" IsSelected="True"/>
+        </ComboBox>
+
+        <Button Name="SaveButton" Content="Zapisz zmiany" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="289,296,0,0" Click="SaveButton_Click"/>
+        <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="400,296,0,0" />
     </Grid>
 </Window>

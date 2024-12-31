@@ -1,4 +1,5 @@
 ﻿using SuperZTP.Command;
+using SuperZTP.Composite;
 using SuperZTP.Controller;
 using SuperZTP.Model;
 using SuperZTP.TemplateMethod;
@@ -27,6 +28,8 @@ namespace SuperZTP
         private List<Model.Task> tasks = new List<Model.Task>();
         private List<Note> notes = new List<Note>();
         private FileHandler fileHandler;
+        private ICategory categories;
+        private ITag tags;
         private GroupTasks GroupTasks = new GroupTasks();
         private GroupNotes GroupNotes = new GroupNotes();
         private SortTasks SortTasks = new SortTasks();
@@ -41,6 +44,8 @@ namespace SuperZTP
             fileHandler = new FileHandler(tasks, notes);
             fileHandler.LoadTasksFromFile("tasks.txt");
             fileHandler.LoadNotesFromFile("notes.txt");
+            categories = fileHandler.LoadCategoriesFromFile("categories.txt");
+            tags = fileHandler.LoadTagsFromFile("tags.txt");
             DisplayTasks();
             DisplayNotes();
 
@@ -53,7 +58,7 @@ namespace SuperZTP
         // Dodawanie taska
         public void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTaskWindow addTask = new AddTaskWindow(tasks, fileHandler);
+            AddTaskWindow addTask = new AddTaskWindow(tasks, fileHandler, categories, tags);
             addTask.ShowDialog();
             DisplayTasks();
         }
@@ -67,7 +72,7 @@ namespace SuperZTP
             if (taskToEdit == null)
                 return;
 
-            var editTaskWindow = new EditTaskWindow(taskToEdit, fileHandler);
+            var editTaskWindow = new EditTaskWindow(taskToEdit, fileHandler, categories, tags);
             if (editTaskWindow.ShowDialog() == true)
             {
                 var editedTask = editTaskWindow.EditedTask;
@@ -240,7 +245,7 @@ namespace SuperZTP
         // Dodawanie notatki
         public void AddNoteButton_Click(object sender, RoutedEventArgs e)
         {
-            AddNoteWindow addNote = new AddNoteWindow(notes, fileHandler);
+            AddNoteWindow addNote = new AddNoteWindow(notes, fileHandler, categories, tags);
             addNote.ShowDialog();
             DisplayNotes();
         }
@@ -256,7 +261,7 @@ namespace SuperZTP
                 return;
             }
 
-            var editNoteWindow = new EditNoteWindow(noteToEdit, fileHandler);
+            var editNoteWindow = new EditNoteWindow(noteToEdit, fileHandler, categories, tags);
             if (editNoteWindow.ShowDialog() == true)
             {
                 var editedNote = editNoteWindow.EditedNote;

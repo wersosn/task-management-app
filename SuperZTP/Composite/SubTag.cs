@@ -16,16 +16,14 @@ namespace SuperZTP.Composite
         {
             Name = name;
         }
-        public void Add(ITag tag)
+        public void AddTag(ITag tag)
         {
             MessageBox.Show("Nie można dodać nowego tagu do tego liścia");
         }
 
-        public void Delete(ITag tag)
+        public void DeleteTag(ITag tag)
         {
-            MessageBox.Show("Nie można Deleteąć tagu z liścia");
+            MessageBox.Show("Nie można usunąć tagu z liścia");
         }
-
-        public IEnumerable<ITag> GetChildren() => Enumerable.Empty<ITag>();
     }
 }
