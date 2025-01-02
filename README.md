@@ -15,7 +15,7 @@ Projekt został wykonany przez poniżej wymienione osoby:
  - [Ing862](https://github.com/Ing862) -
  - [wersosn](https://github.com/wersosn) - zaimplementowała 4 wzorce projektowe - Builder, Command, Template Method oraz Composite + pracowała nad widokami
  - [Gaspek](https://github.com/Gaspek) -
- - X
+ - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) -
 
 ## Opis projektu
 Aplikacja umożliwia użytkownikowi tworzenie, edytowanie i organizowanie notatek oraz list zadań. Notatki i zadania można opatrywać tagami (np. „praca”, „pomysł”) lub przypisywać do kategorii (np. „dom”, „projekt”). Zadania można oznaczać jako wykonane i nadawać im priorytety (np. „wysoki”, „niski”) oraz termin realizacji. Aplikacja obsługuje wyszukiwanie po słowach kluczowych, grupowanie według tagów lub kategorii, sortowanie według terminów lub priorytetów oraz generowanie raportów o zbliżających się terminach (np. „na najbliższy tydzień”) i podsumowań o wykonanych i zaległych zadaniach.
@@ -80,7 +80,7 @@ The project was implemented by the following people:
  - [Ing862](https://github.com/Ing862) -
  - [wersosn](https://github.com/wersosn) - she implemented 4 design patterns - Builder, Command, Template Method and Composite + worked on views
  - [Gaspek](https://github.com/Gaspek) -
- - X
+ - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) -
 
 ## Project details
 The application allows the user to create, edit, and organize notes and to-do lists. Notes and tasks can be tagged (e.g., "work," "idea") or assigned to categories (e.g., "home," "project"). Tasks can be marked as done and given a priority (e.g., "high," "low") and a due date. The application supports keyword searching, grouping by tags or categories, sorting by due date or priority, and generating reports on upcoming deadlines (e.g., "for the next week") and summaries of completed and overdue tasks.
