@@ -13,7 +13,7 @@ Version: [Polish](#Aplikacja-do-zarządzania-notatkami-i-zadaniami) | [English](
 ## Zespół
 Projekt został wykonany przez poniżej wymienione osoby:
  - [Ing862](https://github.com/Ing862) -
- - [wersosn](https://github.com/wersosn) - zaimplementowała 4 wzorce projektowe - Builder, Command, Template Method oraz Composite + pracowała nad widokami
+ - [wersosn](https://github.com/wersosn) - zaimplementowała 3 wzorce projektowe - Builder, Command oraz Template Method
  - [Gaspek](https://github.com/Gaspek) -
  - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) -
 
@@ -78,7 +78,7 @@ Install-Package DocumentFormat.OpenXml
 ## Team
 The project was implemented by the following people:
  - [Ing862](https://github.com/Ing862) -
- - [wersosn](https://github.com/wersosn) - she implemented 4 design patterns - Builder, Command, Template Method and Composite + worked on views
+ - [wersosn](https://github.com/wersosn) - she implemented 3 design patterns - Builder, Command and Template Method
  - [Gaspek](https://github.com/Gaspek) -
  - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) -
 
