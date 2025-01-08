@@ -29,13 +29,13 @@ namespace SuperZTP.Controller
 		// wyszukaj
 		public void Search()
 		{
-
+			Console.WriteLine("Odpala sie");
 		}
 
 		// grupuj
 		public void Group()
 		{
-
+		
 		}
 
 		// sortuj

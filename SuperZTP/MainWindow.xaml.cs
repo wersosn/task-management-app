@@ -63,6 +63,49 @@ namespace SuperZTP
             DisplayTasks();
         }
 
+
+        //Wyszukiwanie tasków
+        public void SearchTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            var searchWindow = new SearchTaskWindow();
+            if (searchWindow.ShowDialog() == true)
+            {
+                Searched.Content = searchWindow.Keyword;
+
+                var filteredTasks = tasks.Where(note =>
+                note.Title.Contains(searchWindow.Keyword, StringComparison.OrdinalIgnoreCase) || note.Description.Contains(searchWindow.Keyword, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+
+                DisplaySearchedTask(filteredTasks);
+
+            }
+        }
+
+        //Wyszukiwanie notatek
+        public void SearchNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+           var searchWindow = new SearchNoteWindow();
+            if(searchWindow.ShowDialog() == true)
+            {
+                Searched.Content = searchWindow.Keyword;
+
+                var filteredNotes = notes.Where(note =>
+                note.Title.Contains(searchWindow.Keyword, StringComparison.OrdinalIgnoreCase) || note.Description.Contains(searchWindow.Keyword, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+
+                DisplaySearchedNotes(filteredNotes);
+
+            }
+
+
+
+        }
+
+
+
+
+
         // Edycja zadania
         public void EditTaskButton_Click(object sender, RoutedEventArgs e)
         {
@@ -113,6 +156,55 @@ namespace SuperZTP
             {
                 var taskPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(5) };
                 if(task.IsDone)
+                {
+                    status = "Ukończone";
+                }
+                else
+                {
+                    status = "Nie ukończone";
+                }
+
+                var taskText = new TextBlock
+                {
+                    Text = $"{task.Id}. {task.Title} (Priorytet: {task.Priority}, Termin: {task.Deadline:yyyy-MM-dd})\n{task.Description}\n{status}\n",
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Width = 270
+                };
+
+                // Przyciski
+                var editButton = new Button
+                {
+                    Content = "Edytuj",
+                    Tag = task.Id,
+                    Margin = new Thickness(5),
+                    Width = 75
+                };
+                editButton.Click += EditTaskButton_Click;
+
+                var deleteButton = new Button
+                {
+                    Content = "Usuń",
+                    Tag = task.Id,
+                    Margin = new Thickness(5),
+                    Width = 75
+                };
+                deleteButton.Click += DeleteTaskButton_Click;
+                taskPanel.Children.Add(taskText);
+                taskPanel.Children.Add(editButton);
+                taskPanel.Children.Add(deleteButton);
+                TasksListBox.Items.Add(taskPanel);
+            }
+        }
+
+        //Wyświetlanie filtrowanych zadań
+        private void DisplaySearchedTask(List<SuperZTP.Model.Task> Tasks)
+        {
+            string status;
+            TasksListBox.Items.Clear();
+            foreach (var task in Tasks)
+            {
+                var taskPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(5) };
+                if (task.IsDone)
                 {
                     status = "Ukończone";
                 }
@@ -298,6 +390,46 @@ namespace SuperZTP
         {
             NotesListBox.Items.Clear();
             foreach (var note in notes)
+            {
+                var notePanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(5) };
+                var noteText = new TextBlock
+                {
+                    Text = $"{note.Id}. {note.Title}\n{note.Description}",
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Width = 270
+                };
+
+                // Przyciski
+                var editButton = new Button
+                {
+                    Content = "Edytuj",
+                    Tag = note.Id,
+                    Margin = new Thickness(5),
+                    Width = 75
+                };
+                editButton.Click += EditNoteButton_Click;
+
+                var deleteButton = new Button
+                {
+                    Content = "Usuń",
+                    Tag = note.Id,
+                    Margin = new Thickness(5),
+                    Width = 75
+                };
+                deleteButton.Click += DeleteNoteButton_Click;
+                notePanel.Children.Add(noteText);
+                notePanel.Children.Add(editButton);
+                notePanel.Children.Add(deleteButton);
+                NotesListBox.Items.Add(notePanel);
+            }
+        }
+
+
+        //Wyświetlanie filtrowanych notatek
+        private void DisplaySearchedNotes(List<Note> filterednotes)
+        {
+            NotesListBox.Items.Clear();
+            foreach (var note in filterednotes)
             {
                 var notePanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(5) };
                 var noteText = new TextBlock
