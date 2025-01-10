@@ -49,7 +49,6 @@
                 <Button Content="Sortuj A-Z" Click="SortNotesByTitleAsc_Click" Width="121"/>
                 <Button Content="Sortuj Z-A" Click="SortNotesByTitleDesc_Click" Width="121"/>
             </StackPanel>
-            <Label Content="Label" Name="Searched"/>
         </StackPanel>
         <!--Tymczasowy kod do testów, potem będzie podmieniony na odpowiedni MenuView-->
     </Grid>

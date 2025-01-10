@@ -1,7 +1,9 @@
-﻿using SuperZTP.Command;
+﻿using DocumentFormat.OpenXml.Vml.Office;
+using SuperZTP.Command;
 using SuperZTP.Composite;
 using SuperZTP.Controller;
 using SuperZTP.Model;
+using SuperZTP.Proxy;
 using SuperZTP.TemplateMethod;
 using SuperZTP.Views;
 using System;
@@ -37,9 +39,12 @@ namespace SuperZTP
         private GenerateTXT txt;
         private GeneratePDF pdf;
         private GenerateDOCX docx;
+        private SuperZTP.Proxy.Proxy proxy;
+        
 
         public MainWindow()
         {
+            
             InitializeComponent();
             fileHandler = new FileHandler(tasks, notes);
             fileHandler.LoadTasksFromFile("tasks.txt");
@@ -48,10 +53,12 @@ namespace SuperZTP
             tags = fileHandler.LoadTagsFromFile("tags.txt");
             DisplayTasks();
             DisplayNotes();
+           
 
             txt = new GenerateTXT(tasks);
             pdf = new GeneratePDF(tasks);
             docx = new GenerateDOCX(tasks);
+            proxy = new SuperZTP.Proxy.Proxy(tasks, notes);
         }
 
         // TASKI
@@ -61,6 +68,7 @@ namespace SuperZTP
             AddTaskWindow addTask = new AddTaskWindow(tasks, fileHandler, categories, tags);
             addTask.ShowDialog();
             DisplayTasks();
+            proxy.ClearTaskCache();
         }
 
 
@@ -70,15 +78,12 @@ namespace SuperZTP
             var searchWindow = new SearchTaskWindow();
             if (searchWindow.ShowDialog() == true)
             {
-                Searched.Content = searchWindow.Keyword;
+               
 
-                var filteredTasks = tasks.Where(note =>
-                note.Title.Contains(searchWindow.Keyword, StringComparison.OrdinalIgnoreCase) || note.Description.Contains(searchWindow.Keyword, StringComparison.OrdinalIgnoreCase)
-                ).ToList();
-
+                var filteredTasks = proxy.SearchTasks(searchWindow.Keyword);
                 DisplaySearchedTask(filteredTasks);
-
             }
+
         }
 
         //Wyszukiwanie notatek
@@ -88,11 +93,9 @@ namespace SuperZTP
            var searchWindow = new SearchNoteWindow();
             if(searchWindow.ShowDialog() == true)
             {
-                Searched.Content = searchWindow.Keyword;
-
-                var filteredNotes = notes.Where(note =>
-                note.Title.Contains(searchWindow.Keyword, StringComparison.OrdinalIgnoreCase) || note.Description.Contains(searchWindow.Keyword, StringComparison.OrdinalIgnoreCase)
-                ).ToList();
+               
+                
+                var filteredNotes = proxy.SearchNotes(searchWindow.Keyword);
 
                 DisplaySearchedNotes(filteredNotes);
 
@@ -145,6 +148,7 @@ namespace SuperZTP
                     DisplayTasks();
                 }
             }
+            proxy.ClearTaskCache();
         }
 
         // Wyświetlanie listy zadań
@@ -340,6 +344,7 @@ namespace SuperZTP
             AddNoteWindow addNote = new AddNoteWindow(notes, fileHandler, categories, tags);
             addNote.ShowDialog();
             DisplayNotes();
+            proxy.ClearNoteCache();
         }
 
         // Edycja notatki
@@ -364,6 +369,7 @@ namespace SuperZTP
                 }
                 DisplayNotes();
             }
+            proxy.ClearNoteCache();
         }
 
         // Usuwanie notatki
@@ -383,6 +389,7 @@ namespace SuperZTP
                     DisplayNotes();
                 }
             }
+            proxy.ClearNoteCache();
         }
 
         // Wyświetlanie listy notatek
