@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SuperZTP.Command;
 using SuperZTP.Model;
 
 namespace SuperZTP.Views
@@ -22,6 +23,7 @@ namespace SuperZTP.Views
     {
         private List<Tag> tags;
         private FileHandler fileHandler;
+        private CommandInvoker invoker = new CommandInvoker();
 
         public AddTagWindow(List<Tag> tags, FileHandler fileHandler)
         {
@@ -30,7 +32,6 @@ namespace SuperZTP.Views
             this.fileHandler = fileHandler;
         }
 
-        // Obsługuje kliknięcie przycisku "AddTagButton"
         private void AddTagButton_Click(object sender, RoutedEventArgs e)
         {
             string tagName = TagNameTextBox.Text.Trim();
@@ -40,12 +41,12 @@ namespace SuperZTP.Views
                 return;
             }
             var newTag = new Tag(tagName);
-            tags.Add(newTag);
+            invoker.AddCommand(new AddTag(tags, newTag));
+            invoker.Execute();
             fileHandler.SaveTagsToFile("tags.txt");
             DialogResult = true;
         }
 
-        // Obsługuje kliknięcie przycisku "CancelButton"
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;

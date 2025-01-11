@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SuperZTP.Command;
 using SuperZTP.Model;
 
 namespace SuperZTP.Views
@@ -22,6 +23,7 @@ namespace SuperZTP.Views
     {
         private List<Category> categories;
         private FileHandler fileHandler;
+        private CommandInvoker invoker = new CommandInvoker();
 
         public AddCategoryWindow(List<Category> categories, FileHandler fileHandler)
         {
@@ -39,7 +41,8 @@ namespace SuperZTP.Views
                 return;
             }
             var newCategory = new Category(categoryName);
-            categories.Add(newCategory);
+            invoker.AddCommand(new AddCategory(categories, newCategory));
+            invoker.Execute();
             fileHandler.SaveCategoriesToFile("categories.txt");
             DialogResult = true;
         }
