@@ -1,7 +1,6 @@
 ﻿using SuperZTP.Builder;
 using SuperZTP.Command;
 using SuperZTP.Model;
-using SuperZTP.Composite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +27,7 @@ namespace SuperZTP.Views
         private NoteBuilder noteBuilder = new NoteBuilder();
         private FileHandler fileHandler;
 
-        public AddNoteWindow(List<Note> notes, FileHandler fileHandler, ICategory categories, ITag tags)
+        public AddNoteWindow(List<Note> notes, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
         {
             InitializeComponent();
             this.notes = notes;
@@ -41,17 +40,22 @@ namespace SuperZTP.Views
         {
             string title = NoteTitleTextBox.Text;
             string description = NoteDescriptionTextBox.Text;
+
             var selectedCategoryItem = (ComboBoxItem)CategoryComboBox.SelectedItem;
             var selectedCategory = selectedCategoryItem?.Tag as Category;
+
             var selectedTagItem = (ComboBoxItem)TagComboBox.SelectedItem;
             var selectedTag = selectedTagItem?.Tag as Tag;
+
             var notatka = noteBuilder
                 .setTitle(title)
                 .setDescription(description)
                 .setTag(selectedTag ?? new Tag("Inna"))
                 .setCategory(selectedCategory ?? new Category("Inna"))
                 .build();
+
             notatka.Id = GetNextNoteId(notes);
+
             invoker.AddCommand(new AddNote(notes, notatka));
             invoker.Execute();
             fileHandler.SaveNotesToFile("notes.txt");
@@ -65,82 +69,36 @@ namespace SuperZTP.Views
 
         public static int GetNextNoteId(List<Note> notes)
         {
-            return notes.Any() ? notes.Max(t => t.Id) + 1 : 1;
+            return notes.Any() ? notes.Max(n => n.Id) + 1 : 1;
         }
 
         // Odczytywanie kategorii:
-        private void LoadCategoriesToComboBox(ICategory rootCategory)
+        private void LoadCategoriesToComboBox(List<Category> categories)
         {
             CategoryComboBox.Items.Clear();
-            if (rootCategory is Category cat)
-            {
-                foreach (var subCategory in cat.categories)
-                {
-                    AddCategoriesToComboBox(subCategory, "");
-                }
-            }
-        }
-
-        private void AddCategoriesToComboBox(ICategory category, string parentPath)
-        {
-            string fullPath = string.IsNullOrEmpty(parentPath)
-                ? category.Name
-                : $"{parentPath} > {category.Name}";
-
-            if (!string.IsNullOrEmpty(parentPath))
+            foreach (var category in categories)
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = fullPath,
+                    Content = category.Name,
                     Tag = category
                 };
                 CategoryComboBox.Items.Add(item);
             }
-
-            if (category is Category cat)
-            {
-                foreach (var subCategory in cat.categories)
-                {
-                    AddCategoriesToComboBox(subCategory, fullPath);
-                }
-            }
         }
 
         // Odczytywanie tagów:
-        private void LoadTagsToComboBox(ITag rootTag)
+        private void LoadTagsToComboBox(List<Tag> tags)
         {
             TagComboBox.Items.Clear();
-            if (rootTag is Tag t)
-            {
-                foreach (var subTag in t.tags)
-                {
-                    AddTagsToComboBox(subTag, "");
-                }
-            }
-        }
-
-        private void AddTagsToComboBox(ITag tag, string parentPath)
-        {
-            string fullPath = string.IsNullOrEmpty(parentPath)
-                ? tag.Name
-                : $"{parentPath} > {tag.Name}";
-
-            if (!string.IsNullOrEmpty(parentPath))
+            foreach (var tag in tags)
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = fullPath,
+                    Content = tag.Name,
                     Tag = tag
                 };
                 TagComboBox.Items.Add(item);
-            }
-
-            if (tag is Tag t)
-            {
-                foreach (var subTag in t.tags)
-                {
-                    AddTagsToComboBox(subTag, fullPath);
-                }
             }
         }
     }

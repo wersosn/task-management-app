@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SuperZTP.Composite;
+using SuperZTP.Model;
 
 namespace SuperZTP.Builder
 {
@@ -23,13 +23,13 @@ namespace SuperZTP.Builder
             return this;
         }
 
-        public TaskBuilder setTag(ITag tag)
+        public TaskBuilder setTag(Tag tag)
         {
             task.Tag = tag;
             return this;
         }
 
-        public TaskBuilder setCategory(ICategory category)
+        public TaskBuilder setCategory(Category category)
         {
             task.Category = category;
             return this;

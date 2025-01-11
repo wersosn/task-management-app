@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SuperZTP.Composite;
+using SuperZTP.Model;
 
 namespace SuperZTP.Model
 {
@@ -15,15 +15,15 @@ namespace SuperZTP.Model
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public ITag Tag { get; set; }
-        public ICategory Category { get; set; }
+        public Tag Tag { get; set; }
+        public Category Category { get; set; }
         public DateTime Deadline { get; set; }
         public string Priority { get; set; }
         public bool IsDone { get; set; }
 
         public Task() { }
 
-        public Task(int id, string title, string description, ITag tag, ICategory category, DateTime deadline, string priority, bool isDone)
+        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority, bool isDone)
         {
             Id = id;
             Title = title;
@@ -72,7 +72,7 @@ namespace SuperZTP.Model
                 Title = values[1],
                 Description = values[2],
                 Tag = new Tag(values[3]),
-                Category = new SubCategory(values[4]),
+                Category = new Category(values[4]),
                 Deadline = DateTime.Parse(values[5]),
                 Priority = values[6],
                 IsDone = bool.Parse(values[7])

@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualBasic;
-using SuperZTP.Composite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +15,11 @@ namespace SuperZTP.Model
         public int Id { get; set; }
 		public string Title { get; set; }
 		public string Description { get; set; }
-        public ITag Tag { get; set; }
-        public ICategory Category { get; set; }
+        public Tag Tag { get; set; }
+        public Category Category { get; set; }
 
         public Note() { }
-        public Note(int id, string title, string description, ITag tag, ICategory category)
+        public Note(int id, string title, string description, Tag tag, Category category)
 		{
             Id = id;
             Title = title;
@@ -50,7 +49,7 @@ namespace SuperZTP.Model
                 Title = values[1],
                 Description = values[2],
                 Tag = new Tag(values[3]),
-                Category = new SubCategory(values[4])
+                Category = new Category(values[4])
             };
         }
     }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperZTP"
         mc:Ignorable="d"
-        Title="Strona główna" Height="700" Width="800">
+        Title="Strona główna" Height="800" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -30,8 +30,9 @@
             <Button Content="Sortuj po terminie (najnowszy first)" Click="SortTasksByDeadlineDesc_Click" Width="200" Margin="5"/>
             <Button Content="Sortuj po terminie (najstarszy first)" Click="SortTasksByDeadlineAsc_Click" Width="200" Margin="5"/>
             <Button Click="GenerateRaportButton_Click" Content="Generuj raporty" Margin="5"/>
-            <Button Click="GenerateSummaryButton_Click" Content="Generyj podsumowania" Margin="5"/>
-
+            <Button Click="GenerateSummaryButton_Click" Content="Generuj podsumowania" Margin="5"/>
+            <Button Content="Dodaj kategorię" Click="AddCategoryButton_Click" Width="200" Margin="5"/>
+            <Button Content="Dodaj tag" Click="AddTagButton_Click" Width="200" Margin="5"/>
         </StackPanel>
 
         <!-- Pionowa linia -->

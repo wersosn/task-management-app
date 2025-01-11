@@ -1,6 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Vml.Office;
 using SuperZTP.Command;
-using SuperZTP.Composite;
 using SuperZTP.Controller;
 using SuperZTP.Model;
 using SuperZTP.Proxy;
@@ -29,9 +28,9 @@ namespace SuperZTP
     {
         private List<Model.Task> tasks = new List<Model.Task>();
         private List<Note> notes = new List<Note>();
+        private List<Category> categories = new List<Category>();
+        private List<Tag> tags = new List<Tag>();
         private FileHandler fileHandler;
-        private ICategory categories;
-        private ITag tags;
         private GroupTasks GroupTasks = new GroupTasks();
         private GroupNotes GroupNotes = new GroupNotes();
         private SortTasks SortTasks = new SortTasks();
@@ -46,11 +45,11 @@ namespace SuperZTP
         {
             
             InitializeComponent();
-            fileHandler = new FileHandler(tasks, notes);
+            fileHandler = new FileHandler(tasks, notes, categories, tags);
             fileHandler.LoadTasksFromFile("tasks.txt");
             fileHandler.LoadNotesFromFile("notes.txt");
-            categories = fileHandler.LoadCategoriesFromFile("categories.txt");
-            tags = fileHandler.LoadTagsFromFile("tags.txt");
+            fileHandler.LoadCategoriesFromFile("categories.txt");
+            fileHandler.LoadTagsFromFile("tags.txt");
             DisplayTasks();
             DisplayNotes();
            
@@ -70,44 +69,6 @@ namespace SuperZTP
             DisplayTasks();
             proxy.ClearTaskCache();
         }
-
-
-        //Wyszukiwanie tasków
-        public void SearchTaskButton_Click(object sender, RoutedEventArgs e)
-        {
-            var searchWindow = new SearchTaskWindow();
-            if (searchWindow.ShowDialog() == true)
-            {
-               
-
-                var filteredTasks = proxy.SearchTasks(searchWindow.Keyword);
-                DisplaySearchedTask(filteredTasks);
-            }
-
-        }
-
-        //Wyszukiwanie notatek
-        public void SearchNoteButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-           var searchWindow = new SearchNoteWindow();
-            if(searchWindow.ShowDialog() == true)
-            {
-               
-                
-                var filteredNotes = proxy.SearchNotes(searchWindow.Keyword);
-
-                DisplaySearchedNotes(filteredNotes);
-
-            }
-
-
-
-        }
-
-
-
-
 
         // Edycja zadania
         public void EditTaskButton_Click(object sender, RoutedEventArgs e)
@@ -432,7 +393,7 @@ namespace SuperZTP
         }
 
 
-        //Wyświetlanie filtrowanych notatek
+        // Wyświetlanie filtrowanych notatek
         private void DisplaySearchedNotes(List<Note> filterednotes)
         {
             NotesListBox.Items.Clear();
@@ -543,6 +504,42 @@ namespace SuperZTP
             pdf.GenerateSummary("podsumowaniePDF.pdf");
             docx.GenerateSummary("podsumowanieDOCX.docx");
             MessageBox.Show("Wygenerowano podsumowanie");
+        }
+
+        // Wyszukiwanie tasków
+        public void SearchTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            var searchWindow = new SearchTaskWindow();
+            if (searchWindow.ShowDialog() == true)
+            {
+                var filteredTasks = proxy.SearchTasks(searchWindow.Keyword);
+                DisplaySearchedTask(filteredTasks);
+            }
+        }
+
+        // Wyszukiwanie notatek
+        public void SearchNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var searchWindow = new SearchNoteWindow();
+            if (searchWindow.ShowDialog() == true)
+            {
+                var filteredNotes = proxy.SearchNotes(searchWindow.Keyword);
+                DisplaySearchedNotes(filteredNotes);
+            }
+        }
+
+        // Dodawanie kategorii
+        public void AddCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddCategoryWindow addCategory = new AddCategoryWindow(categories, fileHandler);
+            addCategory.ShowDialog();
+        }
+
+        // Dodawanie tagów:
+        public void AddTagButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddTagWindow addTag = new AddTagWindow(tags, fileHandler);
+            addTag.ShowDialog();
         }
     }
 }

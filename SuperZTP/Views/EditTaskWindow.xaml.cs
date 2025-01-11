@@ -1,5 +1,5 @@
 ﻿using SuperZTP.Command;
-using SuperZTP.Composite;
+using SuperZTP.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace SuperZTP.Views
         public Model.Task EditedTask { get; private set; }
         private FileHandler fileHandler;
 
-        public EditTaskWindow(Model.Task taskToEdit, FileHandler fileHandler, ICategory categories, ITag tags)
+        public EditTaskWindow(Model.Task taskToEdit, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
         {
             InitializeComponent();
             TitleTextBox.Text = taskToEdit.Title;
@@ -46,11 +46,11 @@ namespace SuperZTP.Views
         {
             EditedTask.Title = TitleTextBox.Text;
             EditedTask.Description = DescriptionTextBox.Text;
-            if (CategoryComboBox.SelectedItem is ComboBoxItem selectedCategoryItem && selectedCategoryItem.Tag is ICategory selectedCategory)
+            if (CategoryComboBox.SelectedItem is ComboBoxItem selectedCategoryItem && selectedCategoryItem.Tag is Category selectedCategory)
             {
                 EditedTask.Category = selectedCategory;
             }
-            if (TagComboBox.SelectedItem is ComboBoxItem selectedTagItem && selectedTagItem.Tag is ITag selectedTag)
+            if (TagComboBox.SelectedItem is ComboBoxItem selectedTagItem && selectedTagItem.Tag is Tag selectedTag)
             {
                 EditedTask.Tag = selectedTag;
             }
@@ -67,48 +67,25 @@ namespace SuperZTP.Views
         }
 
         // Odczytywanie kategorii:
-        private void LoadCategoriesToComboBox(ICategory rootCategory)
+        private void LoadCategoriesToComboBox(List<Category> categories)
         {
             CategoryComboBox.Items.Clear();
-            if (rootCategory is Category cat)
-            {
-                foreach (var subCategory in cat.categories)
-                {
-                    AddCategoriesToComboBox(subCategory, "");
-                }
-            }
-        }
-
-        private void AddCategoriesToComboBox(ICategory category, string parentPath)
-        {
-            string fullPath = string.IsNullOrEmpty(parentPath)
-                ? category.Name
-                : $"{parentPath} > {category.Name}";
-
-            if (!string.IsNullOrEmpty(parentPath))
+            foreach (var category in categories)
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = fullPath,
+                    Content = category.Name,
                     Tag = category
                 };
                 CategoryComboBox.Items.Add(item);
             }
-
-            if (category is Category cat)
-            {
-                foreach (var subCategory in cat.categories)
-                {
-                    AddCategoriesToComboBox(subCategory, fullPath);
-                }
-            }
         }
 
-        private void SelectCategoryInComboBox(ICategory selectedCategory)
+        private void SelectCategoryInComboBox(Category selectedCategory)
         {
             foreach (ComboBoxItem item in CategoryComboBox.Items)
             {
-                if (item.Tag is ICategory category && category.Name == selectedCategory?.Name)
+                if (item.Tag is Category category && category.Name == selectedCategory?.Name)
                 {
                     CategoryComboBox.SelectedItem = item;
                     break;
@@ -117,48 +94,25 @@ namespace SuperZTP.Views
         }
 
         // Odczytywanie tagów:
-        private void LoadTagsToComboBox(ITag rootTag)
+        private void LoadTagsToComboBox(List<Tag> tags)
         {
             TagComboBox.Items.Clear();
-            if (rootTag is Tag t)
-            {
-                foreach (var subTag in t.tags)
-                {
-                    AddTagsToComboBox(subTag, "");
-                }
-            }
-        }
-
-        private void AddTagsToComboBox(ITag tag, string parentPath)
-        {
-            string fullPath = string.IsNullOrEmpty(parentPath)
-                ? tag.Name
-                : $"{parentPath} > {tag.Name}";
-
-            if (!string.IsNullOrEmpty(parentPath))
+            foreach (var tag in tags)
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = fullPath,
+                    Content = tag.Name,
                     Tag = tag
                 };
                 TagComboBox.Items.Add(item);
             }
-
-            if (tag is Tag t)
-            {
-                foreach (var subTag in t.tags)
-                {
-                    AddTagsToComboBox(subTag, fullPath);
-                }
-            }
         }
 
-        private void SelectTagInComboBox(ITag selectedTag)
+        private void SelectTagInComboBox(Tag selectedTag)
         {
             foreach (ComboBoxItem item in TagComboBox.Items)
             {
-                if (item.Tag is ITag tag && tag.Name == selectedTag?.Name)
+                if (item.Tag is Tag tag && tag.Name == selectedTag?.Name)
                 {
                     TagComboBox.SelectedItem = item;
                     break;

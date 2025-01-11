@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SuperZTP.Composite;
 using SuperZTP.Model;
 
 namespace SuperZTP.Builder
@@ -24,13 +23,13 @@ namespace SuperZTP.Builder
             return this;
         }
 
-        public NoteBuilder setTag(ITag tag)
+        public NoteBuilder setTag(Tag tag)
         {
             note.Tag = tag;
             return this;
         }
 
-        public NoteBuilder setCategory(ICategory category)
+        public NoteBuilder setCategory(Category category)
         {
             note.Category = category;
             return this;

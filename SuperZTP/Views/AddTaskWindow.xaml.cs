@@ -1,7 +1,6 @@
 ﻿using SuperZTP.Builder;
 using SuperZTP.Command;
 using SuperZTP.Model;
-using SuperZTP.Composite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +27,7 @@ namespace SuperZTP.Views
         private TaskBuilder taskBuilder = new TaskBuilder();
         private FileHandler fileHandler;
 
-        public AddTaskWindow(List<SuperZTP.Model.Task> tasks, FileHandler fileHandler, ICategory categories, ITag tags)
+        public AddTaskWindow(List<SuperZTP.Model.Task> tasks, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
         {
             InitializeComponent();
             this.tasks = tasks;
@@ -42,10 +41,13 @@ namespace SuperZTP.Views
             int taskId = tasks.Count > 0 ? tasks.Max(t => t.Id) + 1 : 1;
             string title = TitleTextBox.Text;
             string description = DescriptionTextBox.Text;
+
             var selectedCategoryItem = (ComboBoxItem)CategoryComboBox.SelectedItem;
             var selectedCategory = selectedCategoryItem?.Tag as Category;
+
             var selectedTagItem = (ComboBoxItem)TagComboBox.SelectedItem;
             var selectedTag = selectedTagItem?.Tag as Tag;
+
             string priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString() ?? "Niski";
             DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now; // Domyślnie bieżąca data, jeśli brak wyboru
             bool isCompleted = IsCompletedCheckBox.IsChecked ?? false;
@@ -56,6 +58,7 @@ namespace SuperZTP.Views
                 .setTag(selectedTag ?? new Tag("Inna"))
                 .setCategory(selectedCategory ?? new Category("Inna"))
                 .build();
+
             zadanie.Id = GetNextTaskId(tasks);
             zadanie.SetDeadline(selectedDate);
             zadanie.SetPriority(priority);
@@ -63,6 +66,7 @@ namespace SuperZTP.Views
             {
                 zadanie.MarkAsDone();
             }
+
             invoker.AddCommand(new AddTask(tasks, zadanie));
             invoker.Execute();
             fileHandler.SaveTasksToFile("tasks.txt");
@@ -76,82 +80,36 @@ namespace SuperZTP.Views
 
         public static int GetNextTaskId(List<Model.Task> tasks)
         {
-            return tasks.Any() ?tasks.Max(t => t.Id) + 1 : 1;
+            return tasks.Any() ? tasks.Max(t => t.Id) + 1 : 1;
         }
 
         // Odczytywanie kategorii:
-        private void LoadCategoriesToComboBox(ICategory rootCategory)
+        private void LoadCategoriesToComboBox(List<Category> categories)
         {
             CategoryComboBox.Items.Clear();
-            if (rootCategory is Category cat)
-            {
-                foreach (var subCategory in cat.categories)
-                {
-                    AddCategoriesToComboBox(subCategory, "");
-                }
-            }
-        }
-
-        private void AddCategoriesToComboBox(ICategory category, string parentPath)
-        {
-            string fullPath = string.IsNullOrEmpty(parentPath)
-                ? category.Name
-                : $"{parentPath} > {category.Name}";
-
-            if (!string.IsNullOrEmpty(parentPath))
+            foreach (var category in categories)
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = fullPath,
+                    Content = category.Name,
                     Tag = category
                 };
                 CategoryComboBox.Items.Add(item);
             }
-
-            if (category is Category cat)
-            {
-                foreach (var subCategory in cat.categories)
-                {
-                    AddCategoriesToComboBox(subCategory, fullPath);
-                }
-            }
         }
 
         // Odczytywanie tagów:
-        private void LoadTagsToComboBox(ITag rootTag)
+        private void LoadTagsToComboBox(List<Tag> tags)
         {
             TagComboBox.Items.Clear();
-            if (rootTag is Tag t)
-            {
-                foreach (var subTag in t.tags)
-                {
-                    AddTagsToComboBox(subTag, "");
-                }
-            }
-        }
-
-        private void AddTagsToComboBox(ITag tag, string parentPath)
-        {
-            string fullPath = string.IsNullOrEmpty(parentPath)
-                ? tag.Name
-                : $"{parentPath} > {tag.Name}";
-
-            if (!string.IsNullOrEmpty(parentPath))
+            foreach (var tag in tags)
             {
                 ComboBoxItem item = new ComboBoxItem
                 {
-                    Content = fullPath,
+                    Content = tag.Name,
                     Tag = tag
                 };
                 TagComboBox.Items.Add(item);
-            }
-
-            if (tag is Tag t)
-            {
-                foreach (var subTag in t.tags)
-                {
-                    AddTagsToComboBox(subTag, fullPath);
-                }
             }
         }
     }
