@@ -15,7 +15,7 @@ Projekt został wykonany przez poniżej wymienione osoby:
  - [Ing862](https://github.com/Ing862) -
  - [wersosn](https://github.com/wersosn) - zaimplementowała 3 wzorce projektowe - Builder, Command oraz Template Method
  - [Gaspek](https://github.com/Gaspek) -
- - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) -
+ - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - zaimplementował wzorzec Proxy
 
 ## Opis projektu
 Aplikacja umożliwia użytkownikowi tworzenie, edytowanie i organizowanie notatek oraz list zadań. Notatki i zadania można opatrywać tagami (np. „praca”, „pomysł”) lub przypisywać do kategorii (np. „dom”, „projekt”). Zadania można oznaczać jako wykonane i nadawać im priorytety (np. „wysoki”, „niski”) oraz termin realizacji. Aplikacja obsługuje wyszukiwanie po słowach kluczowych, grupowanie według tagów lub kategorii, sortowanie według terminów lub priorytetów oraz generowanie raportów o zbliżających się terminach (np. „na najbliższy tydzień”) i podsumowań o wykonanych i zaległych zadaniach.
@@ -31,10 +31,10 @@ Poniżej zostały wypisane wszystkie funkcjonalności naszego projektu:
 - Generowanie raportów oraz podsumowań w formacie .txt, .docx, .pdf;
 
 ## Użyte wzorce projektowe
-- Singleton
 - Builder - do tworzenia zadań oraz notatek
 - Command - do obsługi operacji na zadaniach i notatkach
-- Composite - do stworzenia hierarchii kategorii oraz tagów
+- Composite -
+- Proxy - do wyszukiwania zadań i notatek po słowach kluczowych
 - Template method - do generowania raportów i podsumowań
 - MVC/MVVM
   
@@ -80,7 +80,7 @@ The project was implemented by the following people:
  - [Ing862](https://github.com/Ing862) -
  - [wersosn](https://github.com/wersosn) - she implemented 3 design patterns - Builder, Command and Template Method
  - [Gaspek](https://github.com/Gaspek) -
- - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) -
+ - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - he implemented the Proxy design pattern
 
 ## Project details
 The application allows the user to create, edit, and organize notes and to-do lists. Notes and tasks can be tagged (e.g., "work," "idea") or assigned to categories (e.g., "home," "project"). Tasks can be marked as done and given a priority (e.g., "high," "low") and a due date. The application supports keyword searching, grouping by tags or categories, sorting by due date or priority, and generating reports on upcoming deadlines (e.g., "for the next week") and summaries of completed and overdue tasks.
@@ -96,12 +96,12 @@ Below are all the functionalities of our project:
 - Generating reports and summaries in .txt, .docx, .pdf formats;
 
 ## Design patterns used
-- Singleton
 - Builder - for creating tasks and notes
 - Command - for handling operations on tasks and notes
-- Composite - for creating a hierarchy of categories and tags
+- Composite - 
+- Proxy - for searching tasks and notes by keywords
 - Template method - for generating reports and summaries
-- MVC/MVVM
+- MVC/MVVM - 
 
 ## Tech stack
 - C#
