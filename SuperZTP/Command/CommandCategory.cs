@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperZTP.Command
 {
+    // Dodawanie kategorii
     public class AddCategory : ICommand 
     {
         private List<Category> categories;
@@ -20,13 +21,13 @@ namespace SuperZTP.Command
 
         public void Execute()
         {
-            var categoryCopy = new Category(newCategory.Name);
-            categories.Add(categoryCopy);
+            var categoryCopy = new Category(newCategory.Name); // Praca na kopii kategorii, aby uniknąć pracy na referencji
+            categories.Add(categoryCopy); // Dodanie kategorii do listy
         }
 
         public void Undo()
         {
-            categories.Remove(newCategory);
+            categories.Remove(newCategory); // Usinięcie z listy
         }
     }
 }

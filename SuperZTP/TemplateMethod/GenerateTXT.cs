@@ -7,7 +7,7 @@ using System.IO;
 
 namespace SuperZTP.TemplateMethod
 {
-    public class GenerateTXT : Generate
+    public class GenerateTXT : Generate // Zapis do pliku w formacie .txt
     {
         public GenerateTXT(List<Model.Task> tasks) : base(tasks) { }
 

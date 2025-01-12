@@ -20,13 +20,13 @@ namespace SuperZTP.Command
 
         public void Execute()
         {
-            var tagCopy = new Tag(newTag.Name);
-            tags.Add(tagCopy);
+            var tagCopy = new Tag(newTag.Name); // Praca na kopii tagu, aby uniknąć pracy na referencji
+            tags.Add(tagCopy); // Dodanie tagu do listy
         }
 
         public void Undo()
         {
-            tags.Remove(newTag);
+            tags.Remove(newTag); // Usunięcie tagu z listy 
         }
     }
 }

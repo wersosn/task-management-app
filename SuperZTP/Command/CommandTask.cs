@@ -7,6 +7,7 @@ using SuperZTP.Model;
 
 namespace SuperZTP.Command
 {
+    // Dodawanie zadania
     public class AddTask : ICommand
     {
         private List<Model.Task> tasks;
@@ -20,7 +21,7 @@ namespace SuperZTP.Command
 
         public void Execute()
         {
-            var taskCopy = new Model.Task
+            var taskCopy = new Model.Task // Praca na kopii zadania, aby uniknąć pracy na referencji
             {
                 Id = newTask.Id,
                 Title = newTask.Title,
@@ -43,6 +44,7 @@ namespace SuperZTP.Command
         }
     }
 
+    // Modyfikacja zadania
     public class EditTask : ICommand
     {
         private List<Model.Task> tasks;
@@ -56,7 +58,7 @@ namespace SuperZTP.Command
             this.id = id;
             if (id > 0 && id < tasks.Count)
             {
-                oldTask = new Model.Task
+                oldTask = new Model.Task // Kopia starej wersji zadania, aby uniknąć pracy na referencji
                 {
                     Id = tasks[id].Id,
                     Title = tasks[id].Title,
@@ -71,7 +73,7 @@ namespace SuperZTP.Command
                     oldTask.MarkAsDone();
                 }
 
-                newTaskCopy = new Model.Task
+                newTaskCopy = new Model.Task // Kopia nowej wersji zadania, aby uniknąć pracy na referencji
                 {
                     Id = newTask.Id,
                     Title = newTask.Title,
@@ -105,6 +107,7 @@ namespace SuperZTP.Command
         }
     }
 
+    // Usuwanie zadania
     public class DeleteTask : ICommand
     {
         private List<Model.Task> tasks;
@@ -117,7 +120,7 @@ namespace SuperZTP.Command
             this.id = id;
             if (id >= 0 && id < tasks.Count)
             {
-                taskCopy = new Model.Task
+                taskCopy = new Model.Task // Kopia zadania, aby uniknąć pracy na referencji
                 {
                     Id = tasks[id].Id,
                     Title = tasks[id].Title,
@@ -151,6 +154,7 @@ namespace SuperZTP.Command
         }
     }
 
+    // Grupowanie zadań
     public class GroupTasks
     {
         public List<IGrouping<string, Model.Task>> GroupTasksByCategory(List<Model.Task> tasks)
@@ -172,6 +176,7 @@ namespace SuperZTP.Command
         }
     }
 
+    // Sortowanie zadań
     public class SortTasks
     {
         public List<Model.Task> SortTasksByTitle(List<Model.Task> tasks, bool ascending = true)

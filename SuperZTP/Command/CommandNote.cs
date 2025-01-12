@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperZTP.Command
 {
+    // Dodawanie notatki
     public class AddNote : ICommand
     {
         private List<Note> notes;
@@ -20,7 +21,7 @@ namespace SuperZTP.Command
 
         public void Execute()
         {
-            var noteCopy = new Note
+            var noteCopy = new Note // Praca na kopii notatki, aby uniknąć pracy na referencji
             {
                 Id = newNote.Id,
                 Title = newNote.Title,
@@ -38,6 +39,7 @@ namespace SuperZTP.Command
         }
     }
 
+    // Modyfikacja notatki
     public class EditNote : ICommand
     {
         private List<Note> notes;
@@ -52,7 +54,7 @@ namespace SuperZTP.Command
 
             if(id >= 0 && id <= notes.Count)
             {
-                oldNote = new Note
+                oldNote = new Note // Kopia starej wersji notatki, aby uniknąć pracy na referencji
                 {
                     Id = notes[id].Id,
                     Title = notes[id].Title,
@@ -61,7 +63,7 @@ namespace SuperZTP.Command
                     Category = notes[id].Category
                 };
 
-                newNoteCopy = new Note
+                newNoteCopy = new Note // Kopia nowej wersji notatki, aby uniknąć pracy na referencji
                 {
                     Id = editNote.Id,
                     Title = editNote.Title,
@@ -89,6 +91,7 @@ namespace SuperZTP.Command
         }
     }
 
+    // Usuwanie zadania
     public class DeleteNote : ICommand
     {
         private List<Note> notes;
@@ -101,7 +104,7 @@ namespace SuperZTP.Command
             this.id = id;
             if(id >= 0 && id <= notes.Count)
             {
-                noteCopy = new Note
+                noteCopy = new Note // Kopia notatki, aby uniknąć pracy na referencji
                 {
                     Id = deleteNote.Id,
                     Title = deleteNote.Title,
@@ -129,6 +132,7 @@ namespace SuperZTP.Command
         }
     }
 
+    // Grupowanie notatek
     public class GroupNotes
     {
         public List<IGrouping<string, Note>> GroupNotesByCategory(List<Note> notes)
@@ -150,6 +154,7 @@ namespace SuperZTP.Command
         }
     }
 
+    // Sortowanie notatek
     public class SortNotes
     {
         public List<Note> SortNotesByTitle(List<Note> notes, bool ascending = true)

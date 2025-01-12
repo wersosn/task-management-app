@@ -10,7 +10,7 @@ using PdfSharp.Drawing;
 
 namespace SuperZTP.TemplateMethod
 {
-    public class GeneratePDF : Generate
+    public class GeneratePDF : Generate // Zapis do pliku w formacie .pdf
     {
         public GeneratePDF(List<Model.Task> tasks) : base(tasks) { }
 

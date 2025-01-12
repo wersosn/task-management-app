@@ -8,7 +8,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace SuperZTP.TemplateMethod
 {
-    public class GenerateDOCX : Generate
+    public class GenerateDOCX : Generate // Zapis do pliku w formacie .docx
     {
         public GenerateDOCX(List<Model.Task> tasks) : base(tasks) { }
 
