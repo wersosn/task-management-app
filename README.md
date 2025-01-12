@@ -78,9 +78,9 @@ Install-Package DocumentFormat.OpenXml
 ## Team
 The project was implemented by the following people:
  - [Ing862](https://github.com/Ing862) -
- - [wersosn](https://github.com/wersosn) - she implemented 3 design patterns - Builder, Command and Template Method
+ - [wersosn](https://github.com/wersosn) - implemented 3 design patterns - Builder, Command and Template Method
  - [Gaspek](https://github.com/Gaspek) -
- - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - he implemented the Proxy design pattern
+ - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - implemented the Proxy design pattern
 
 ## Project details
 The application allows the user to create, edit, and organize notes and to-do lists. Notes and tasks can be tagged (e.g., "work," "idea") or assigned to categories (e.g., "home," "project"). Tasks can be marked as done and given a priority (e.g., "high," "low") and a due date. The application supports keyword searching, grouping by tags or categories, sorting by due date or priority, and generating reports on upcoming deadlines (e.g., "for the next week") and summaries of completed and overdue tasks.
