@@ -89,6 +89,7 @@ namespace SuperZTP
                 }
                 DisplayTasks();
             }
+              proxy.ClearTaskCache();
         }
 
         // Usuwanie zadania
