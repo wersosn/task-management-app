@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="SuperZTP.Views.DisplayTasksView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SuperZTP.Views"
+             xmlns:custom="clr-namespace:DropdownMenuControl;assembly=DropdownMenuControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border BorderBrush="{StaticResource BorderPrimary}"
+                SnapsToDevicePixels="True"
+                BorderThickness="1"
+                CornerRadius="5"
+                Padding="15">
+            <Grid>
+                <ListView BorderThickness="0" SelectedItem="{Binding SelectedTaskViewModel}" ItemsSource="{Binding Previews}">
+                    <ListView.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="5 10" TextBlock.FontSize="16">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Title}"></TextBlock>
+                                    <custom:DropdownMenu Grid.Column="1"
+                                                         Margin="10 0 0 0">
+                                        <Border Background="White" 
+                                                BorderBrush="{StaticResource BorderPrimary}"
+                                                BorderThickness="1">
+                                            <StackPanel>
+                                                <StackPanel.Resources>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Background" Value="#f0f0f0"></Setter>
+                                                        <Setter Property="Foreground" Value="#333333"></Setter>
+                                                        <Setter Property="Padding" Value="15 5"></Setter>
+                                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                                    </Style>
+                                                </StackPanel.Resources>
+                                                <Button Content="Edit" Command="{Binding EditCommand }"></Button>
+                                                <Button Content="Delete" Command="{Binding CreateCommand }"></Button>
+                                            </StackPanel>
+                                        </Border>
+                                    </custom:DropdownMenu>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -4,53 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperZTP"
+        xmlns:views="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
-        Title="Strona główna" Height="800" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <!-- Lewa część -->
-        <StackPanel Grid.Column="0" Margin="10">
-            <Label Content="Sekcja 1: Lista zadań" FontWeight="Bold" />
-            <ListBox Name="TasksListBox" HorizontalAlignment="Left" Height="279" Width="370" Margin="0,0,0,0"/>
-            <Button x:Name="AddTaskButton" Content="Dodaj zadanie" Width="100" Height="30" Click="AddTaskButton_Click"/>
-            <Button Content="Grupuj po kategorii" Click="GroupByCategoryButton_Click" Margin="5" Width="145" Height="28"/>
-            <Button x:Name="SearchButton" Content="Wyszukaj" Width="100" Height="30" Click="SearchTaskButton_Click"/>
-            <Button Content="Grupuj po tagach" Click="GroupByTagButton_Click" Margin="5" Width="145" Height="28"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
-                <Button Content="Sortuj A-Z" Click="SortTasksByTitleAsc_Click" Width="121"/>
-                <Button Content="Sortuj Z-A" Click="SortTasksByTitleDesc_Click" Width="121"/>
-            </StackPanel>
-            <Button Content="Sortuj po priorytecie (od Wysokiego)" Click="SortTasksByPriorityDesc_Click" Width="200" Margin="5"/>
-            <Button Content="Sortuj po priorytecie (od Niskiego)" Click="SortTasksByPriorityAsc_Click" Width="200" Margin="5"/>
-            <Button Content="Sortuj po terminie (najnowszy first)" Click="SortTasksByDeadlineDesc_Click" Width="200" Margin="5"/>
-            <Button Content="Sortuj po terminie (najstarszy first)" Click="SortTasksByDeadlineAsc_Click" Width="200" Margin="5"/>
-            <Button Click="GenerateRaportButton_Click" Content="Generuj raporty" Margin="5"/>
-            <Button Click="GenerateSummaryButton_Click" Content="Generuj podsumowania" Margin="5"/>
-            <Button Content="Dodaj kategorię" Click="AddCategoryButton_Click" Width="200" Margin="5"/>
-            <Button Content="Dodaj tag" Click="AddTagButton_Click" Width="200" Margin="5"/>
-        </StackPanel>
-
-        <!-- Pionowa linia -->
-        <Border Grid.Column="1" Background="Black" Width="2" />
-
-        <!-- Prawa część -->
-        <StackPanel Grid.Column="2" Margin="10">
-            <Label Content="Sekcja 2: Lista notatek" FontWeight="Bold" />
-            <ListBox Name="NotesListBox" HorizontalAlignment="Center" Height="278" Width="370" Margin="0,0,0,0"/>
-            <Button x:Name="AddNoteButton" Content="Dodaj notatke" Width="100" Height="30" Click="AddNoteButton_Click"/>
-            <Button Content="Grupuj po kategorii" Click="GroupByCategoryNButton_Click" Margin="5" Width="145" Height="28"/>
-            <Button Content="Grupuj po tagach" Click="GroupByTagNButton_Click" Margin="5" Width="145" Height="28"/>
-            <Button x:Name="Search_Button" Content="Wyszukaj" Width="100" Height="30" Click="SearchNoteButton_Click"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
-                <Button Content="Sortuj A-Z" Click="SortNotesByTitleAsc_Click" Width="121"/>
-                <Button Content="Sortuj Z-A" Click="SortNotesByTitleDesc_Click" Width="121"/>
-            </StackPanel>
-        </StackPanel>
-        <!--Tymczasowy kod do testów, potem będzie podmieniony na odpowiedni MenuView-->
-    </Grid>
+        Title="Zarządzanie Terminami i Planami" Height="800" Width="1000">
+<Grid Margin="10">
+    <views:MenuView />
+</Grid>
 </Window>
