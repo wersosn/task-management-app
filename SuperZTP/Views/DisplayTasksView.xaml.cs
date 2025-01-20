@@ -22,15 +22,9 @@ namespace SuperZTP.Views
     /// </summary>
     public partial class DisplayTasksView : UserControl
     {
-        private List<Model.Task> _tasks = [];
         public DisplayTasksView()
         {
             InitializeComponent();
-        }
-
-        public void SetTasks(List<Model.Task> taskList)
-        {
-            _tasks = taskList;
         }
     }
 }
