@@ -1,4 +1,4 @@
-Version: [Polish](#Aplikacja-do-zarządzania-notatkami-i-zadaniami) | [English](#Notes-and-tasks-management-app)
+Version: [PL](#Aplikacja-do-zarządzania-notatkami-i-zadaniami) | [ENG](#Notes-and-tasks-management-app)
 
 # Aplikacja do zarządzania notatkami i zadaniami
 ## Spis treści
@@ -33,10 +33,12 @@ Poniżej zostały wypisane wszystkie funkcjonalności naszego projektu:
 ## Użyte wzorce projektowe
 - Builder - do tworzenia zadań oraz notatek
 - Command - do obsługi operacji na zadaniach i notatkach
-- Composite -
+- Observer - 
 - Proxy - do wyszukiwania zadań i notatek po słowach kluczowych
+- State - 
+- Store - 
 - Template method - do generowania raportów i podsumowań
-- MVC/MVVM
+- MVVM - 
   
 ## Użyte technologie
 - C#
@@ -98,10 +100,12 @@ Below are all the functionalities of our project:
 ## Design patterns used
 - Builder - for creating tasks and notes
 - Command - for handling operations on tasks and notes
-- Composite - 
+- Observer - 
 - Proxy - for searching tasks and notes by keywords
+- State -
+- Store -
 - Template method - for generating reports and summaries
-- MVC/MVVM - 
+- MVVM - 
 
 ## Tech stack
 - C#
