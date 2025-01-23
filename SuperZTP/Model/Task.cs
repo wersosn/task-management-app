@@ -21,11 +21,11 @@ namespace SuperZTP.Model
         public string Priority { get; set; }
         
         //public bool IsDone { get; set; }
-        public ITaskState taskState { get; set; }
+        public ITaskState CurrentState { get; set; }
 
         public Task() { }
 
-        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority, bool isDone)
+        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority)
         {
             Id = id;
             Title = title;
@@ -34,7 +34,7 @@ namespace SuperZTP.Model
             Category = category;
             Deadline = deadline;
             Priority = priority;
-            //IsDone = false;
+            CurrentState = new NotStarted();
         }
 
         // Metody do ustawiania terminów, priorytetów i oznaczania jako wykonane
@@ -48,20 +48,26 @@ namespace SuperZTP.Model
             Priority = priority;
         }
 
-        public void MarkAsDone()
+        //public void MarkAsDone()
+        //{
+        //    IsDone = true;
+        //}
+
+        // Tworzy nowy status
+        public void ChangeState(ITaskState newState)
         {
-            IsDone = true;
+            CurrentState = newState;
         }
 
         public override string ToString()
         {
-            return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}\nTermin: {Deadline}\nPriorytet: {Priority}\nWykonane: {IsDone}";
+            return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}\nTermin: {Deadline}\nPriorytet: {Priority}\nWykonane: {CurrentState}";
         }
 
         // Zapisywanie do pliku (możliwe, że będzie zmienione):
         public string ToFile()
         {
-            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.Name};{Deadline:yyyy-MM-dd};{Priority};{IsDone}";
+            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.Name};{Deadline:yyyy-MM-dd};{Priority};{CurrentState}";
         }
 
         // Wczytywanie z pliku:
@@ -78,6 +84,7 @@ namespace SuperZTP.Model
                 Deadline = DateTime.Parse(values[5]),
                 Priority = values[6],
                 //IsDone = bool.Parse(values[7])
+                CurrentState = 
             };
         }
     }

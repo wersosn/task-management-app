@@ -10,48 +10,59 @@ namespace SuperZTP.Model
 	{
 		//jak są przechowywane polecenia?
 		///co powinno być przekazywane?
+		string GetStateName();
+		void Start(Task task);
 
-		void Start();
-		void Complete();
+		string ButtonLabel { get; }
+		bool IsButtonEnabled { get; }
 
 	}
 
 	public class NotStarted : ITaskState
 	{
-		public void Start()
+		public string GetStateName()
 		{
-
+			return "Not started";
+		}
+		public void Start(Task task)
+		{
+			task.ChangeState(new InProgress());
 		}
 
-		public void Complete()
-		{
+		public string ButtonLabel => "Set as In Progress";
+		public bool IsButtonEnabled => true;
 
-		}
 	}
 
 	public class InProgress : ITaskState
 	{
-		public void Start()
+		public string GetStateName()
 		{
-
+			return "In progress";
+		}
+		public void Start(Task task)
+		{
+			task.ChangeState(new Completed());
 		}
 
-		public void Complete()
-		{
-
-		}
+		public string ButtonLabel => "Set as Completed";
+		public bool IsButtonEnabled => true;
 	}
 
 	public class Completed : ITaskState
 	{
-		public void Start()
+		public string GetStateName()
 		{
-
+			return "Completed";
+		}
+		public void Start(Task task)
+		{
+			// nie można bo nie ma innego stanu
 		}
 
-		public void Complete()
-		{
-
-		}
+		public string ButtonLabel => "Completed";
+		public bool IsButtonEnabled => false;
 	}
+
+	
 }
