@@ -19,7 +19,9 @@ namespace SuperZTP.Model
         public Category Category { get; set; }
         public DateTime Deadline { get; set; }
         public string Priority { get; set; }
-        public bool IsDone { get; set; }
+        
+        //public bool IsDone { get; set; }
+        public ITaskState taskState { get; set; }
 
         public Task() { }
 
@@ -32,7 +34,7 @@ namespace SuperZTP.Model
             Category = category;
             Deadline = deadline;
             Priority = priority;
-            IsDone = false;
+            //IsDone = false;
         }
 
         // Metody do ustawiania terminów, priorytetów i oznaczania jako wykonane
@@ -75,7 +77,7 @@ namespace SuperZTP.Model
                 Category = new Category(values[4]),
                 Deadline = DateTime.Parse(values[5]),
                 Priority = values[6],
-                IsDone = bool.Parse(values[7])
+                //IsDone = bool.Parse(values[7])
             };
         }
     }
