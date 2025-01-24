@@ -57,20 +57,4 @@
 		public string ButtonLabel => "Completed";
 		public bool IsButtonEnabled => false;
 	}
-
-	public ITaskState WhichState(string name)
-		{
-			switch (name)
-			{
-				case "Not started":
-					return new NotStarted();
-				case "In progress":
-					return new InProgress();
-				case "Completed":
-					return new Completed();
-				default:
-					return new NotStarted();
-			}
-		}
-
-	}
+}

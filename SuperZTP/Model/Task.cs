@@ -19,15 +19,13 @@ namespace SuperZTP.Model
         public Category Category { get; set; }
         public DateTime Deadline { get; set; }
         public string Priority { get; set; }
-        
-        //public bool IsDone { get; set; }
-        //public ITaskState CurrentState { get; set; }
 
-        public bool IsDone { get; set; }
+        public ITaskState CurrentState { get; set; }
+
         public bool IsHeader { get; set; } = false;
         public Task() { }
 
-        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority)
+        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority, ITaskState CurrentState)
         {
             Id = id;
             Title = title;
@@ -37,6 +35,7 @@ namespace SuperZTP.Model
             Deadline = deadline;
             Priority = priority;
             CurrentState = new NotStarted();
+
         }
 
         // Metody do ustawiania terminów, priorytetów i oznaczania jako wykonane
@@ -50,12 +49,7 @@ namespace SuperZTP.Model
             Priority = priority;
         }
 
-        //public void MarkAsDone()
-        //{
-        //    IsDone = true;
-        //}
-
-        // Tworzy nowy status
+        //Tworzy nowy status
         public void ChangeState(ITaskState newState)
         {
             CurrentState = newState;
@@ -72,10 +66,28 @@ namespace SuperZTP.Model
             return $"{Id};{Title};{Description};{Tag?.Name};{Category?.Name};{Deadline:yyyy-MM-dd};{Priority};{CurrentState}";
         }
 
-        // Wczytywanie z pliku:
-        public static Task FromFile(string line)
+
+		// Wczytywanie z pliku:
+		public static Task FromFile(string line)
         {
             var values = line.Split(';');
+            var stateName = values[7]; // 8 column in file
+
+            ITaskState state = null;
+
+            switch (stateName)
+            {
+                case "In progress":
+                    state = new InProgress();
+                    break;
+                case "Completed":
+                    state = new Completed();
+                    break;
+                default:
+                    state = new NotStarted();
+                    break;
+            }
+
             return new Task
             {
                 Id = int.Parse(values[0]),
@@ -85,8 +97,7 @@ namespace SuperZTP.Model
                 Category = new Category(values[4]),
                 Deadline = DateTime.Parse(values[5]),
                 Priority = values[6],
-                //IsDone = bool.Parse(values[7])
-                CurrentState = 
+                CurrentState = state
             };
         }
     }
