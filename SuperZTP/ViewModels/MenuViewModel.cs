@@ -23,7 +23,7 @@ namespace SuperZTP.ViewModels
         public MenuViewModel(SelectedTaskStore _selectedTaskStore, TaskState taskState)
         {
             _invoker = new CommandInvoker();
-            DisplayTasksViewModel = new DisplayTasksViewModel(_selectedTaskStore, taskState.Tasks, _invoker);
+            DisplayTasksViewModel = new DisplayTasksViewModel(_selectedTaskStore, taskState, _invoker);
             TaskDetailsViewModel = new TaskDetailsViewModel(_selectedTaskStore);
 
             AddTaskCommand = new RelayCommand(() => OpenAddTaskWindow(taskState));

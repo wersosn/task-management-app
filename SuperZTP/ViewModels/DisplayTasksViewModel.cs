@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SuperZTP.Command;
+using SuperZTP.Facade;
 using SuperZTP.Model;
 using SuperZTP.Stores;
 using Task = SuperZTP.Model.Task;
@@ -12,7 +13,7 @@ namespace SuperZTP.ViewModels
     public class DisplayTasksViewModel : BaseViewModel
     {
         private readonly SelectedTaskStore _selectedTaskStore;
-        private readonly List<Task> _tasks;
+        private readonly TaskState _taskState;
         private readonly CommandInvoker _invoker;
         private readonly ObservableCollection<DisplayTaskPreviewViewModel> _previews;
         public IEnumerable<DisplayTaskPreviewViewModel> Previews => _previews;
@@ -29,10 +30,10 @@ namespace SuperZTP.ViewModels
             }
         }
 
-        public DisplayTasksViewModel(SelectedTaskStore selectedTaskStore, List<Task> tasks, CommandInvoker invoker)
+        public DisplayTasksViewModel(SelectedTaskStore selectedTaskStore, TaskState state, CommandInvoker invoker)
         {
             _selectedTaskStore = selectedTaskStore;
-            _tasks = tasks;
+            _taskState = state;
             _invoker = invoker;
             _previews = new ObservableCollection<DisplayTaskPreviewViewModel>();
 
@@ -43,9 +44,9 @@ namespace SuperZTP.ViewModels
         public void RefreshTasks()
         {
             _previews.Clear();
-            foreach (var task in _tasks)
+            foreach (var task in _taskState.Tasks)
             {
-                _previews.Add(new DisplayTaskPreviewViewModel(task, _tasks, _invoker, RefreshTasks));
+                _previews.Add(new DisplayTaskPreviewViewModel(task, _taskState, _invoker, RefreshTasks));
             }
             OnPropertyChanged(nameof(Previews));
         }
