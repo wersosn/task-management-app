@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.EMMA;
 using SuperZTP.Command;
 using SuperZTP.Decorator;
 using SuperZTP.Facade;
@@ -12,6 +13,9 @@ using SuperZTP.Stores;
 using SuperZTP.Views;
 using Task = SuperZTP.Model.Task;
 using SuperZTP.Builder;
+using System.ComponentModel;
+using System.Globalization;
+using System.Windows.Data;
 
 namespace SuperZTP.ViewModels
 {
@@ -25,13 +29,22 @@ namespace SuperZTP.ViewModels
         //Enums dla filtrów
         public IList<string> AvailableCategories { get; }
         public IList<string> AvailableTags { get; }
-        
+        public IList<GroupingOption> AvailableGroups { get; } = new List<GroupingOption>
+        {
+            GroupingOption.NoGroup,
+            GroupingOption.GroupByCategory,
+            GroupingOption.GroupByTag
+        };
+        public static string GetEnumDescription(Enum value)
+        {
+            var field = value.GetType().GetField(value.ToString());
+            var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
+            return attribute != null ? attribute.Description : value.ToString();
+        }
+       
         // Komendy do stosowania filtrów
-        public System.Windows.Input.ICommand ApplyTitleFilterCommand { get; }
-        public System.Windows.Input.ICommand ApplyCategoryFilterCommand { get; }
-        public System.Windows.Input.ICommand ApplyTagFilterCommand { get; }
-        public System.Windows.Input.ICommand ApplyDueDateFilterCommand { get; }
         public System.Windows.Input.ICommand ClearFiltersCommand { get; }
+        public System.Windows.Input.ICommand ApplyAllFiltersCommand { get; }
 
         public System.Windows.Input.ICommand AddTaskCommand { get; }
 
@@ -44,7 +57,6 @@ namespace SuperZTP.ViewModels
 
             DisplayTasksViewModel = new DisplayTasksViewModel(_selectedTaskStore, taskState, _invoker, this);
             TaskDetailsViewModel = new TaskDetailsViewModel(_selectedTaskStore);
-
             AddTaskCommand = new RelayCommand(() => OpenAddTaskWindow(taskState));
 
             // Inicjalizacja dostępnych opcji filtrów
@@ -52,11 +64,8 @@ namespace SuperZTP.ViewModels
             AvailableTags = taskState.Tags.Select(c => c.Name.TrimStart()).ToList();
 
             // Inicjalizacja komend filtrów
-            ApplyTitleFilterCommand = new RelayCommand(() => _filterManager.ApplyTitleFilter(SelectedTitle));
-            ApplyCategoryFilterCommand = new RelayCommand(() => _filterManager.ApplyCategoryFilter(SelectedCategory));
-            ApplyTagFilterCommand = new RelayCommand(() => _filterManager.ApplyTagFilter(SelectedTag));
-            ApplyDueDateFilterCommand = new RelayCommand(() => _filterManager.ApplyDueDateFilter(SelectedDueDate ?? DateTime.Now));
             ClearFiltersCommand = new RelayCommand(_filterManager.ClearFilters);
+            ApplyAllFiltersCommand = new RelayCommand(ApplyAllFilters);
         }
 
         private void OpenAddTaskWindow(TaskState taskState)
@@ -75,6 +84,18 @@ namespace SuperZTP.ViewModels
         }
 
         public event Action<ITaskFilter> FilterChanged;
+
+        /// <summary>
+        /// Zastosowanie wszystkich wybranych filtrów jednocześnie
+        /// </summary>
+        private void ApplyAllFilters()
+        {
+            _filterManager.ApplyTitleFilter(SelectedTitle);
+            _filterManager.ApplyCategoryFilter(SelectedCategory);
+            _filterManager.ApplyTagFilter(SelectedTag);
+            _filterManager.ApplyDueDateFilter(SelectedDueDate);
+            _filterManager.ApplayGroupFilter(SelectedGroupingOption);
+        }
 
         // Właściwości do przechowywania wybranych wartości filtrów
         private string _selectedTitle;
@@ -118,6 +139,16 @@ namespace SuperZTP.ViewModels
             {
                 _selectedDueDate = value;
                 OnPropertyChanged(nameof(SelectedDueDate));
+            }
+        }
+        private GroupingOption _selectedGroupingOption;
+        public GroupingOption SelectedGroupingOption
+        {
+            get => _selectedGroupingOption;
+            set
+            {
+                _selectedGroupingOption = value;
+                OnPropertyChanged(nameof(SelectedGroupingOption));
             }
         }
     }

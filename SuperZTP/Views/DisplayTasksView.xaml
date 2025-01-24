@@ -16,39 +16,55 @@
             <Grid>
                 <ListView BorderThickness="0" SelectedItem="{Binding SelectedTaskViewModel}" ItemsSource="{Binding Previews}">
                     <ListView.ItemContainerStyle>
-                        <Style>
-                            <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"></Setter>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border Padding="5 10" TextBlock.FontSize="16">
+                            <Border Padding="5 10">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Title}"></TextBlock>
+
+                                    <!-- Nagłówek kategorii -->
+                                    <TextBlock Grid.Column="0" 
+                                               Text="{Binding Title}" 
+                                               FontWeight="Bold"
+                                               FontSize="18"
+                                               Foreground="DarkBlue"
+                                               Padding="5"
+                                               Visibility="{Binding IsHeader, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                    <!-- Zwykły task -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Title}" FontSize="16"/>
+                                    </StackPanel>
+
+                                    <!-- Menu dla zwykłych tasków -->
                                     <custom:DropdownMenu Grid.Column="1"
-                                                         Margin="10 0 0 0">
+                                                         Margin="10 0 0 0"
+                                                         Visibility="{Binding IsHeader, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Invert}">
                                         <Border Background="White" 
                                                 BorderBrush="{DynamicResource BorderPrimary}"
                                                 BorderThickness="1">
                                             <StackPanel>
                                                 <StackPanel.Resources>
                                                     <Style TargetType="Button">
-                                                        <Setter Property="Background" Value="#f0f0f0"></Setter>
-                                                        <Setter Property="Foreground" Value="#333333"></Setter>
-                                                        <Setter Property="Padding" Value="15 5"></Setter>
-                                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                                        <Setter Property="Background" Value="#f0f0f0"/>
+                                                        <Setter Property="Foreground" Value="#333333"/>
+                                                        <Setter Property="Padding" Value="15 5"/>
+                                                        <Setter Property="Cursor" Value="Hand"/>
                                                     </Style>
                                                 </StackPanel.Resources>
-                                                <Button Content="Edit" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"></Button>
-                                                <Button Content="Delete" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"></Button>
-
+                                                <Button Content="Edit" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"/>
+                                                <Button Content="Delete" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"/>
                                             </StackPanel>
                                         </Border>
                                     </custom:DropdownMenu>
+
                                 </Grid>
                             </Border>
                         </DataTemplate>

@@ -30,9 +30,15 @@ namespace SuperZTP.Builder
             return this;
         }
 
-        public TaskFilterBuilder AddDueDateFilter(DateTime dueDate)
+        public TaskFilterBuilder AddDueDateFilter(DateTime? dueDate)
         {
             _currentFilter = new DueDateTaskFilter(dueDate, _currentFilter);
+            return this;
+        }
+
+        public TaskFilterBuilder AddGroupFilter(GroupingOption groupingOption)
+        {
+            _currentFilter = new GroupTaskFilter(groupingOption, _currentFilter);
             return this;
         }
 

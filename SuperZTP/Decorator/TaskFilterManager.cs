@@ -31,9 +31,15 @@ namespace SuperZTP.Decorator
             NotifyFilterChanged();
         }
 
-        public void ApplyDueDateFilter(DateTime dueDate)
+        public void ApplyDueDateFilter(DateTime? dueDate)
         {
             _filterBuilder.AddDueDateFilter(dueDate);
+            NotifyFilterChanged();
+        }
+
+        public void ApplayGroupFilter(GroupingOption groupingOption)
+        {
+            _filterBuilder.AddGroupFilter(groupingOption);
             NotifyFilterChanged();
         }
 

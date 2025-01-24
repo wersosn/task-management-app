@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using SuperZTP.Model;
 using Task = SuperZTP.Model.Task;
 
@@ -24,23 +25,6 @@ namespace SuperZTP.Decorator
         }
 
         protected abstract IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks);
-    }
-    public class TaskPropertyFilter<T> : TaskFilterDecorator
-    {
-        private readonly Func<Task, T> _propertySelector;
-        private readonly T _value;
-
-        public TaskPropertyFilter(Func<Task, T> propertySelector, T value, ITaskFilter nextFilter = null)
-            : base(nextFilter)
-        {
-            _propertySelector = propertySelector ?? throw new ArgumentNullException(nameof(propertySelector));
-            _value = value;
-        }
-
-        protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
-        {
-            return tasks.Where(task => EqualityComparer<T>.Default.Equals(_propertySelector(task), _value));
-        }
     }
 
     public class TitleTaskFilter : TaskFilterDecorator
@@ -105,17 +89,70 @@ namespace SuperZTP.Decorator
 
     public class DueDateTaskFilter : TaskFilterDecorator
     {
-        private readonly DateTime _dueDate;
+        private readonly DateTime? _dueDate;
 
-        public DueDateTaskFilter(DateTime dueDate, ITaskFilter nextFilter = null)
+        public DueDateTaskFilter(DateTime? dueDate, ITaskFilter nextFilter = null)
             : base(nextFilter)
         {
+
             _dueDate = dueDate;
         }
 
         protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
         {
-            return tasks.Where(task => task.Deadline.Date == _dueDate.Date);
+            if (_dueDate == null)
+            {
+                return tasks;
+            }
+            return tasks.Where(task => task.Deadline.Date == _dueDate.GetValueOrDefault());
+        }
+    }
+
+    public class GroupTaskFilter : TaskFilterDecorator
+    {
+        private GroupingOption _groupingOption;
+
+        public GroupTaskFilter(GroupingOption groupingOption, ITaskFilter nextFilter = null)
+            : base(nextFilter)
+        {
+
+            _groupingOption = groupingOption;
+        }
+
+        protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
+        {
+            if (tasks == null)
+            {
+                return tasks;
+            }
+
+            return _groupingOption switch
+            {
+                GroupingOption.GroupByCategory => tasks
+                    .GroupBy(t => t.Category?.Name ?? "Brak kategorii")
+                    .OrderBy(g => g.Key)
+                    .SelectMany(g => GetCategoryGroupedTasks(g.Key, g))
+                    .ToList(),
+
+                GroupingOption.GroupByTag => tasks
+                    .GroupBy(t => t.Tag?.Name ?? "Brak tagu")
+                    .OrderBy(g => g.Key)
+                    .SelectMany(g => g)
+                    .ToList(),
+
+                _ => tasks
+            };
+        }
+
+        private IEnumerable<Task> GetCategoryGroupedTasks(string category, IEnumerable<Task> tasks)
+        {
+            var headerTask = new Task
+            {
+                Title = $"--- {category} ---", // Nagłówek z nazwą kategorii
+                IsHeader = true // Nowa właściwość do oznaczania nagłówków
+            };
+
+            return new[] { headerTask }.Concat(tasks);
         }
     }
 

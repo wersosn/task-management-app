@@ -33,22 +33,31 @@
 
             <!-- Filtr tytułu -->
             <TextBox Width="150" Text="{Binding SelectedTitle, Mode=TwoWay}"/>
-            <Button Content="Apply Title" Command="{Binding ApplyTitleFilterCommand}" Margin="5"/>
 
             <!-- Filtr kategorii -->
             <ComboBox Width="150" ItemsSource="{Binding AvailableCategories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/>
-            <Button Content="Apply Category" Command="{Binding ApplyCategoryFilterCommand}" Margin="5"/>
+
+            <ComboBox ItemsSource="{Binding AvailableGroups}" 
+                      SelectedItem="{Binding SelectedGroupingOption, Mode=TwoWay}"
+                      Width="150">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <!-- Filtr tagów -->
             <ComboBox Width="150" ItemsSource="{Binding AvailableTags}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}"/>
-            <Button Content="Apply Tag" Command="{Binding ApplyTagFilterCommand}" Margin="5"/>
 
             <!-- Filtr terminu wykonania -->
             <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="150"/>
-            <Button Content="Apply Date" Command="{Binding ApplyDueDateFilterCommand}" Margin="5"/>
 
+            <Button Content="Apply Filters" Command="{Binding ApplyAllFiltersCommand}" Foreground="MediumSeaGreen" Margin="5"/>
+            
             <!-- Resetowanie filtrów -->
             <Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Foreground="Red" Margin="5"/>
+
         </StackPanel>
 
 

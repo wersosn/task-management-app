@@ -23,6 +23,7 @@ namespace SuperZTP.ViewModels
         public string Title => Task.Title;
         public System.Windows.Input.ICommand EditCommand { get; }
         public System.Windows.Input.ICommand DeleteCommand { get; }
+        public bool IsHeader { get; set; } = false;
         public DisplayTaskPreviewViewModel(Task task, TaskState state, CommandInvoker invoker, Action refreshMenu)
         {
             Task = task;
