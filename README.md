@@ -14,7 +14,7 @@ Version: [Polish](#Aplikacja-do-zarządzania-notatkami-i-zadaniami) | [English](
 Projekt został wykonany przez poniżej wymienione osoby:
  - [Ing862](https://github.com/Ing862) -
  - [wersosn](https://github.com/wersosn) - zaimplementowała 3 wzorce projektowe - Builder, Command oraz Template Method
- - [Gaspek](https://github.com/Gaspek) -
+ - [Gaspek](https://github.com/Gaspek) - zaimplementował strukturę projektu MVVM, store, observer, decorator, builder filtrów
  - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - zaimplementował wzorzec Proxy
 
 ## Opis projektu

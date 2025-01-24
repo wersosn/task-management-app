@@ -21,8 +21,10 @@ namespace SuperZTP.Model
         public string Priority { get; set; }
         
         //public bool IsDone { get; set; }
-        public ITaskState CurrentState { get; set; }
+        //public ITaskState CurrentState { get; set; }
 
+        public bool IsDone { get; set; }
+        public bool IsHeader { get; set; } = false;
         public Task() { }
 
         public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority)

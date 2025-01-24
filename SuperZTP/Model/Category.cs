@@ -25,5 +25,10 @@ namespace SuperZTP.Model
         {
             return new Category(fileLine);
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

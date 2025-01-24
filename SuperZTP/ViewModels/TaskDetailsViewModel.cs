@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 using SuperZTP.Stores;
 
 namespace SuperZTP.ViewModels
@@ -14,7 +15,7 @@ namespace SuperZTP.ViewModels
         public string Title => _selectedTaskStore.SelectedTask?.Title;
         public string Description => _selectedTaskStore.SelectedTask?.Description;
         public DateTime Date => _selectedTaskStore.SelectedTask?.Deadline ?? DateTime.Now;
-        public string Category => _selectedTaskStore.SelectedTask?.Category.Name;
+        public string Category => _selectedTaskStore.SelectedTask?.Category?.Name.Trim() ?? null;
 
         //public string Status => _selectedTaskStore.SelectedTask?.CurrentState.;
 
