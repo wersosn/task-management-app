@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperZTP.Model
+﻿namespace SuperZTP.Model
 {
 	public interface ITaskState
 	{
@@ -64,5 +58,19 @@ namespace SuperZTP.Model
 		public bool IsButtonEnabled => false;
 	}
 
-	
-}
+	public ITaskState WhichState(string name)
+		{
+			switch (name)
+			{
+				case "Not started":
+					return new NotStarted();
+				case "In progress":
+					return new InProgress();
+				case "Completed":
+					return new Completed();
+				default:
+					return new NotStarted();
+			}
+		}
+
+	}
