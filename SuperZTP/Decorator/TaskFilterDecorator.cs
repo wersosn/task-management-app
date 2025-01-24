@@ -149,7 +149,8 @@ namespace SuperZTP.Decorator
             var headerTask = new Task
             {
                 Title = $"--- {category} ---", // Nagłówek z nazwą kategorii
-                IsHeader = true // Nowa właściwość do oznaczania nagłówków
+                IsHeader = true, // Nowa właściwość do oznaczania nagłówków
+                Category = new Category(category)
             };
 
             return new[] { headerTask }.Concat(tasks);
