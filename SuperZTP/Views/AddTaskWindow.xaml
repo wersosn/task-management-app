@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
-        Title="Dodaj zadanie" Height="450" Width="800">
+        Title="Dodaj zadanie" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Tytuł zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
         <TextBox Name="TitleTextBox" HorizontalAlignment="Left" Margin="120,20,0,0" VerticalAlignment="Top" Width="200" Height="25"/>

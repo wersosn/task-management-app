@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SuperZTP"
         xmlns:views="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
-        Title="Zarządzanie Terminami i Planami" Height="800" Width="1000">
+        Title="Zarządzanie Terminami i Planami" MinHeight="600" MinWidth="800" SizeToContent="WidthAndHeight"
+        WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen">
 <Grid Margin="10">
     <views:MenuView />
 </Grid>
