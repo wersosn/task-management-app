@@ -14,7 +14,7 @@ namespace SuperZTP.ViewModels
         public string Title => _selectedTaskStore.SelectedTask?.Title;
         public string Description => _selectedTaskStore.SelectedTask?.Description;
         public DateTime Date => _selectedTaskStore.SelectedTask?.Deadline ?? DateTime.Now;
-        public string Category => _selectedTaskStore.SelectedTask?.Category.Name;
+        public string Category => _selectedTaskStore.SelectedTask?.Category.Name.Trim();
 
         public TaskDetailsViewModel(SelectedTaskStore selectedTaskStore)
         {

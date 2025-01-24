@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SuperZTP.Command;
+using SuperZTP.Decorator;
 using SuperZTP.Facade;
 using SuperZTP.Model;
 using SuperZTP.Stores;
@@ -29,27 +30,37 @@ namespace SuperZTP.ViewModels
                 _selectedTaskStore.SelectedTask = _selectedTaskViewModel?.Task;
             }
         }
-
-        public DisplayTasksViewModel(SelectedTaskStore selectedTaskStore, TaskState state, CommandInvoker invoker)
+        private ITaskFilter _currentFilter;
+        public DisplayTasksViewModel(SelectedTaskStore selectedTaskStore, TaskState state, CommandInvoker invoker,MenuViewModel menuViewModel)
         {
             _selectedTaskStore = selectedTaskStore;
             _taskState = state;
             _invoker = invoker;
             _previews = new ObservableCollection<DisplayTaskPreviewViewModel>();
+            menuViewModel.FilterChanged += ApplyFilter;
 
             RefreshTasks();
         }
 
-        /// Odświeża listę tasków w `Previews`
+        /// Odświeża listę tasków w `Previews` zgodnie z aktywnym filtrem.
         public void RefreshTasks()
         {
             _previews.Clear();
-            foreach (var task in _taskState.Tasks)
+            IEnumerable<Task> filteredTasks = _currentFilter?.ApplyFilter(_taskState.Tasks) ?? _taskState.Tasks;
+            foreach (var task in filteredTasks)
             {
                 _previews.Add(new DisplayTaskPreviewViewModel(task, _taskState, _invoker, RefreshTasks));
             }
             OnPropertyChanged(nameof(Previews));
         }
 
+        /// <summary>
+        /// Stosuje aktywny filtr.
+        /// </summary>
+        private void ApplyFilter(ITaskFilter filter)
+        {
+            _currentFilter = filter;
+            RefreshTasks();
+        }
     }
 }
