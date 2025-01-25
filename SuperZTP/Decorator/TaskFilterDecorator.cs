@@ -137,7 +137,7 @@ namespace SuperZTP.Decorator
                 GroupingOption.GroupByTag => tasks
                     .GroupBy(t => t.Tag?.Name ?? "Brak tagu")
                     .OrderBy(g => g.Key)
-                    .SelectMany(g => g)
+                    .SelectMany(g => GetTagGroupedTasks(g.Key, g))
                     .ToList(),
 
                 _ => tasks
@@ -148,9 +148,22 @@ namespace SuperZTP.Decorator
         {
             var headerTask = new Task
             {
-                Title = $"--- {category} ---", // Nagłówek z nazwą kategorii
+                Title = $"--- {category.Trim()} ---", // Nagłówek z nazwą kategorii
                 IsHeader = true, // Nowa właściwość do oznaczania nagłówków
-                Category = new Category(category)
+                Category = new Category(category),
+                Tag = new Tag("")
+            };
+
+            return new[] { headerTask }.Concat(tasks);
+        }
+        private IEnumerable<Task> GetTagGroupedTasks(string tag, IEnumerable<Task> tasks)
+        {
+            var headerTask = new Task
+            {
+                Title = $"--- {tag.Trim()} ---", // Nagłówek z nazwą kategorii
+                IsHeader = true, // Nowa właściwość do oznaczania nagłówków
+                Tag = new Tag(tag),
+                Category = new Category("")
             };
 
             return new[] { headerTask }.Concat(tasks);

@@ -90,6 +90,7 @@ namespace SuperZTP.ViewModels
         /// </summary>
         private void ApplyAllFilters()
         {
+            _filterManager.ClearFilters();
             _filterManager.ApplyTitleFilter(SelectedTitle);
             _filterManager.ApplyCategoryFilter(SelectedCategory);
             _filterManager.ApplyTagFilter(SelectedTag);

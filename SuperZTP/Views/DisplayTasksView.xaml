@@ -45,8 +45,7 @@
 
                                     <!-- Menu dla zwykłych tasków -->
                                     <custom:DropdownMenu Grid.Column="1"
-                                                         Margin="10 0 0 0"
-                                                         Visibility="{Binding IsHeader, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Invert}">
+                                                         Margin="10 0 0 0">
                                         <Border Background="White" 
                                                 BorderBrush="{DynamicResource BorderPrimary}"
                                                 BorderThickness="1">
