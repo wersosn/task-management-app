@@ -86,6 +86,7 @@
 
             <local:DisplayTasksView Grid.Column="0" DataContext="{Binding DisplayTasksViewModel}"/>
             <local:TaskDetailsView Grid.Column="1" Margin="10 0 0 0" DataContext="{Binding TaskDetailsViewModel}"/>
+            <local:NoteDetailsView Grid.Column="1" Margin="10 0 0 0" DataContext="{Binding NoteDetailsViewModel}"/>
         </Grid>
     </Grid>
 </UserControl>

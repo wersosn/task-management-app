@@ -26,6 +26,7 @@ namespace SuperZTP.ViewModels
     {
         public DisplayTasksViewModel DisplayTasksViewModel { get; }
         public TaskDetailsViewModel TaskDetailsViewModel { get; }
+        public NoteDetailsViewModel NoteDetailsViewModel { get; }
         private readonly CommandInvoker _invoker;
         private readonly TaskFilterManager _filterManager;
         public GenerateTXT txt;
@@ -66,6 +67,7 @@ namespace SuperZTP.ViewModels
 
             DisplayTasksViewModel = new DisplayTasksViewModel(_selectedTaskStore, taskState, _invoker, this);
             TaskDetailsViewModel = new TaskDetailsViewModel(_selectedTaskStore);
+            NoteDetailsViewModel = new NoteDetailsViewModel(_selectedTaskStore);
             AddTaskCommand = new RelayCommand(() => OpenAddTaskWindow(taskState));
 
             // Inicjalizacja dostępnych opcji filtrów

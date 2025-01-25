@@ -27,7 +27,22 @@ namespace SuperZTP.ViewModels
             {
                 _selectedTaskViewModel = value;
                 OnPropertyChanged(nameof(SelectedTaskViewModel));
-                _selectedTaskStore.SelectedTask = _selectedTaskViewModel?.Task;
+
+                if (_selectedTaskViewModel?.Task != null)
+                {
+                    _selectedTaskStore.SelectedTask = _selectedTaskViewModel.Task;
+                    _selectedTaskStore.SelectedNote = null;
+                }
+                else if (_selectedTaskViewModel?.Note != null)
+                {
+                    _selectedTaskStore.SelectedNote = _selectedTaskViewModel.Note;
+                    _selectedTaskStore.SelectedTask = null;
+                }
+                else
+                {
+                    _selectedTaskStore.SelectedTask = null;
+                    _selectedTaskStore.SelectedNote = null;
+                }
             }
         }
         private ITaskFilter _currentFilter;
@@ -46,19 +61,35 @@ namespace SuperZTP.ViewModels
         public void RefreshTasks()
         {
             _previews.Clear();
-            _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Zadania--"), _taskState, _invoker, RefreshTasks));
             IEnumerable<Task> filteredTasks = _currentFilter?.ApplyFilter(_taskState.Tasks) ?? _taskState.Tasks;
-            foreach (var task in filteredTasks)
+            if (filteredTasks.Any())
             {
-                _previews.Add(new DisplayTaskPreviewViewModel(task, _taskState, _invoker, RefreshTasks));
+                _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Zadania--"), _taskState, _invoker,
+                    RefreshTasks));
+                foreach (var task in filteredTasks)
+                {
+                    _previews.Add(new DisplayTaskPreviewViewModel(task, _taskState, _invoker, RefreshTasks));
+                }
             }
+
             IEnumerable<Note> filteredNotes = _taskState.Notes;
-            _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Notatki--"), _taskState, _invoker, RefreshTasks));
-            foreach (var note in filteredNotes)
+            if (filteredNotes.Any())
             {
-                _previews.Add(new DisplayTaskPreviewViewModel(note, _taskState, _invoker, RefreshTasks));
+                _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Notatki--"), _taskState, _invoker,
+                    RefreshTasks));
+                foreach (var note in filteredNotes)
+                {
+                    _previews.Add(new DisplayTaskPreviewViewModel(note, _taskState, _invoker, RefreshTasks));
+                }
+
+                OnPropertyChanged(nameof(Previews));
             }
-            OnPropertyChanged(nameof(Previews));
+
+            if (!filteredTasks.Any() && !filteredNotes.Any())
+            {
+                _previews.Add(new DisplayTaskPreviewViewModel(new Header("Brak zadań oraz notatek"), _taskState, _invoker,
+                    RefreshTasks));
+            }
         }
 
         /// <summary>

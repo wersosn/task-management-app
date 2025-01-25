@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SuperZTP.Views.TaskDetailsView"
+﻿<UserControl x:Class="SuperZTP.Views.NoteDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,25 +15,14 @@
             CornerRadius="5"
             Padding="15">
             <Grid>
-                <Grid>
-                    <Grid.Style>
-                        <Style TargetType="Grid">
-                            <Setter Property="Visibility" Value="Collapsed"></Setter>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasNoSelection}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
-                    <TextBlock>Select Task or Note to see deatils</TextBlock>
-                </Grid>
+
+                <!-- Note Details -->
                 <Grid Grid.IsSharedSizeScope="True">
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Setter Property="Visibility" Value="Collapsed"></Setter>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasSelectedTask}" Value="True">
+                                <DataTrigger Binding="{Binding HasSelectedNote}" Value="True">
                                     <Setter Property="Visibility" Value="Visible"></Setter>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -43,41 +32,19 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
+                    <!-- Title -->
                     <TextBlock FontSize="24"
                                Text="{Binding Title}" />
+
+                    <!-- Description -->
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Category:"
-                                   FontWeight="Bold" Margin="0 0 5 0" />
-                        <TextBlock Grid.Column="1"
-                                   FontSize="16"
-                                   Text="{Binding Category}" />
-                    </Grid>
-
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Deadline:" FontSize="16"
-                                   FontWeight="Bold" Margin="0 0 5 0" />
-                        <TextBlock Grid.Column="1"
-                                   FontSize="16"
-                                   Text="{Binding Date}" />
-                    </Grid>
-
-                    <Grid Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Description:" FontSize="16"
+                        <TextBlock Grid.Column="0" Text="Content:"
                                    FontWeight="Bold" Margin="0 0 5 0" />
                         <TextBlock Grid.Column="1"
                                    FontSize="16"
@@ -85,8 +52,20 @@
                                    Text="{Binding Description}" />
                     </Grid>
 
+                    <!-- Category -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Created:"
+                                   FontWeight="Bold" Margin="0 0 5 0" />
+                        <TextBlock Grid.Column="1"
+                                   FontSize="16"
+                                   Text="{Binding Category}" />
+                    </Grid>
                 </Grid>
             </Grid>
-            </Border>
+        </Border>
     </Grid>
 </UserControl>
