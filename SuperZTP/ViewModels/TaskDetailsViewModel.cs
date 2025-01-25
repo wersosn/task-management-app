@@ -18,6 +18,10 @@ namespace SuperZTP.ViewModels
         public string Description => _selectedTaskStore.SelectedTask?.Description;
         public DateTime Date => _selectedTaskStore.SelectedTask?.Deadline ?? DateTime.Now;
         public string Category => _selectedTaskStore.SelectedTask?.Category?.Name.Trim() ?? null;
+        public string Tag => _selectedTaskStore.SelectedTask?.Tag?.Name.Trim() ?? null;
+        public string Priority => _selectedTaskStore.SelectedTask?.Priority ?? null;
+        public string IsDone => _selectedTaskStore.SelectedTask?.IsDone == true ? "Ukończone" : "Nie ukończone";
+
 
         public TaskDetailsViewModel(SelectedTaskStore selectedTaskStore)
         {
@@ -35,7 +39,9 @@ namespace SuperZTP.ViewModels
             OnPropertyChanged(nameof(Description));
             OnPropertyChanged(nameof(Date));
             OnPropertyChanged(nameof(Category));
-
+            OnPropertyChanged(nameof(Tag));
+            OnPropertyChanged(nameof(Priority));
+            OnPropertyChanged(nameof(IsDone));
         }
 
         protected override void Dispose()
