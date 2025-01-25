@@ -18,13 +18,18 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Tasks" FontSize="32"/>
             <Button 
                 Grid.Column="1" 
-                Content="Add" 
+                Content="Dodaj zadanie" 
                 Command="{Binding AddTaskCommand}"/>
+            <Button 
+                Grid.Column="2" 
+                Content="Dodaj notatkę" 
+                Command="{Binding AddNoteCommand}"/>
         </Grid>
 
         <!-- Sekcja filtrów -->
@@ -34,32 +39,74 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10">
-                
-                <TextBlock Text="Filters:" FontSize="16" VerticalAlignment="Center" Margin="5"/>
 
-            <!-- Filtr tytułu -->
-            <TextBox Width="150" Text="{Binding SelectedTitle, Mode=TwoWay}"/>
-                <!-- Filtr kategorii -->
-                <ComboBox Width="150" ItemsSource="{Binding AvailableCategories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/>
+            <!--~1~ Filtr tytułu @1@
+                <StackPanel>
+                    <TextBlock>Filtr</TextBlock>
+                    <TextBox Width="150" Text="{Binding SelectedTitle, Mode=TwoWay}"/>
+                </StackPanel>-->
 
-                <ComboBox ItemsSource="{Binding AvailableGroups}" 
-                          SelectedItem="{Binding SelectedGroupingOption, Mode=TwoWay}"
+            <!-- Filtr sortowania -->
+            <StackPanel>
+                <TextBlock>Opcje sortowania</TextBlock>
+                    <ComboBox ItemsSource="{Binding AvaliableSortOptionsList}"
+                          SelectedItem="{Binding SelectedSort, Mode=TwoWay}"
                           Width="150">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+            </StackPanel>
+
+                <!-- Filtr grupowania -->
+                <StackPanel>
+                    <TextBlock>Opcje grupowania</TextBlock>
+                    <ComboBox ItemsSource="{Binding AvailableGroups}"
+                              SelectedItem="{Binding SelectedGroupingOption, Mode=TwoWay}"
+                              Width="150">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Filtr wykonania -->
+                <StackPanel>
+                    <TextBlock>Status wykonania</TextBlock>
+                    <ComboBox ItemsSource="{Binding AvaliableCompletionStatusList}" 
+                              SelectedItem="{Binding SelectedCompletionStatus, Mode=TwoWay}"
+                              Width="150">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Filtr kategorii -->
+                <StackPanel>
+                    <TextBlock>Kategoria</TextBlock>
+                    <ComboBox Width="150" ItemsSource="{Binding AvailableCategories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/>
+                </StackPanel>
 
                 <!-- Filtr tagów -->
-                <ComboBox Width="150" ItemsSource="{Binding AvailableTags}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}"/>
-
+                <StackPanel>
+                    <TextBlock>Tagi</TextBlock>
+                    <ComboBox Width="150" ItemsSource="{Binding AvailableTags}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}"/>
+                </StackPanel>
                 <!-- Filtr terminu wykonania -->
-                <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="150"/>
+                <StackPanel>
+                    <TextBlock>Wybierz termin wykonania</TextBlock>
+                    <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="150"/>
+                </StackPanel>
 
+                <!-- Zastosowanie filtrów -->
                 <Button Content="Apply Filters" Command="{Binding ApplyAllFiltersCommand}" Foreground="MediumSeaGreen" Margin="5"/>
-                
                 <!-- Resetowanie filtrów -->
                 <Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Foreground="Red" Margin="5"/>
 

@@ -42,6 +42,18 @@ namespace SuperZTP.Builder
             return this;
         }
 
+        public TaskFilterBuilder AddCompletionFilter(CompletionStatus completionStatus)
+        {
+            _currentFilter = new IsDoneFilter(completionStatus, _currentFilter);
+            return this;
+        }
+
+        public TaskFilterBuilder AddSortingFilter(SortOptions sortingOptions)
+        {
+            _currentFilter = new SortOptionDecorator(sortingOptions, _currentFilter);
+            return this;
+        }
+
         public TaskFilterBuilder ClearFilters()
         {
             _currentFilter = null;

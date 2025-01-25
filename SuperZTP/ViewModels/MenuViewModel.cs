@@ -42,6 +42,19 @@ namespace SuperZTP.ViewModels
             GroupingOption.GroupByCategory,
             GroupingOption.GroupByTag
         };
+
+        public IList<CompletionStatus> AvaliableCompletionStatusList { get; } = new List<CompletionStatus>
+        {
+            CompletionStatus.Default,
+            CompletionStatus.Completed,
+            CompletionStatus.NotCompleted,
+            CompletionStatus.ShowAll
+        };
+
+        public IList<SortOptions> AvaliableSortOptionsList { get; } =
+            Enum.GetValues(typeof(SortOptions))
+                .Cast<SortOptions>()
+                .ToList();
         public static string GetEnumDescription(Enum value)
         {
             var field = value.GetType().GetField(value.ToString());
@@ -54,6 +67,8 @@ namespace SuperZTP.ViewModels
         public System.Windows.Input.ICommand ApplyAllFiltersCommand { get; }
 
         public System.Windows.Input.ICommand AddTaskCommand { get; }
+        public System.Windows.Input.ICommand AddNoteCommand { get; }
+
 
         // Konstruktor
         public MenuViewModel(SelectedTaskStore _selectedTaskStore, TaskState taskState)
@@ -69,6 +84,7 @@ namespace SuperZTP.ViewModels
             TaskDetailsViewModel = new TaskDetailsViewModel(_selectedTaskStore);
             NoteDetailsViewModel = new NoteDetailsViewModel(_selectedTaskStore);
             AddTaskCommand = new RelayCommand(() => OpenAddTaskWindow(taskState));
+            AddNoteCommand = new RelayCommand(() => OpenAddNoteWindow(taskState));
 
             // Inicjalizacja dostępnych opcji filtrów
             AvailableCategories = taskState.Categories.Select(c => c.Name.TrimStart()).ToList();
@@ -86,6 +102,15 @@ namespace SuperZTP.ViewModels
             addTaskWindow.TaskAdded += DisplayTasksViewModel.RefreshTasks;
             addTaskWindow.ShowDialog();
             addTaskWindow.TaskAdded -= DisplayTasksViewModel.RefreshTasks;
+            // proxy.ClearTaskCache();
+        }
+        private void OpenAddNoteWindow(TaskState taskState)
+        {
+
+            AddNoteWindow addNoteWindow = new AddNoteWindow(taskState.Notes, taskState.FileHandler, taskState.Categories, taskState.Tags);
+            addNoteWindow.NoteAdded += DisplayTasksViewModel.RefreshTasks;
+            addNoteWindow.ShowDialog();
+            addNoteWindow.NoteAdded -= DisplayTasksViewModel.RefreshTasks;
             // proxy.ClearTaskCache();
         }
 
@@ -106,6 +131,8 @@ namespace SuperZTP.ViewModels
             _filterManager.ApplyCategoryFilter(SelectedCategory);
             _filterManager.ApplyTagFilter(SelectedTag);
             _filterManager.ApplyDueDateFilter(SelectedDueDate);
+            _filterManager.ApplayCompletionFilter(SelectedCompletionStatus);
+            _filterManager.ApllySorting(SelectedSort);
             _filterManager.ApplayGroupFilter(SelectedGroupingOption);
         }
 
@@ -132,6 +159,17 @@ namespace SuperZTP.ViewModels
             }
         }
 
+        private SortOptions _selectedSort;
+        public SortOptions SelectedSort
+        {
+            get => _selectedSort;
+            set
+            {
+                _selectedSort = value;
+                OnPropertyChanged(nameof(SelectedSort));
+            }
+        }
+
         private string _selectedTag;
         public string SelectedTag
         {
@@ -153,6 +191,18 @@ namespace SuperZTP.ViewModels
                 OnPropertyChanged(nameof(SelectedDueDate));
             }
         }
+
+        private CompletionStatus _selectedCompletionStatus;
+        public CompletionStatus SelectedCompletionStatus
+        {
+            get => _selectedCompletionStatus;
+            set
+            {
+                _selectedCompletionStatus = value;
+                OnPropertyChanged(nameof(SelectedCompletionStatus));
+            }
+        }
+
         private GroupingOption _selectedGroupingOption;
         public GroupingOption SelectedGroupingOption
         {

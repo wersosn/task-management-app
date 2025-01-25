@@ -50,7 +50,7 @@ namespace SuperZTP.Views
             var selectedTag = selectedTagItem?.Tag as Tag;
 
             string priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString() ?? "Niski";
-            DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now; // Domyślnie bieżąca data, jeśli brak wyboru
+            DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now;
             bool isCompleted = IsCompletedCheckBox.IsChecked ?? false;
 
             var zadanie = taskBuilder
