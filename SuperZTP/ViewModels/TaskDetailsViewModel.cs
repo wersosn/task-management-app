@@ -17,7 +17,7 @@ namespace SuperZTP.ViewModels
         public DateTime Date => _selectedTaskStore.SelectedTask?.Deadline ?? DateTime.Now;
         public string Category => _selectedTaskStore.SelectedTask?.Category?.Name.Trim() ?? null;
 
-        //public string Status => _selectedTaskStore.SelectedTask?.CurrentState.;
+        public string Status => _selectedTaskStore.SelectedTask?.CurrentState?.GetStateName() ?? "Unknown";
 
 		public TaskDetailsViewModel(SelectedTaskStore selectedTaskStore)
         {
@@ -33,10 +33,12 @@ namespace SuperZTP.ViewModels
             OnPropertyChanged(nameof(Description));
             OnPropertyChanged(nameof(Date));
             OnPropertyChanged(nameof(Category));
+			OnPropertyChanged(nameof(Status));
 
-        }
 
-        protected override void Dispose()
+		}
+
+		protected override void Dispose()
         {
             _selectedTaskStore.SelectedTaskChanged -= _selectedTaskStore_SelectedTaskChanged;
 

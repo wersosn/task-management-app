@@ -96,6 +96,10 @@
                                    TextWrapping="WrapWithOverflow"
                                    Text="{Binding Description}" />
                     </Grid>
+                    <Button 
+                        Grid.Column="1" 
+                        Content="set as" 
+                        Command="{Binding ChangeStatusCommand}"/>
 
                 </Grid>
             </Grid>
