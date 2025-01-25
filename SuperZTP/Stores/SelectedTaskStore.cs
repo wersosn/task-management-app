@@ -11,6 +11,7 @@ namespace SuperZTP.Stores
     public class SelectedTaskStore
     {
         private Task _selectedTask;
+        private Note _selectedNote;
 
         public Task SelectedTask
         {
@@ -24,7 +25,17 @@ namespace SuperZTP.Stores
                 SelectedTaskChanged?.Invoke();
             }
         }
+        public Note SelectedNote
+        {
+            get => _selectedNote;
+            set
+            {
+                _selectedNote = value;
+                SelectedNoteChanged?.Invoke();
+            }
+        }
 
         public event Action SelectedTaskChanged;
+        public event Action SelectedNoteChanged;
     }
 }

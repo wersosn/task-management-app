@@ -25,7 +25,7 @@ namespace SuperZTP.Decorator
             NotifyFilterChanged();
         }
 
-        public void ApplyTagFilter(Tag tag)
+        public void ApplyTagFilter(string tag)
         {
             _filterBuilder.AddTagFilter(tag);
             NotifyFilterChanged();

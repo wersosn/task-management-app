@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperZTP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,24 @@ namespace SuperZTP.Views
         public MenuView()
         {
             InitializeComponent();
+        }
+
+        private void GenerateReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as MenuViewModel;
+            if (viewModel != null)
+            {
+                viewModel.GenerateSelectedReport();
+            }
+        }
+
+        private void GenerateSummaryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as MenuViewModel;
+            if (viewModel != null)
+            {
+                viewModel.GenerateSelectedSummary();
+            }
         }
     }
 }

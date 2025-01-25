@@ -20,13 +20,13 @@
                         <Style TargetType="Grid">
                             <Setter Property="Visibility" Value="Collapsed"></Setter>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasSelectedTask}" Value="False">
+                                <DataTrigger Binding="{Binding HasNoSelection}" Value="True">
                                     <Setter Property="Visibility" Value="Visible"></Setter>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
-                    <TextBlock>Select Task to see deatils</TextBlock>
+                    <TextBlock>Select Task or Note to see deatils</TextBlock>
                 </Grid>
                 <Grid Grid.IsSharedSizeScope="True">
                     <Grid.Style>

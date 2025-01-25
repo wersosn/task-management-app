@@ -16,15 +16,22 @@ using SuperZTP.Builder;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
+using SuperZTP.TemplateMethod;
+using System.Reflection.Metadata.Ecma335;
+using System.Windows;
 
 namespace SuperZTP.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
-        public DisplayTasksViewModel DisplayTasksViewModel { get; } 
+        public DisplayTasksViewModel DisplayTasksViewModel { get; }
         public TaskDetailsViewModel TaskDetailsViewModel { get; }
+        public NoteDetailsViewModel NoteDetailsViewModel { get; }
         private readonly CommandInvoker _invoker;
         private readonly TaskFilterManager _filterManager;
+        public GenerateTXT txt;
+        public GeneratePDF pdf;
+        public GenerateDOCX docx;
 
         //Enums dla filtrów
         public IList<string> AvailableCategories { get; }
@@ -41,7 +48,7 @@ namespace SuperZTP.ViewModels
             var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
             return attribute != null ? attribute.Description : value.ToString();
         }
-       
+
         // Komendy do stosowania filtrów
         public System.Windows.Input.ICommand ClearFiltersCommand { get; }
         public System.Windows.Input.ICommand ApplyAllFiltersCommand { get; }
@@ -54,9 +61,13 @@ namespace SuperZTP.ViewModels
             _invoker = new CommandInvoker();
             _filterManager = new TaskFilterManager();
             _filterManager.FilterChanged += OnFilterChanged;
+            txt = new GenerateTXT(taskState.Tasks);
+            pdf = new GeneratePDF(taskState.Tasks);
+            docx = new GenerateDOCX(taskState.Tasks);
 
             DisplayTasksViewModel = new DisplayTasksViewModel(_selectedTaskStore, taskState, _invoker, this);
             TaskDetailsViewModel = new TaskDetailsViewModel(_selectedTaskStore);
+            NoteDetailsViewModel = new NoteDetailsViewModel(_selectedTaskStore);
             AddTaskCommand = new RelayCommand(() => OpenAddTaskWindow(taskState));
 
             // Inicjalizacja dostępnych opcji filtrów
@@ -70,7 +81,7 @@ namespace SuperZTP.ViewModels
 
         private void OpenAddTaskWindow(TaskState taskState)
         {
-          
+
             AddTaskWindow addTaskWindow = new AddTaskWindow(taskState.Tasks, taskState.FileHandler, taskState.Categories, taskState.Tags);
             addTaskWindow.TaskAdded += DisplayTasksViewModel.RefreshTasks;
             addTaskWindow.ShowDialog();
@@ -90,6 +101,7 @@ namespace SuperZTP.ViewModels
         /// </summary>
         private void ApplyAllFilters()
         {
+            _filterManager.ClearFilters();
             _filterManager.ApplyTitleFilter(SelectedTitle);
             _filterManager.ApplyCategoryFilter(SelectedCategory);
             _filterManager.ApplyTagFilter(SelectedTag);
@@ -120,8 +132,8 @@ namespace SuperZTP.ViewModels
             }
         }
 
-        private Tag _selectedTag;
-        public Tag SelectedTag
+        private string _selectedTag;
+        public string SelectedTag
         {
             get => _selectedTag;
             set
@@ -150,6 +162,63 @@ namespace SuperZTP.ViewModels
                 _selectedGroupingOption = value;
                 OnPropertyChanged(nameof(SelectedGroupingOption));
             }
+        }
+
+        // Opcje raportów
+        public IList<string> AvailableReportTypes { get; } = new List<string>
+    {
+        "TXT",
+        "PDF",
+        "DOCX"
+    };
+
+        private string _selectedReportType;
+        public string SelectedReportType
+        {
+            get => _selectedReportType;
+            set
+            {
+                _selectedReportType = value;
+                OnPropertyChanged(nameof(SelectedReportType));
+            }
+        }
+
+        // Opcje podsumowań
+        public IList<string> AvailableSummaryTypes { get; } = new List<string>
+    {
+        "TXT",
+        "PDF",
+        "DOCX"
+    };
+
+        private string _selectedSummaryType;
+        public string SelectedSummaryType
+        {
+            get => _selectedSummaryType;
+            set
+            {
+                _selectedSummaryType = value;
+                OnPropertyChanged(nameof(SelectedSummaryType));
+            }
+        }
+
+        // Metody do generowania raportów
+        public void GenerateSelectedReport()
+        {
+            if (SelectedReportType == "TXT") txt.GenerateRaport("raportTXT.txt");
+            if (SelectedReportType == "PDF") pdf.GenerateRaport("raportPDF.pdf");
+            if (SelectedReportType == "DOCX") docx.GenerateRaport("raportDOCX.docx");
+
+            MessageBox.Show($"Wygenerowano raport w formacie {SelectedReportType}");
+        }
+
+        public void GenerateSelectedSummary()
+        {
+            if (SelectedSummaryType == "TXT") txt.GenerateSummary("podsumowanieTXT.txt");
+            if (SelectedSummaryType == "PDF") pdf.GenerateSummary("podsumowaniePDF.pdf");
+            if (SelectedSummaryType == "DOCX") docx.GenerateSummary("podsumowanieDOCX.docx");
+
+            MessageBox.Show($"Wygenerowano podsumowanie w formacie {SelectedSummaryType}");
         }
     }
 }

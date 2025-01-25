@@ -12,6 +12,8 @@ namespace SuperZTP.ViewModels
     {
         private readonly SelectedTaskStore _selectedTaskStore;
         public bool HasSelectedTask => _selectedTaskStore.SelectedTask != null;
+        public bool HasSelectedNote => _selectedTaskStore.SelectedNote != null;
+        public bool HasNoSelection => !HasSelectedTask && !HasSelectedNote;
         public string Title => _selectedTaskStore.SelectedTask?.Title;
         public string Description => _selectedTaskStore.SelectedTask?.Description;
         public DateTime Date => _selectedTaskStore.SelectedTask?.Deadline ?? DateTime.Now;
@@ -29,6 +31,8 @@ namespace SuperZTP.ViewModels
         private void _selectedTaskStore_SelectedTaskChanged()
         {
             OnPropertyChanged(nameof(HasSelectedTask));
+            OnPropertyChanged(nameof(HasSelectedNote));
+            OnPropertyChanged(nameof(HasNoSelection));
             OnPropertyChanged(nameof(Title));
             OnPropertyChanged(nameof(Description));
             OnPropertyChanged(nameof(Date));
