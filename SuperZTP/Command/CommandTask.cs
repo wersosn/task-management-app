@@ -30,11 +30,11 @@ namespace SuperZTP.Command
                 Description = newTask.Description,
                 Tag = newTask.Tag,
                 Category = newTask.Category,
-                CurrentState = newTask.CurrentState
-            };
+				CurrentState = newTask.CurrentState ?? new NotStarted()
+			};
             taskCopy.SetDeadline(newTask.Deadline);
             taskCopy.SetPriority(newTask.Priority);
-			taskCopy.ChangeState(newTask.CurrentState);
+			//taskCopy.ChangeState(newTask.CurrentState);
 			//if (newTask.IsDone)
 			//{
 			//    taskCopy.MarkAsDone();

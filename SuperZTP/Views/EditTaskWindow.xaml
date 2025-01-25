@@ -27,8 +27,7 @@
         </ComboBox>
         <Label Content="Termin zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,83,0,0"/>
         <DatePicker Name="DeadlineDatePicker" HorizontalAlignment="Left" Margin="490,85,0,0" VerticalAlignment="Top" Width="200" Height="30"/>
-        <Label Content="Status ukończenia:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,200,0,0"/>
-        <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" HorizontalAlignment="Left" Margin="156,206,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
+        
         <Button Name="AddTaskButton" Content="Zapisz zmiany" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="289,237,0,0" Click="SaveButton_Click"/>
         <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="400,237,0,0" />
     </Grid>

@@ -1,4 +1,6 @@
-﻿namespace SuperZTP.Model
+﻿using System.Windows.Navigation;
+
+namespace SuperZTP.Model
 {
 	public interface ITaskState
 	{
@@ -57,4 +59,5 @@
 		public string ButtonLabel => "Completed";
 		public bool IsButtonEnabled => false;
 	}
+
 }

@@ -25,7 +25,7 @@ namespace SuperZTP.Model
         public bool IsHeader { get; set; } = false;
         public Task() { }
 
-        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority, ITaskState CurrentState)
+        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority, ITaskState currentState)
         {
             Id = id;
             Title = title;
@@ -34,9 +34,9 @@ namespace SuperZTP.Model
             Category = category;
             Deadline = deadline;
             Priority = priority;
-            CurrentState = new NotStarted();
+			CurrentState = currentState ?? new NotStarted();
 
-        }
+		}
 
         // Metody do ustawiania terminów, priorytetów i oznaczania jako wykonane
         public void SetDeadline(DateTime deadline)
@@ -57,13 +57,15 @@ namespace SuperZTP.Model
 
         public override string ToString()
         {
-            return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}\nTermin: {Deadline}\nPriorytet: {Priority}\nStatus: {CurrentState}";
+			string state = CurrentState.GetStateName();
+			return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}\nTermin: {Deadline}\nPriorytet: {Priority}\nStatus: {state}";
         }
 
         // Zapisywanie do pliku (możliwe, że będzie zmienione):
         public string ToFile()
         {
-            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.Name};{Deadline:yyyy-MM-dd};{Priority};{CurrentState}";
+            string state = CurrentState.GetStateName();
+            return $"{Id};{Title};{Description};{Tag?.Name};{Category?.Name};{Deadline:yyyy-MM-dd};{Priority};{state}";
         }
 
 
@@ -71,7 +73,7 @@ namespace SuperZTP.Model
 		public static Task FromFile(string line)
         {
             var values = line.Split(';');
-            var stateName = values[7]; // 8 kolumna w wierszu pliku tekstowego
+            var stateName = values[7]; // 8
 
             ITaskState state = null;
 
