@@ -130,8 +130,8 @@ namespace SuperZTP.ViewModels
             }
         }
 
-        private Tag _selectedTag;
-        public Tag SelectedTag
+        private string _selectedTag;
+        public string SelectedTag
         {
             get => _selectedTag;
             set

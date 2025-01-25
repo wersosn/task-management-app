@@ -24,7 +24,7 @@ namespace SuperZTP.Builder
             return this;
         }
 
-        public TaskFilterBuilder AddTagFilter(Tag tag)
+        public TaskFilterBuilder AddTagFilter(string tag)
         {
             _currentFilter = new TagTaskFilter(tag, _currentFilter);
             return this;

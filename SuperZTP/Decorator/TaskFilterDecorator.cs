@@ -59,7 +59,7 @@ namespace SuperZTP.Decorator
 
         protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
         {
-            if (_category == null)
+            if (_category == null || _category == "")
             {
                 return tasks;
             }
@@ -69,9 +69,9 @@ namespace SuperZTP.Decorator
 
     public class TagTaskFilter : TaskFilterDecorator
     {
-        private readonly Tag _tag;
+        private readonly string _tag;
 
-        public TagTaskFilter(Tag tag, ITaskFilter nextFilter = null)
+        public TagTaskFilter(string tag, ITaskFilter nextFilter = null)
             : base(nextFilter)
         {
             _tag = tag;
@@ -79,11 +79,11 @@ namespace SuperZTP.Decorator
 
         protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
         {
-            if (_tag == null)
+            if (_tag == null || _tag == "")
             {
                 return tasks;
             }
-            return tasks.Where(task => task.Tag == _tag);
+            return tasks.Where(task => task.Tag.Name.Trim().Equals(_tag.Trim()));
         }
     }
 
