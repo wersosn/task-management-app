@@ -46,10 +46,17 @@ namespace SuperZTP.ViewModels
         public void RefreshTasks()
         {
             _previews.Clear();
+            _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Zadania--"), _taskState, _invoker, RefreshTasks));
             IEnumerable<Task> filteredTasks = _currentFilter?.ApplyFilter(_taskState.Tasks) ?? _taskState.Tasks;
             foreach (var task in filteredTasks)
             {
                 _previews.Add(new DisplayTaskPreviewViewModel(task, _taskState, _invoker, RefreshTasks));
+            }
+            IEnumerable<Note> filteredNotes = _taskState.Notes;
+            _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Notatki--"), _taskState, _invoker, RefreshTasks));
+            foreach (var note in filteredNotes)
+            {
+                _previews.Add(new DisplayTaskPreviewViewModel(note, _taskState, _invoker, RefreshTasks));
             }
             OnPropertyChanged(nameof(Previews));
         }

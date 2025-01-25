@@ -29,23 +29,37 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <!-- Nagłówek kategorii -->
+                                    <!-- Header -->
                                     <TextBlock Grid.Column="0" 
                                                Text="{Binding Title}" 
                                                FontWeight="Bold"
-                                               FontSize="18"
+                                               FontSize="24"
                                                Foreground="DarkBlue"
                                                Padding="5"
                                                Visibility="{Binding IsHeader, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-                                    <!-- Zwykły task -->
-                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <!-- Task -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" 
+                                                Visibility="{Binding IsTask, 
+                                                Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        
                                         <TextBlock Text="{Binding Title}" FontSize="16"/>
+
                                     </StackPanel>
 
-                                    <!-- Menu dla zwykłych tasków -->
+                                    <!-- Note -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                                Visibility="{Binding IsNote,
+                                                Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        
+                                        <TextBlock Text="{Binding Title}" FontSize="16" FontStyle="Italic" Foreground="Gray"/>
+
+                                    </StackPanel>
+
+                                    <!-- Menu dla tasków -->
                                     <custom:DropdownMenu Grid.Column="1"
-                                                         Margin="10 0 0 0">
+                                                         Margin="10 0 0 0"
+                                                         Visibility="{Binding IsTask, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Border Background="White" 
                                                 BorderBrush="{DynamicResource BorderPrimary}"
                                                 BorderThickness="1">

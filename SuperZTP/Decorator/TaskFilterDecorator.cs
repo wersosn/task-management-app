@@ -148,8 +148,8 @@ namespace SuperZTP.Decorator
         {
             var headerTask = new Task
             {
-                Title = $"--- {category.Trim()} ---", // Nagłówek z nazwą kategorii
-                IsHeader = true, // Nowa właściwość do oznaczania nagłówków
+                Title = $"--- {category.Trim()} ---", 
+                IsHeader = true, 
                 Category = new Category(category),
                 Tag = new Tag("")
             };
@@ -160,8 +160,8 @@ namespace SuperZTP.Decorator
         {
             var headerTask = new Task
             {
-                Title = $"--- {tag.Trim()} ---", // Nagłówek z nazwą kategorii
-                IsHeader = true, // Nowa właściwość do oznaczania nagłówków
+                Title = $"--- {tag.Trim()} ---",
+                IsHeader = true, 
                 Tag = new Tag(tag),
                 Category = new Category("")
             };

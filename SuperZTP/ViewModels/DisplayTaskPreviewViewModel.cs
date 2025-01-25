@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.ExtendedProperties;
 using DocumentFormat.OpenXml.Office2021.DocumentTasks;
 using SuperZTP.Command;
 using SuperZTP.Facade;
@@ -15,19 +16,50 @@ namespace SuperZTP.ViewModels
     public class DisplayTaskPreviewViewModel : BaseViewModel
     {
         private readonly List<Model.Task> _tasks;
+        private readonly List<Model.Note> _notes;
         private readonly TaskState _taskState;
         private readonly CommandInvoker _invoker;
         private readonly Action _refreshMenu;
 
         public Model.Task Task { get; }
-        public string Title => Task.Title;
+        public Model.Note Note { get; }
+        public Model.Header Header { get; }
+        public string Title => Task?.Title ?? Note?.Title ?? Header.Title;
         public System.Windows.Input.ICommand EditCommand { get; }
         public System.Windows.Input.ICommand DeleteCommand { get; }
-        public bool IsHeader { get; set; } = false;
+        public bool IsTask => Task != null;
+        public bool IsNote => Note != null;
+        public bool IsHeader => Header != null;
         public DisplayTaskPreviewViewModel(Task task, TaskState state, CommandInvoker invoker, Action refreshMenu)
         {
             Task = task;
             _tasks = state.Tasks;
+            _notes = state.Notes;
+            _taskState = state;
+            _invoker = invoker;
+            _refreshMenu = refreshMenu;
+
+            DeleteCommand = new RelayCommand(DeleteTaskCommand);
+            EditCommand = new RelayCommand(EditTaskCommand);
+        }
+        public DisplayTaskPreviewViewModel(Note note, TaskState state, CommandInvoker invoker, Action refreshMenu)
+        {
+            Note = note;
+            _tasks = state.Tasks;
+            _notes = state.Notes;
+            _taskState = state;
+            _invoker = invoker;
+            _refreshMenu = refreshMenu;
+
+            DeleteCommand = new RelayCommand(DeleteTaskCommand);
+            EditCommand = new RelayCommand(EditTaskCommand);
+        }
+
+        public DisplayTaskPreviewViewModel(Header header, TaskState state, CommandInvoker invoker, Action refreshMenu)
+        {
+            Header = header;
+            _tasks = state.Tasks;
+            _notes = state.Notes;
             _taskState = state;
             _invoker = invoker;
             _refreshMenu = refreshMenu;
