@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 using SuperZTP.Stores;
+using WpfCommand = System.Windows.Input.ICommand;
+
+using SuperZTP.Command;
 
 namespace SuperZTP.ViewModels
 {
@@ -21,14 +24,34 @@ namespace SuperZTP.ViewModels
 
         public string Status => _selectedTaskStore.SelectedTask?.CurrentState?.GetStateName() ?? "Unknown";
 
+		// do obsługi przycisku odznaczenia zadania
+		public WpfCommand ChangeStatusCommand { get; }
+		public string ButtonLabel => _selectedTaskStore.SelectedTask?.CurrentState?.ButtonLabel ?? "N/A";
+		public bool IsButtonEnabled => _selectedTaskStore.SelectedTask?.CurrentState?.IsButtonEnabled ?? false;
+
 		public TaskDetailsViewModel(SelectedTaskStore selectedTaskStore)
         {
             _selectedTaskStore = selectedTaskStore;
 
             _selectedTaskStore.SelectedTaskChanged += _selectedTaskStore_SelectedTaskChanged;
-        }
 
-        private void _selectedTaskStore_SelectedTaskChanged()
+
+			// Inicjalizacja komendy
+			ChangeStatusCommand = new RelayCommand(ChangeStatus, () => IsButtonEnabled);
+
+		}
+
+		private void ChangeStatus()
+		{
+			_selectedTaskStore.SelectedTask?.CurrentState?.Start(_selectedTaskStore.SelectedTask);
+
+			// Aktualizacja widoku
+			OnPropertyChanged(nameof(ButtonLabel));
+			OnPropertyChanged(nameof(IsButtonEnabled));
+			OnPropertyChanged(nameof(Status));
+		}
+
+		private void _selectedTaskStore_SelectedTaskChanged()
         {
             OnPropertyChanged(nameof(HasSelectedTask));
             OnPropertyChanged(nameof(HasSelectedNote));
@@ -39,7 +62,9 @@ namespace SuperZTP.ViewModels
             OnPropertyChanged(nameof(Category));
 			OnPropertyChanged(nameof(Status));
 
-
+			OnPropertyChanged(nameof(ButtonLabel));
+			OnPropertyChanged(nameof(IsButtonEnabled));
+		
 		}
 
 		protected override void Dispose()

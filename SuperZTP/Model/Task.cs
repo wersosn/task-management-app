@@ -57,7 +57,7 @@ namespace SuperZTP.Model
 
         public override string ToString()
         {
-            return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}\nTermin: {Deadline}\nPriorytet: {Priority}\nWykonane: {CurrentState}";
+            return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}\nTermin: {Deadline}\nPriorytet: {Priority}\nStatus: {CurrentState}";
         }
 
         // Zapisywanie do pliku (możliwe, że będzie zmienione):
@@ -71,7 +71,7 @@ namespace SuperZTP.Model
 		public static Task FromFile(string line)
         {
             var values = line.Split(';');
-            var stateName = values[7]; // 8 column in file
+            var stateName = values[7]; // 8 kolumna w wierszu pliku tekstowego
 
             ITaskState state = null;
 

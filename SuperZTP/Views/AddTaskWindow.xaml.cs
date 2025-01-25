@@ -51,22 +51,23 @@ namespace SuperZTP.Views
 
             string priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString() ?? "Niski";
             DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now; // Domyślnie bieżąca data, jeśli brak wyboru
-            bool isCompleted = IsCompletedCheckBox.IsChecked ?? false;
+           
 
             var zadanie = taskBuilder
                 .setTitle(title)
                 .setDescription(description)
                 .setTag(selectedTag ?? new Tag("Inna"))
                 .setCategory(selectedCategory ?? new Category("Inna"))
+                
                 .build();
 
             zadanie.Id = GetNextTaskId(tasks);
             zadanie.SetDeadline(selectedDate);
             zadanie.SetPriority(priority);
-            if (isCompleted)
-            {
-                zadanie.MarkAsDone();
-            }
+            //if (isCompleted)
+            //{
+            //    zadanie.MarkAsDone();
+            //}
 
             invoker.AddCommand(new AddTask(tasks, zadanie, RefreshTasks));
             invoker.Execute();

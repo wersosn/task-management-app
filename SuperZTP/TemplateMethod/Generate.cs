@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperZTP.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,8 +36,8 @@ namespace SuperZTP.TemplateMethod
         // Generowanie podsumowania
         public void GenerateSummary(string filepath)
         {
-            var completedTasks = tasks.Where(task => task.IsDone);
-            var overdueTasks = tasks.Where(task => !task.IsDone && task.Deadline < DateTime.Now);
+            var completedTasks = tasks.Where(task => task.CurrentState is Completed);
+            var overdueTasks = tasks.Where(task => !(task.CurrentState is Completed) && task.Deadline < DateTime.Now);
             var content1 = GenerateCompletedTasksReport(completedTasks);
             var content2 = GenerateOverdueTasksReport(overdueTasks);
             var content = content1 + content2;

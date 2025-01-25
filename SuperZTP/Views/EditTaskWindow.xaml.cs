@@ -37,7 +37,6 @@ namespace SuperZTP.Views
                 .Cast<ComboBoxItem>()
                 .FirstOrDefault(item => item.Content.ToString() == taskToEdit.Priority);
             DeadlineDatePicker.SelectedDate = taskToEdit.Deadline;
-            IsCompletedCheckBox.IsChecked = taskToEdit.IsDone;
             EditedTask = taskToEdit;
             this.fileHandler = fileHandler;
         }
@@ -56,7 +55,6 @@ namespace SuperZTP.Views
             }
             EditedTask.Priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString();
             EditedTask.Deadline = DeadlineDatePicker.SelectedDate ?? DateTime.Now;
-            EditedTask.IsDone = IsCompletedCheckBox.IsChecked ?? false;
             fileHandler.SaveTasksToFile("tasks.txt");
             DialogResult = true;
         }

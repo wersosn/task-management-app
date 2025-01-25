@@ -10,8 +10,9 @@ namespace SuperZTP.Model
     {
         int Id { get; }
         string Title { get; }
-        bool IsDone { get; }
-        void MarkAsDone();
+        //bool IsDone { get; }
+        ITaskState State { get; }
+        //void MarkAsDone();
         public string ToFile();
     }
 }

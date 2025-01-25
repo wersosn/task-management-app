@@ -35,6 +35,11 @@ namespace SuperZTP.Builder
             return this;
         }
 
+        public TaskBuilder setState(ITaskState currentState)
+        {
+            task.CurrentState = currentState;
+            return this;
+        }
         public Model.Task build()
         {
             return task;

@@ -29,15 +29,18 @@ namespace SuperZTP.Command
                 Title = newTask.Title,
                 Description = newTask.Description,
                 Tag = newTask.Tag,
-                Category = newTask.Category
+                Category = newTask.Category,
+                CurrentState = newTask.CurrentState
             };
             taskCopy.SetDeadline(newTask.Deadline);
             taskCopy.SetPriority(newTask.Priority);
-            if (newTask.IsDone)
-            {
-                taskCopy.MarkAsDone();
-            }
-            tasks.Add(taskCopy);
+			taskCopy.ChangeState(newTask.CurrentState);
+			//if (newTask.IsDone)
+			//{
+			//    taskCopy.MarkAsDone();
+			//}
+
+			tasks.Add(taskCopy);
             _onTaskAdded?.Invoke();
         }
 
@@ -68,29 +71,34 @@ namespace SuperZTP.Command
                     Title = tasks[id].Title,
                     Description = tasks[id].Description,
                     Tag = tasks[id].Tag,
-                    Category = tasks[id].Category
+                    Category = tasks[id].Category,
+                    CurrentState= tasks[id].CurrentState
                 };
                 oldTask.SetPriority(tasks[id].Priority);
                 oldTask.SetDeadline(tasks[id].Deadline);
-                if (tasks[id].IsDone)
-                {
-                    oldTask.MarkAsDone();
-                }
+				
+				//if (tasks[id].IsDone)
+				//{
+				//    oldTask.MarkAsDone();
+				//}
 
-                newTaskCopy = new Model.Task // Kopia nowej wersji zadania, aby uniknąć pracy na referencji
+				newTaskCopy = new Model.Task // Kopia nowej wersji zadania, aby uniknąć pracy na referencji
                 {
                     Id = newTask.Id,
                     Title = newTask.Title,
                     Description = newTask.Description,
                     Tag = newTask.Tag,
-                    Category = newTask.Category
-                };
+                    Category = newTask.Category,
+
+										CurrentState = tasks[id].CurrentState
+
+				};
                 newTaskCopy.SetPriority(newTask.Priority);
                 newTaskCopy.SetDeadline(newTask.Deadline);
-                if (newTask.IsDone)
-                {
-                    newTaskCopy.MarkAsDone();
-                }
+                //if (newTask.IsDone)
+                //{
+                //    newTaskCopy.MarkAsDone();
+                //}
             }
         }
 
