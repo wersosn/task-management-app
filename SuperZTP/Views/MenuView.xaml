@@ -57,7 +57,15 @@
             
             <!-- Resetowanie filtrów -->
             <Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Foreground="Red" Margin="5"/>
+            
+            <!--Generowanie-->
+            <TextBlock Text="Raport:" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+            <ComboBox Width="100" ItemsSource="{Binding AvailableReportTypes}" SelectedItem="{Binding SelectedReportType, Mode=TwoWay}"/>
+            <Button Content="Generuj" Click="GenerateReportButton_Click" Foreground="Blue" Margin="5"/>
 
+            <TextBlock Text="Podsumowanie:" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+            <ComboBox Width="100" ItemsSource="{Binding AvailableSummaryTypes}" SelectedItem="{Binding SelectedSummaryType, Mode=TwoWay}"/>
+            <Button Content="Generuj" Click="GenerateSummaryButton_Click" Foreground="DarkOrange" Margin="5"/>
         </StackPanel>
 
 
