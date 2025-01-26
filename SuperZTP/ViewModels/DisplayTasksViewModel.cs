@@ -82,7 +82,6 @@ namespace SuperZTP.ViewModels
                     _previews.Add(new DisplayTaskPreviewViewModel(note, _taskState, _invoker, RefreshTasks));
                 }
 
-                OnPropertyChanged(nameof(Previews));
             }
 
             if (!filteredTasks.Any() && !filteredNotes.Any())
@@ -90,6 +89,7 @@ namespace SuperZTP.ViewModels
                 _previews.Add(new DisplayTaskPreviewViewModel(new Header("Brak zadań oraz notatek"), _taskState, _invoker,
                     RefreshTasks));
             }
+            OnPropertyChanged(nameof(Previews));
         }
 
         /// <summary>
