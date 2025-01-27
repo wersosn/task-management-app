@@ -20,10 +20,11 @@ namespace SuperZTP.Model
         public DateTime Deadline { get; set; }
         public string Priority { get; set; }
         public bool IsDone { get; set; }
+        public bool IsHeader { get; set; } = false;
+		public ITaskState CurrentState { get; set; }
+		public Task() { }
 
-        public Task() { }
-
-        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority, bool isDone)
+        public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority, bool isDone, ITaskState currentState)
         {
             Id = id;
             Title = title;
@@ -33,7 +34,8 @@ namespace SuperZTP.Model
             Deadline = deadline;
             Priority = priority;
             IsDone = false;
-        }
+            CurrentState = currentState;
+		}
 
         // Metody do ustawiania terminów, priorytetów i oznaczania jako wykonane
         public void SetDeadline(DateTime deadline)
@@ -51,7 +53,12 @@ namespace SuperZTP.Model
             IsDone = true;
         }
 
-        public override string ToString()
+		public void ChangeState(ITaskState newState)
+		{
+			CurrentState = newState;
+		}
+
+		public override string ToString()
         {
             return $"Zadanie: {Title}\nOpis: {Description}\nTag: {Tag?.Name}\nKategoria: {Category?.Name}\nTermin: {Deadline}\nPriorytet: {Priority}\nWykonane: {IsDone}";
         }
@@ -65,7 +72,9 @@ namespace SuperZTP.Model
         // Wczytywanie z pliku:
         public static Task FromFile(string line)
         {
-            var values = line.Split(';');
+			ITaskState state = new NotStarted();
+
+			var values = line.Split(';');
             return new Task
             {
                 Id = int.Parse(values[0]),
@@ -75,7 +84,8 @@ namespace SuperZTP.Model
                 Category = new Category(values[4]),
                 Deadline = DateTime.Parse(values[5]),
                 Priority = values[6],
-                IsDone = bool.Parse(values[7])
+                IsDone = bool.Parse(values[7]),
+                //CurrentState = new NotStarted()
             };
         }
     }

@@ -26,6 +26,7 @@ namespace SuperZTP.Views
         private CommandInvoker invoker = new CommandInvoker();
         private TaskBuilder taskBuilder = new TaskBuilder();
         private FileHandler fileHandler;
+        public event Action TaskAdded;
 
         public AddTaskWindow(List<SuperZTP.Model.Task> tasks, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
         {
@@ -49,7 +50,7 @@ namespace SuperZTP.Views
             var selectedTag = selectedTagItem?.Tag as Tag;
 
             string priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString() ?? "Niski";
-            DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now; // Domyślnie bieżąca data, jeśli brak wyboru
+            DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now;
             bool isCompleted = IsCompletedCheckBox.IsChecked ?? false;
 
             var zadanie = taskBuilder
@@ -67,10 +68,14 @@ namespace SuperZTP.Views
                 zadanie.MarkAsDone();
             }
 
-            invoker.AddCommand(new AddTask(tasks, zadanie));
+            invoker.AddCommand(new AddTask(tasks, zadanie, RefreshTasks));
             invoker.Execute();
             fileHandler.SaveTasksToFile("tasks.txt");
             DialogResult = true;
+        }
+        private void RefreshTasks()
+        {
+            TaskAdded?.Invoke(); // Powiadamiamy `DisplayTasksViewModel`
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

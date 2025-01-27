@@ -26,6 +26,7 @@ namespace SuperZTP.Views
         private CommandInvoker invoker = new CommandInvoker();
         private NoteBuilder noteBuilder = new NoteBuilder();
         private FileHandler fileHandler;
+        public event Action NoteAdded;
 
         public AddNoteWindow(List<Note> notes, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
         {
@@ -56,12 +57,15 @@ namespace SuperZTP.Views
 
             notatka.Id = GetNextNoteId(notes);
 
-            invoker.AddCommand(new AddNote(notes, notatka));
+            invoker.AddCommand(new AddNote(notes, notatka, RefreshNotes));
             invoker.Execute();
             fileHandler.SaveNotesToFile("notes.txt");
             DialogResult = true;
         }
-
+        private void RefreshNotes()
+        {
+            NoteAdded?.Invoke(); // Powiadamiamy `DisplayTasksViewModel`
+        }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;

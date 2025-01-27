@@ -12,11 +12,13 @@ namespace SuperZTP.Command
     {
         private List<Model.Task> tasks;
         private Model.Task newTask;
+        private readonly Action _onTaskAdded;
 
-        public AddTask(List<Model.Task> tasks, Model.Task newTask)
+        public AddTask(List<Model.Task> tasks, Model.Task newTask, Action onTaskAdded)
         {
             this.tasks = tasks;
             this.newTask = newTask;
+            _onTaskAdded = onTaskAdded;
         }
 
         public void Execute()
@@ -36,11 +38,13 @@ namespace SuperZTP.Command
                 taskCopy.MarkAsDone();
             }
             tasks.Add(taskCopy);
+            _onTaskAdded?.Invoke();
         }
 
         public void Undo()
         {
             tasks.Remove(newTask);
+            _onTaskAdded?.Invoke();
         }
     }
 
@@ -110,46 +114,35 @@ namespace SuperZTP.Command
     // Usuwanie zadania
     public class DeleteTask : ICommand
     {
-        private List<Model.Task> tasks;
-        private Model.Task taskCopy;
-        private int id;
+        private readonly List<Model.Task> _tasks;
+        private readonly Model.Task _taskToDelete;
+        private readonly int _index;
+        private readonly Action _onTaskDeleted;
 
-        public DeleteTask(List<Model.Task> tasks, Model.Task task, int id)
+        public DeleteTask(List<Model.Task> tasks, Model.Task task, Action onTaskDeleted)
         {
-            this.tasks = tasks;
-            this.id = id;
-            if (id >= 0 && id < tasks.Count)
-            {
-                taskCopy = new Model.Task // Kopia zadania, aby uniknąć pracy na referencji
-                {
-                    Id = tasks[id].Id,
-                    Title = tasks[id].Title,
-                    Description = tasks[id].Description,
-                    Tag = tasks[id].Tag,
-                    Category = tasks[id].Category,
-                };
-                taskCopy.SetPriority(task.Priority);
-                taskCopy.SetDeadline(task.Deadline);
-                if (task.IsDone)
-                {
-                    taskCopy.MarkAsDone();
-                }
-            }
+            _tasks = tasks ?? throw new ArgumentNullException(nameof(tasks));
+            _taskToDelete = task ?? throw new ArgumentNullException(nameof(task));
+            _onTaskDeleted = onTaskDeleted ?? throw new ArgumentNullException(nameof(onTaskDeleted));
+            _index = _tasks.FindIndex(t => t.Id == task.Id);
         }
+        
 
         public void Execute()
         {
-            if (id > 0 && id < tasks.Count)
-            {
-                tasks.RemoveAt(id);
-            }
+             if (_index >= 0)
+             {
+                _tasks.RemoveAt(_index);
+                _onTaskDeleted?.Invoke(); // Powiadamiamy `DisplayTasksViewModel` o zmianie
+             }
         }
 
         public void Undo()
         {
-            if (taskCopy != null && id >= 0 && id <= tasks.Count)
+            if (_index >= 0)
             {
-                tasks.Insert(id, taskCopy);
+                _tasks.Insert(_index, _taskToDelete);
+                _onTaskDeleted?.Invoke(); // Przywracamy taska i odświeżamy widok
             }
         }
     }
