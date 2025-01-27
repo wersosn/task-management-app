@@ -36,6 +36,7 @@
                                                FontSize="24"
                                                Foreground="DarkBlue"
                                                Padding="5"
+                                               TextAlignment="Center"
                                                Visibility="{Binding IsHeader, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                                     <!-- Task -->

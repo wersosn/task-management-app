@@ -17,6 +17,7 @@ namespace SuperZTP.ViewModels
         private readonly TaskState _taskState;
         private readonly CommandInvoker _invoker;
         private readonly ObservableCollection<DisplayTaskPreviewViewModel> _previews;
+        private readonly Proxy.Proxy _proxy;
         public IEnumerable<DisplayTaskPreviewViewModel> Previews => _previews;
 
         private DisplayTaskPreviewViewModel _selectedTaskViewModel;
@@ -52,6 +53,7 @@ namespace SuperZTP.ViewModels
             _taskState = state;
             _invoker = invoker;
             _previews = new ObservableCollection<DisplayTaskPreviewViewModel>();
+            _proxy = new Proxy.Proxy(_taskState.Tasks, _taskState.Notes);
             menuViewModel.FilterChanged += ApplyFilter;
 
             RefreshTasks();
@@ -61,7 +63,12 @@ namespace SuperZTP.ViewModels
         public void RefreshTasks()
         {
             _previews.Clear();
-            IEnumerable<Task> filteredTasks = _currentFilter?.ApplyFilter(_taskState.Tasks) ?? _taskState.Tasks;
+            IEnumerable<Task> filteredTasks = _currentFilter?.ApplyFilter(_proxy.SearchTasks("")) ?? _taskState.Tasks;
+            if (_currentFilter != null && _currentFilter.GetType() == typeof(TitleTaskFilter))
+            {
+                var title = ((TitleTaskFilter)_currentFilter)._title;
+                filteredTasks = _currentFilter?.ApplyFilter(_proxy.SearchTasks(title)) ?? _taskState.Tasks;
+            }
             if (filteredTasks.Any())
             {
                 _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Zadania--"), _taskState, _invoker,
@@ -82,7 +89,6 @@ namespace SuperZTP.ViewModels
                     _previews.Add(new DisplayTaskPreviewViewModel(note, _taskState, _invoker, RefreshTasks));
                 }
 
-                OnPropertyChanged(nameof(Previews));
             }
 
             if (!filteredTasks.Any() && !filteredNotes.Any())
@@ -90,6 +96,7 @@ namespace SuperZTP.ViewModels
                 _previews.Add(new DisplayTaskPreviewViewModel(new Header("Brak zadań oraz notatek"), _taskState, _invoker,
                     RefreshTasks));
             }
+            OnPropertyChanged(nameof(Previews));
         }
 
         /// <summary>

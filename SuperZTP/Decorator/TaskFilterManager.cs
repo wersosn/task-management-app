@@ -43,6 +43,18 @@ namespace SuperZTP.Decorator
             NotifyFilterChanged();
         }
 
+        public void ApplayCompletionFilter(CompletionStatus completionStatus)
+        {
+            _filterBuilder.AddCompletionFilter(completionStatus);
+            NotifyFilterChanged();
+        }
+
+        public void ApllySorting(SortOptions sortOptions)
+        {
+            _filterBuilder.AddSortingFilter(sortOptions);
+            NotifyFilterChanged();
+        }
+
         public void ClearFilters()
         {
             _filterBuilder.ClearFilters();

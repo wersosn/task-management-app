@@ -29,7 +29,7 @@ namespace SuperZTP.Decorator
 
     public class TitleTaskFilter : TaskFilterDecorator
     {
-        private readonly string _title;
+        public readonly string _title;
 
         public TitleTaskFilter(string title, ITaskFilter nextFilter = null)
             : base(nextFilter)
@@ -105,6 +105,67 @@ namespace SuperZTP.Decorator
                 return tasks;
             }
             return tasks.Where(task => task.Deadline.Date == _dueDate.GetValueOrDefault());
+        }
+    }
+
+    public class IsDoneFilter : TaskFilterDecorator
+    {
+        private readonly CompletionStatus? _isDone;
+
+        public IsDoneFilter(CompletionStatus? isDone, ITaskFilter nextFilter = null)
+            : base(nextFilter)
+        {
+            _isDone = isDone;
+        }
+
+        protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
+        {
+            if (_isDone == null)
+            {
+                return tasks;
+            }
+            return _isDone switch
+            {
+                CompletionStatus.Default => tasks,
+
+                CompletionStatus.Completed => tasks
+                    .Where(task => task.IsDone),
+
+                CompletionStatus.NotCompleted => tasks
+                    .Where(task => task.IsDone == false),
+
+                CompletionStatus.ShowAll => tasks,
+
+                _ => tasks
+            };
+        }
+    }
+
+    public class SortOptionDecorator : TaskFilterDecorator
+    {
+        private readonly SortOptions _sortOption;
+
+        public SortOptionDecorator(SortOptions sortOption, ITaskFilter nextFilter = null)
+            : base(nextFilter)
+        {
+            _sortOption = sortOption;
+        }
+
+        protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
+        {
+
+            return _sortOption switch
+            {
+                SortOptions.Alphabetical => tasks.OrderBy(task => task.Title),
+                SortOptions.ReverseAlphabetical => tasks.OrderByDescending(task => task.Title),
+                SortOptions.Date => tasks.OrderBy(task => task.Deadline),
+                SortOptions.ReverseDate => tasks.OrderByDescending(task => task.Deadline),
+                SortOptions.DateAZ => tasks.OrderBy(task => task.Deadline).ThenBy(task => task.Title),
+                SortOptions.DateZA => tasks.OrderBy(task => task.Deadline).ThenByDescending(task => task.Title),
+                SortOptions.PriorityHighToLow => tasks.OrderByDescending(task => task.Priority),
+                SortOptions.PriorityLowToHigh => tasks.OrderBy(task => task.Priority),
+                _ => tasks 
+            };
         }
     }
 

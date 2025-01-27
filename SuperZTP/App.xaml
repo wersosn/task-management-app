@@ -10,6 +10,9 @@
             <SolidColorBrush 
                  x:Key="BorderPrimary" 
                  Color="#3f3f3f"/>
-         </ResourceDictionary>
+            <SolidColorBrush x:Key="TextPrimary" Color="#131313" />
+            <SolidColorBrush x:Key="TextSecondary" Color="#3f3f3f" />
+             <SolidColorBrush x:Key="BackgroundLight" Color="#f3f3f3" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

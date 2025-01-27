@@ -12,11 +12,13 @@ namespace SuperZTP.Command
     {
         private List<Note> notes;
         private Note newNote;
+        private readonly Action _onNoteAdded;
 
-        public AddNote(List<Note> notes, Note newNote)
+        public AddNote(List<Note> notes, Note newNote, Action onNoteAdded)
         {
             this.notes = notes;
             this.newNote = newNote;
+            _onNoteAdded = onNoteAdded;
         }
 
         public void Execute()
@@ -31,11 +33,13 @@ namespace SuperZTP.Command
             };
 
             notes.Add(noteCopy);
+            _onNoteAdded?.Invoke();
         }
 
         public void Undo()
         {
             notes.Remove(newNote);
+            _onNoteAdded?.Invoke();
         }
     }
 
