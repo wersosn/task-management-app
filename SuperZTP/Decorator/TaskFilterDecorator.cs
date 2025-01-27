@@ -108,38 +108,38 @@ namespace SuperZTP.Decorator
         }
     }
 
-    public class IsDoneFilter : TaskFilterDecorator
-    {
-        private readonly CompletionStatus? _isDone;
+    //public class IsDoneFilter : TaskFilterDecorator
+    //{
+    //    private readonly CompletionStatus? _isDone;
 
-        public IsDoneFilter(CompletionStatus? isDone, ITaskFilter nextFilter = null)
-            : base(nextFilter)
-        {
-            _isDone = isDone;
-        }
+    //    //public IsDoneFilter(CompletionStatus? isDone, ITaskFilter nextFilter = null)
+    //    //    : base(nextFilter)
+    //    //{
+    //    //    _isDone = isDone;
+    //    //}
 
-        protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
-        {
-            if (_isDone == null)
-            {
-                return tasks;
-            }
-            return _isDone switch
-            {
-                CompletionStatus.Default => tasks,
+    //    protected override IEnumerable<Task> ApplySpecificFilter(IEnumerable<Task> tasks)
+    //    {
+    //        if (_isDone == null)
+    //        {
+    //            return tasks;
+    //        }
+    //        return _isDone switch
+    //        {
+    //            CompletionStatus.Default => tasks,
 
-                CompletionStatus.Completed => tasks
-                    .Where(task => task.IsDone),
+    //            CompletionStatus.Completed => tasks
+    //                .Where(task => task.IsDone),
 
-                CompletionStatus.NotCompleted => tasks
-                    .Where(task => task.IsDone == false),
+    //            CompletionStatus.NotCompleted => tasks
+    //                .Where(task => task.IsDone == false),
 
-                CompletionStatus.ShowAll => tasks,
+    //            CompletionStatus.ShowAll => tasks,
 
-                _ => tasks
-            };
-        }
-    }
+    //            _ => tasks
+    //        };
+    //    }
+    //}
 
     public class SortOptionDecorator : TaskFilterDecorator
     {

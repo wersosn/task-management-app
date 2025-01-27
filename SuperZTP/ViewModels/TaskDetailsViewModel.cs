@@ -23,7 +23,7 @@ namespace SuperZTP.ViewModels
         public string Category => _selectedTaskStore.SelectedTask?.Category?.Name.Trim() ?? null;
         public string Tag => _selectedTaskStore.SelectedTask?.Tag?.Name.Trim() ?? null;
         public string Priority => _selectedTaskStore.SelectedTask?.Priority ?? null;
-        public string IsDone => _selectedTaskStore.SelectedTask?.IsDone == true ? "Ukończone" : "Nie ukończone";
+       // public string IsDone => _selectedTaskStore.SelectedTask?.IsDone == true ? "Ukończone" : "Nie ukończone";
 
 
         public string Status => _selectedTaskStore.SelectedTask?.CurrentState?.GetStateName() ?? "Unknown";

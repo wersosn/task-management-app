@@ -131,7 +131,7 @@ namespace SuperZTP.ViewModels
             _filterManager.ApplyCategoryFilter(SelectedCategory);
             _filterManager.ApplyTagFilter(SelectedTag);
             _filterManager.ApplyDueDateFilter(SelectedDueDate);
-            _filterManager.ApplayCompletionFilter(SelectedCompletionStatus);
+            //_filterManager.ApplayCompletionFilter(SelectedCompletionStatus);
             _filterManager.ApllySorting(SelectedSort);
             _filterManager.ApplayGroupFilter(SelectedGroupingOption);
         }
