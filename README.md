@@ -12,7 +12,7 @@ Version: [PL](#Aplikacja-do-zarządzania-notatkami-i-zadaniami) | [ENG](#Notes-a
    
 ## Zespół
 Projekt został wykonany przez poniżej wymienione osoby:
- - [Ing862](https://github.com/Ing862) -
+ - [Ing862](https://github.com/Ing862) - zaimplementowała wzorzec State
  - [wersosn](https://github.com/wersosn) - zaimplementowała 3 wzorce projektowe - Builder, Command oraz Template Method
  - [Gaspek](https://github.com/Gaspek) -
  - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - zaimplementował wzorzec Proxy
@@ -79,7 +79,7 @@ Install-Package DocumentFormat.OpenXml
 
 ## Team
 The project was implemented by the following people:
- - [Ing862](https://github.com/Ing862) -
+ - [Ing862](https://github.com/Ing862) - implemented State design pattern
  - [wersosn](https://github.com/wersosn) - implemented 3 design patterns - Builder, Command and Template Method
  - [Gaspek](https://github.com/Gaspek) -
  - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - implemented the Proxy design pattern
