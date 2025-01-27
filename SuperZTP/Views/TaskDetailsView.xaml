@@ -116,6 +116,18 @@
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Label2" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Status:" FontSize="16"
+                           FontWeight="Bold" Margin="0 0 5 0" />
+                         <TextBlock Grid.Column="1"
+                           FontSize="16"
+                           Text="{Binding Status}" />
+                    </Grid>
+
+                    <Grid Grid.Row="2" Column="1" Margin="0 5 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Status:"
                                    FontWeight="Bold"
                                    Foreground="{StaticResource TextPrimary}"
@@ -126,6 +138,14 @@
                                    Foreground="{StaticResource TextSecondary}"/>
                     </Grid>
 
+                    <Button 
+                        Grid.Row="5" 
+                        Content="{Binding ButtonLabel}" 
+                        Command="{Binding ChangeStatusCommand}" 
+                        IsEnabled="{Binding IsButtonEnabled}" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Bottom" 
+                        Margin="0,10" />
                     <!-- Deadline -->
                     <Grid Grid.Row="2" Column="3" Margin="0 5 0 5">
                         <Grid.ColumnDefinitions>
