@@ -14,7 +14,7 @@ Version: [PL](#Aplikacja-do-zarządzania-notatkami-i-zadaniami) | [ENG](#Notes-a
 Projekt został wykonany przez poniżej wymienione osoby:
  - [Ing862](https://github.com/Ing862) - zaimplementowała wzorzec State
  - [wersosn](https://github.com/wersosn) - zaimplementowała 3 wzorce projektowe - Builder, Command oraz Template Method
- - [Gaspek](https://github.com/Gaspek) - zaimplementował strukturę projektu MVVM, store, observer, decorator, builder filtrów
+ - [Gaspek](https://github.com/Gaspek) - zaimplementował strukturę projektu MVVM i 4 wzorce projektowe: Builder filtrów, Decorator, Observer i Store
  - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - zaimplementował wzorzec Proxy
 
 ## Opis projektu
@@ -33,12 +33,12 @@ Poniżej zostały wypisane wszystkie funkcjonalności naszego projektu:
 ## Użyte wzorce projektowe
 - Builder - do tworzenia zadań oraz notatek
 - Command - do obsługi operacji na zadaniach i notatkach
-- Observer - 
+- Observer - do informowania o zmianie filtrów
 - Proxy - do wyszukiwania zadań i notatek po słowach kluczowych
-- State - 
-- Store - 
+- State - do zmiany stanu zadania
+- Store - do przechowywania wybranego zadania/notatki i umożliwia jego współdzielenie między różnymi komponentami aplikacji
 - Template method - do generowania raportów i podsumowań
-- MVVM - 
+- MVVM - do oddzielenia warstwy logicznej od interfejsu użytkownika
   
 ## Użyte technologie
 - C#
@@ -79,9 +79,9 @@ Install-Package DocumentFormat.OpenXml
 
 ## Team
 The project was implemented by the following people:
- - [Ing862](https://github.com/Ing862) - implemented State design pattern
+ - [Ing862](https://github.com/Ing862) - implemented the State design pattern
  - [wersosn](https://github.com/wersosn) - implemented 3 design patterns - Builder, Command and Template Method
- - [Gaspek](https://github.com/Gaspek) -
+ - [Gaspek](https://github.com/Gaspek) - implemented the MVVM project structure and 4 design patterns - Builder for filters, Decorator, Observer and Store
  - [TamaTamaTamaTamaTama](https://github.com/TamaTamaTamaTamaTama) - implemented the Proxy design pattern
 
 ## Project details
@@ -100,12 +100,12 @@ Below are all the functionalities of our project:
 ## Design patterns used
 - Builder - for creating tasks and notes
 - Command - for handling operations on tasks and notes
-- Observer - 
+- Observer - for informing about filter changes
 - Proxy - for searching tasks and notes by keywords
-- State -
-- Store -
+- State - for changing the task state
+- Store - for storing the selected task/note and allowing its sharing between different application components
 - Template method - for generating reports and summaries
-- MVVM - 
+- MVVM - for separating the logical layer from the user interface
 
 ## Tech stack
 - C#
