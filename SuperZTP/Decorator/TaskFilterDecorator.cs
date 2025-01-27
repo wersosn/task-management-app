@@ -29,7 +29,7 @@ namespace SuperZTP.Decorator
 
     public class TitleTaskFilter : TaskFilterDecorator
     {
-        private readonly string _title;
+        public readonly string _title;
 
         public TitleTaskFilter(string title, ITaskFilter nextFilter = null)
             : base(nextFilter)
