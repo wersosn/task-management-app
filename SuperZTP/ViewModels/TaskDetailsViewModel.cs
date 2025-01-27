@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 using SuperZTP.Stores;
+using WpfCommand = System.Windows.Input.ICommand;
 
 namespace SuperZTP.ViewModels
 {
@@ -22,8 +23,16 @@ namespace SuperZTP.ViewModels
         public string Priority => _selectedTaskStore.SelectedTask?.Priority ?? null;
         public string IsDone => _selectedTaskStore.SelectedTask?.IsDone == true ? "Ukończone" : "Nie ukończone";
 
+		//state
+		//public string Status => _selectedTaskStore.SelectedTask?.CurrentState?.GetStateName() ?? "Unknown";
 
-        public TaskDetailsViewModel(SelectedTaskStore selectedTaskStore)
+		//// do obsługi przycisku odznaczenia zadania
+		//public WpfCommand ChangeStatusCommand { get; }
+		//public string ButtonLabel => _selectedTaskStore.SelectedTask?.CurrentState?.ButtonLabel ?? "N/A";
+		//public bool IsButtonEnabled => _selectedTaskStore.SelectedTask?.CurrentState?.IsButtonEnabled ?? false;
+
+
+		public TaskDetailsViewModel(SelectedTaskStore selectedTaskStore)
         {
             _selectedTaskStore = selectedTaskStore;
 
@@ -41,6 +50,7 @@ namespace SuperZTP.ViewModels
             OnPropertyChanged(nameof(Category));
             OnPropertyChanged(nameof(Tag));
             OnPropertyChanged(nameof(Priority));
+            //OnPropertyChanged(nameof(Status));
             OnPropertyChanged(nameof(IsDone));
         }
 

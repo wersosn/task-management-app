@@ -54,6 +54,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -111,7 +112,8 @@
                                    Foreground="{StaticResource TextSecondary}"/>
                     </Grid>
 
-                    <Grid Grid.Row="2" Column="1" Margin="0 5 0 5">
+                    
+                    <!--<Grid Grid.Row="3" Column="1" Margin="0 5 0 5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Label2" />
                             <ColumnDefinition Width="*" />
@@ -121,7 +123,7 @@
                          <TextBlock Grid.Column="1"
                            FontSize="16"
                            Text="{Binding Status}" />
-                    </Grid>
+                    </Grid> -->
 
                     <Grid Grid.Row="2" Column="1" Margin="0 5 0 5">
                         <Grid.ColumnDefinitions>
@@ -138,14 +140,15 @@
                                    Foreground="{StaticResource TextSecondary}"/>
                     </Grid>
 
-                    <Button 
-                        Grid.Row="5" 
+                    <!--<Button 
+                        Grid.Row="10" 
                         Content="{Binding ButtonLabel}" 
                         Command="{Binding ChangeStatusCommand}" 
                         IsEnabled="{Binding IsButtonEnabled}" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Bottom" 
-                        Margin="0,10" />
+                        Margin="0,10" /> -->
+                    
                     <!-- Deadline -->
                     <Grid Grid.Row="2" Column="3" Margin="0 5 0 5">
                         <Grid.ColumnDefinitions>

@@ -35,9 +35,17 @@ namespace SuperZTP.Builder
             return this;
         }
 
-        public Model.Task build()
+		public TaskBuilder setState()
+		{
+			task.CurrentState = new NotStarted();
+			return this;
+		}
+
+		public Model.Task build()
         {
             return task;
         }
+
+
     }
 }
