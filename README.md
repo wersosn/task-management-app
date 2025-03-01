@@ -53,7 +53,7 @@ Poniżej zostały wypisane wszystkie funkcjonalności naszego projektu:
 ## Instrukcja użytkowania
 Aby uruchomić ten projekt należy sklonować to repozytorium:
 ```bash
-git clone https://github.com/Ing862/SuperZTP-projekt
+git clone https://github.com/wersosn/task-management-app.git
 ```
 Następnie należy zainstalować następujące biblioteki:
 ```bash
@@ -120,7 +120,7 @@ Below are all the functionalities of our project:
 ## How to use
 To run this project, clone this repository:
 ```bash
-git clone https://github.com/Ing862/SuperZTP-projekt
+git clone https://github.com/wersosn/task-management-app.git
 ```
 Then you need to install the following libraries:
 ```bash
