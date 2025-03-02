@@ -16,6 +16,9 @@ namespace SuperZTP.TemplateMethod
 
         protected override void Save(string filepath, string content)
         {
+            string directoryPath = GetDirectory();
+            string fullFilePath = Path.Combine(directoryPath, filepath);
+
             PdfDocument doc = new PdfDocument();
             doc.Info.Title = "GeneratePDF";
 
@@ -38,7 +41,18 @@ namespace SuperZTP.TemplateMethod
                     yPosition = 40;
                 }
             }
-            doc.Save(filepath);
+            doc.Save(fullFilePath);
+        }
+
+        private string GetDirectory()
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string folder = Path.Combine(documentsPath, "Task-management-app");
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            return folder;
         }
     }
 }

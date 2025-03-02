@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace SuperZTP.TemplateMethod
 
         protected override void Save(string filepath, string content)
         {
-            using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(filepath, DocumentFormat.OpenXml.WordprocessingDocumentType.Document))
+            string directoryPath = GetDirectory();
+            string fullFilePath = Path.Combine(directoryPath, filepath);
+            using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(fullFilePath, DocumentFormat.OpenXml.WordprocessingDocumentType.Document))
             {
                 MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
                 mainPart.Document = new Document();
@@ -29,6 +32,17 @@ namespace SuperZTP.TemplateMethod
                 mainPart.Document.Append(docBody);
                 mainPart.Document.Save();
             }
+        }
+
+        private string GetDirectory()
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string folder = Path.Combine(documentsPath, "Task-management-app");
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            return folder;
         }
     }
 }
