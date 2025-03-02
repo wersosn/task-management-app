@@ -63,12 +63,7 @@ namespace SuperZTP.ViewModels
         public void RefreshTasks()
         {
             _previews.Clear();
-            IEnumerable<Task> filteredTasks = _currentFilter?.ApplyFilter(_proxy.SearchTasks("")) ?? _taskState.Tasks;
-            if (_currentFilter != null && _currentFilter.GetType() == typeof(TitleTaskFilter))
-            {
-                var title = ((TitleTaskFilter)_currentFilter)._title;
-                filteredTasks = _currentFilter?.ApplyFilter(_proxy.SearchTasks(title)) ?? _taskState.Tasks;
-            }
+            IEnumerable<Task> filteredTasks = _currentFilter?.ApplyFilter(_taskState.Tasks) ?? _taskState.Tasks;
             if (filteredTasks.Any())
             {
                 _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Zadania--"), _taskState, _invoker,
