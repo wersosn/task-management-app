@@ -5,10 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
-        Title="AddCategoryWindow" Height="450" Width="800">
+        Title="AddCategoryWindow" Height="450" Width="800"
+        Background="#121212" Foreground="#E0E0E0">
     <Grid>
-        <TextBox x:Name="CategoryNameTextBox" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="340" Height="30" />
-        <Button Content="Dodaj kategorię" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="40" Margin="20,70,0,0" Click="AddCategoryButton_Click" />
-        <Button Content="Anuluj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="40" Margin="140,70,0,0" Click="CancelButton_Click" />
+        <TextBox x:Name="CategoryNameTextBox" 
+                 HorizontalAlignment="Left" Margin="20,20,0,0" 
+                 VerticalAlignment="Top" Width="340" Height="30"
+                 Background="#1E1E1E" Foreground="#E0E0E0"
+                 BorderBrush="#3C3C3C" />
+
+        <Button Content="Dodaj kategorię" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Width="120" Height="40" Margin="20,70,0,0" 
+                Click="AddCategoryButton_Click"
+                Background="#252525" Foreground="#E0E0E0"
+                BorderBrush="#3C3C3C"/>
+
+        <Button Content="Anuluj" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Width="120" Height="40" Margin="160,70,0,0" 
+                Click="CancelButton_Click"
+                Background="#252525" Foreground="#E0E0E0"
+                BorderBrush="#3C3C3C"/>
     </Grid>
 </Window>

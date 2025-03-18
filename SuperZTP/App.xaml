@@ -4,15 +4,54 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SuperZTP">
     <Application.Resources>
-         <ResourceDictionary>
-             <local:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
-             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <SolidColorBrush 
-                 x:Key="BorderPrimary" 
-                 Color="#3f3f3f"/>
-            <SolidColorBrush x:Key="TextPrimary" Color="#131313" />
-            <SolidColorBrush x:Key="TextSecondary" Color="#3f3f3f" />
-             <SolidColorBrush x:Key="BackgroundLight" Color="#f3f3f3" />
+        <ResourceDictionary>
+            <local:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <!-- Tło aplikacji (ciemnoszary) -->
+            <SolidColorBrush x:Key="BackgroundDark" Color="#1E1E1E"/>
+            <!-- Główne tło -->
+            <SolidColorBrush x:Key="BackgroundDarker" Color="#121212"/>
+            <!-- Bardzo ciemne tło -->
+            <SolidColorBrush x:Key="BackgroundLight" Color="#2E2E2E"/>
+            <!-- Kontrastowe sekcje -->
+
+            <!-- Tekst -->
+            <SolidColorBrush x:Key="TextPrimary" Color="#FFFFFF"/>
+            <!-- Główna biel -->
+            <SolidColorBrush x:Key="TextSecondary" Color="#CCCCCC"/>
+            <!-- Jasnoszary tekst -->
+            <SolidColorBrush x:Key="TextAccent" Color="#B0B0B0"/>
+            <!-- Akcentowany tekst -->
+
+            <!-- Przyciski i obramowania -->
+            <SolidColorBrush x:Key="BorderPrimary" Color="#4A4A4A"/>
+            <!-- Obramowania -->
+            <SolidColorBrush x:Key="ButtonBackground" Color="#3A3A3A"/>
+            <!-- Tło przycisków -->
+            <SolidColorBrush x:Key="ButtonHover" Color="#555555"/>
+            <!-- Hover efekt -->
+            <SolidColorBrush x:Key="ButtonText" Color="#FFFFFF"/>
+            <!-- Tekst na przyciskach -->
+
+            <!-- Listy i pola tekstowe -->
+            <SolidColorBrush x:Key="ListBackground" Color="#252525"/>
+            <!-- Tło list -->
+            <SolidColorBrush x:Key="ListItemHover" Color="#444444"/>
+            <!-- Hover na liście -->
+            <SolidColorBrush x:Key="InputBackground" Color="#333333"/>
+            <!-- Tło pól tekstowych -->
+            <SolidColorBrush x:Key="InputBorder" Color="#555555"/>
+            <!-- Obramowania pól -->
+
+            <!-- Akcenty kolorystyczne (opcjonalnie) -->
+            <SolidColorBrush x:Key="AccentColor" Color="#BB86FC"/>
+            <!-- Fioletowy akcent -->
+            <SolidColorBrush x:Key="AccentHover" Color="#9F6BF0"/>
+            <SolidColorBrush x:Key="SuccessColor" Color="#4CAF50"/>
+            <!-- Zielony (np. do zaakceptowania) -->
+            <SolidColorBrush x:Key="ErrorColor" Color="#F44336"/>
+            <!-- Czerwony do błędów -->
         </ResourceDictionary>
     </Application.Resources>
 </Application>
