@@ -16,6 +16,8 @@
             <!-- Lewy panel (Sidebar) -->
             <Border Grid.Column="0" Background="#F0F0F0" Padding="10">
                 <StackPanel>
+                    <!-- Logo -->
+                    <Image Source="logo.png" Height="60" Width="60" HorizontalAlignment="Center"/>
 
                     <!-- Nawigacja -->
                     <Button Content="📋 Notatki" Height="40" Margin="5"/>
