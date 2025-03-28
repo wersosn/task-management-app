@@ -15,9 +15,6 @@
             CornerRadius="5"
             Padding="15">
             <Grid>
-                <!-- Kalendarz (usunięto duplikaty) -->
-                <Calendar x:Name="CalendarView"/>
-
                 <!-- Widok bez wybranego zadania -->
                 <Grid>
                     <Grid.Style>
@@ -30,11 +27,13 @@
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
-                    <TextBlock Text="Wybierz zadanie bądź notatkę, aby zobaczyć szczegóły."
+                    <TextBlock Text="Wybierz zadanie, aby zobaczyć szczegóły."
                                FontSize="18"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Foreground="{StaticResource TextSecondary}"/>
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               Foreground="{StaticResource BackgroundDark}"/>
                 </Grid>
 
                 <!-- Szczegóły zadania -->
@@ -64,86 +63,34 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- Tytuł -->
-                    <TextBlock FontSize="24"
-                               FontWeight="Bold"
-                               Text="{Binding Title}"
-                               Margin="0 0 0 10"
-                               Foreground="{StaticResource TextPrimary}"/>
+                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold" Text="{Binding Title}" Margin="0 0 0 10" Foreground="{StaticResource BackgroundDarker}"/>
 
                     <!-- Kategoria -->
-                    <Grid Grid.Row="1" Grid.Column="0" Margin="0 5 0 5">
-                        <TextBlock Grid.Column="0" Text="Kategoria: "
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Category}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Kategoria:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Category}" Foreground="{StaticResource BackgroundDark}"/>
 
                     <!-- Tag -->
-                    <Grid Grid.Row="1" Grid.Column="1" Margin="0 5 0 5">
-                        <TextBlock Grid.Column="0" Text="Tag:"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Tag}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Tag:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Tag}" Foreground="{StaticResource BackgroundDark}"/>
 
                     <!-- Priorytet -->
-                    <Grid Grid.Row="2" Grid.Column="0" Margin="0 5 0 5">
-                        <TextBlock Grid.Column="0" Text="Priorytet: "
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Priority}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Priorytet:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Priority}" Foreground="{StaticResource BackgroundDark}"/>
 
                     <!-- Status -->
-                    <Grid Grid.Row="2" Grid.Column="1" Margin="0 5 0 5">
-                        <TextBlock Grid.Column="0" Text="Status:"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding IsDone}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Status:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding IsDone}" Foreground="{StaticResource BackgroundDark}"/>
 
                     <!-- Data wykonania -->
-                    <Grid Grid.Row="2" Grid.Column="2" Margin="0 5 0 5">
-                        <TextBlock Grid.Column="0" Text="Data:"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy}'}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Data:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy}'}" Foreground="{StaticResource BackgroundDark}"/>
 
                     <!-- Opis -->
-                    <Grid Grid.Row="6" Margin="0 5 0 0" ColumnSpan="3">
-                        <TextBlock Grid.Column="0" Text="Opis:"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Description}"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
-
-                    <!-- Przyciski Akcji -->
-                    <Grid Grid.Row="7" Margin="0 10 0 0" ColumnSpan="3">
-                        <Button Content="{Binding ButtonLabel}" 
-                                Command="{Binding ChangeStatusCommand}" 
-                                IsEnabled="{Binding IsButtonEnabled}" 
-                                HorizontalAlignment="Center" 
-                                VerticalAlignment="Bottom" 
-                                Margin="5"/>
-                    </Grid>
+                    <TextBlock Grid.Row="6" Grid.ColumnSpan="2" Text="Opis:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
+                    <TextBlock Grid.Row="7" Grid.ColumnSpan="2" Text="{Binding Description}" TextWrapping="Wrap" Foreground="{StaticResource BackgroundDark}" Margin="10,5"/>
                 </Grid>
             </Grid>
         </Border>

@@ -43,5 +43,10 @@ namespace SuperZTP.Views
                 viewModel.GenerateSelectedSummary();
             }
         }
+
+        private void TaskDetailsView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

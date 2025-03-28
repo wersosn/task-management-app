@@ -4,21 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperZTP.Views"
-             mc:Ignorable="d">
-    
+             mc:Ignorable="d"
+             Width="980" Height="720">
+
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/> <!-- Sidebar -->
-                <ColumnDefinition Width="*"/>   <!-- Główna zawartość -->
+                <ColumnDefinition Width="250"/>
+                <!-- Sidebar powiększony na filtry -->
+                <ColumnDefinition Width="*"/>
+                <!-- Główna zawartość -->
             </Grid.ColumnDefinitions>
 
             <!-- Lewy panel (Sidebar) -->
             <Border Grid.Column="0" Background="#F0F0F0" Padding="10">
                 <StackPanel>
-                    <!-- Logo -->
-                    <Image Source="logo.png" Height="60" Width="60" HorizontalAlignment="Center"/>
-
                     <!-- Nawigacja -->
                     <Button Content="📋 Notatki" Height="40" Margin="5"/>
                     <Button Content="✅ Zadania" Height="40" Margin="5"/>
@@ -27,15 +27,70 @@
                     <!-- Przyciski dodawania -->
                     <Button Content="➕ Dodaj zadanie" Height="40" Margin="5" Command="{Binding AddTaskCommand}"/>
                     <Button Content="📝 Dodaj notatkę" Height="40" Margin="5" Command="{Binding AddNoteCommand}"/>
+
+                    <!-- Sekcja filtrów -->
+                    <Expander Header="Filtry" IsExpanded="False" Margin="10 5 0 10">
+                        <StackPanel>
+                            <TextBlock Text="Opcje sortowania"/>
+                            <ComboBox ItemsSource="{Binding AvailableSortOptionsList}" SelectedItem="{Binding SelectedSort, Mode=TwoWay}" Width="200">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <TextBlock Text="Opcje grupowania"/>
+                            <ComboBox ItemsSource="{Binding AvailableGroups}" SelectedItem="{Binding SelectedGroupingOption, Mode=TwoWay}" Width="200">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <TextBlock Text="Status wykonania"/>
+                            <ComboBox ItemsSource="{Binding AvailableCompletionStatusList}" SelectedItem="{Binding SelectedCompletionStatus, Mode=TwoWay}" Width="200">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <TextBlock Text="Kategoria"/>
+                            <ComboBox ItemsSource="{Binding AvailableCategories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Width="200"/>
+
+                            <TextBlock Text="Tagi"/>
+                            <ComboBox ItemsSource="{Binding AvailableTags}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" Width="200"/>
+
+                            <TextBlock Text="Termin wykonania"/>
+                            <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="200"/>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                <Button Content="Zastosuj Filtry" Command="{Binding ApplyAllFiltersCommand}" Foreground="MediumSeaGreen" Padding="5" FontWeight="Bold"/>
+                                <Button Content="Reset" Command="{Binding ClearFiltersCommand}" Foreground="Red" Padding="5" FontWeight="Bold" Margin="10 0"/>
+                            </StackPanel>
+
+                            <TextBlock Text="Raport:"/>
+                            <ComboBox ItemsSource="{Binding AvailableReportTypes}" SelectedItem="{Binding SelectedReportType, Mode=TwoWay}"/>
+                            <Button Content="Generuj" Click="GenerateReportButton_Click" Foreground="Blue" Margin="5" Padding="5"/>
+
+                            <TextBlock Text="Podsumowanie:"/>
+                            <ComboBox ItemsSource="{Binding AvailableSummaryTypes}" SelectedItem="{Binding SelectedSummaryType, Mode=TwoWay}"/>
+                            <Button Content="Generuj" Click="GenerateSummaryButton_Click" Foreground="DarkOrange" Margin="5" Padding="5"/>
+                        </StackPanel>
+                    </Expander>
                 </StackPanel>
             </Border>
 
             <!-- Prawa sekcja (Główna zawartość) -->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>  <!-- Pasek wyszukiwania -->
-                    <RowDefinition Height="Auto"/>  <!-- Sekcja filtrów -->
-                    <RowDefinition Height="*"/>     <!-- Główna zawartość -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Pasek wyszukiwania -->
+                    <RowDefinition Height="*"/>
+                    <!-- Główna zawartość -->
                 </Grid.RowDefinitions>
 
                 <!-- Pasek wyszukiwania -->
@@ -44,53 +99,13 @@
                     <TextBox Width="300" Text="{Binding SelectedTitle, Mode=TwoWay}"/>
                 </StackPanel>
 
-                <!-- Sekcja filtrów -->
-                <Expander Grid.Row="1" Header="Filtry" IsExpanded="False" Margin="10">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0" Margin="5">
-                                <TextBlock Text="Opcje sortowania"/>
-                                <ComboBox ItemsSource="{Binding AvailableSortOptionsList}" SelectedItem="{Binding SelectedSort, Mode=TwoWay}" Width="150"/>
-
-                                <TextBlock Text="Opcje grupowania"/>
-                                <ComboBox ItemsSource="{Binding AvailableGroups}" SelectedItem="{Binding SelectedGroupingOption, Mode=TwoWay}" Width="150"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1" Margin="5">
-                                <TextBlock Text="Status wykonania"/>
-                                <ComboBox ItemsSource="{Binding AvailableCompletionStatusList}" SelectedItem="{Binding SelectedCompletionStatus, Mode=TwoWay}" Width="150"/>
-
-                                <TextBlock Text="Kategoria"/>
-                                <ComboBox ItemsSource="{Binding AvailableCategories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Width="150"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="2" Margin="5">
-                                <TextBlock Text="Tagi"/>
-                                <ComboBox ItemsSource="{Binding AvailableTags}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" Width="150"/>
-
-                                <TextBlock Text="Wybierz termin wykonania"/>
-                                <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="150"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                            <Button Content="Zastosuj Filtry" Command="{Binding ApplyAllFiltersCommand}" Foreground="MediumSeaGreen" Padding="5" FontWeight="Bold"/>
-                            <Button Content="Reset" Command="{Binding ClearFiltersCommand}" Foreground="Red" Padding="5" FontWeight="Bold" Margin="10 0"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Expander>
-
                 <!-- Główna zawartość -->
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2.5*"/>  <!-- Oś Czasu (POSZERZONE) -->
-                        <ColumnDefinition Width="1*"/>    <!-- Kalendarz + Szczegóły -->
+                        <ColumnDefinition Width="2.5*"/>
+                        <!-- Oś Czasu -->
+                        <ColumnDefinition Width="1*"/>
+                        <!-- Kalendarz + Szczegóły -->
                     </Grid.ColumnDefinitions>
 
                     <!-- Oś Czasu (Lista zadań) -->
@@ -105,28 +120,7 @@
                     <StackPanel Grid.Column="1" Margin="10">
                         <TextBlock Text="Kalendarz" FontSize="18" FontWeight="Bold"/>
                         <Calendar x:Name="CalendarView"/>
-
-                        <!-- Szczegóły zadania POD kalendarzem -->
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="10 0 0 10" Padding="10">
-                            <StackPanel>
-                                <TextBlock Text="Szczegóły zadania" FontSize="18" FontWeight="Bold" Margin="5"/>
-
-                                <TextBlock Text="Tytuł:" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding SelectedTask.Title}" FontSize="16"/>
-
-                                <TextBlock Text="Opis:" FontWeight="Bold" Margin="5 0 0 10"/>
-                                <TextBlock Text="{Binding SelectedTask.Description}" TextWrapping="Wrap"/>
-
-                                <TextBlock Text="Priorytet:" FontWeight="Bold" Margin="5 0 0 10"/>
-                                <TextBlock Text="{Binding SelectedTask.Priority}"/>
-
-                                <TextBlock Text="Status:" FontWeight="Bold" Margin="5 0 0 10"/>
-                                <TextBlock Text="{Binding SelectedTask.IsDone}"/>
-
-                                <TextBlock Text="Termin wykonania:" FontWeight="Bold" Margin="5 0 0 10"/>
-                                <TextBlock Text="{Binding SelectedTask.Date, StringFormat='{}{0:dd/MM/yyyy}'}"/>
-                            </StackPanel>
-                        </Border>
+                        <local:TaskDetailsView Width="300" Height="400" Margin="10 0 0 10" DataContext="{Binding TaskDetailsViewModel}"/>
                     </StackPanel>
                 </Grid>
             </Grid>

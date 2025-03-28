@@ -5,31 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
-        Title="Dodaj zadanie" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Label Content="Tytuł zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
-        <TextBox Name="TitleTextBox" HorizontalAlignment="Left" Margin="120,20,0,0" VerticalAlignment="Top" Width="200" Height="25"/>
-        <Label Content="Opis zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,19,0,0"/>
-        <TextBox Name="DescriptionTextBox" HorizontalAlignment="Left" Margin="490,20,0,0" VerticalAlignment="Top" Width="200" Height="50"/>
-        <Label Content="Kategoria:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,139,0,0"/>
-        <ComboBox x:Name="CategoryComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="120,141,0,0" Height="24">
+        Title="Dodaj zadanie" Height="450" Width="500" WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="10">
+        <TextBlock Text="Tytuł zadania:" FontWeight="Bold"/>
+        <TextBox Name="TitleTextBox" Width="200" Height="25"/>
+
+        <TextBlock Text="Opis zadania:" FontWeight="Bold"/>
+        <TextBox Name="DescriptionTextBox" Width="200" Height="50"/>
+
+        <TextBlock Text="Kategoria:" FontWeight="Bold"/>
+        <ComboBox x:Name="CategoryComboBox" Width="200" Height="24">
             <ComboBoxItem Content="Inne" IsSelected="True"/>
         </ComboBox>
-        <Label Content="Tag:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,142,0,0"/>
-        <ComboBox x:Name="TagComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="490,142,0,0" Height="23">
+
+        <TextBlock Text="Tag:" FontWeight="Bold"/>
+        <ComboBox x:Name="TagComboBox" Width="200" Height="23">
             <ComboBoxItem Content="Inne" IsSelected="True"/>
         </ComboBox>
-        <Label Content="Priorytet:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,85,0,0"/>
-        <ComboBox Name="PriorityComboBox" HorizontalAlignment="Left" Margin="120,81,0,0" VerticalAlignment="Top" Width="200" Height="30">
+
+        <TextBlock Text="Priorytet:" FontWeight="Bold"/>
+        <ComboBox Name="PriorityComboBox" Width="200" Height="30">
             <ComboBoxItem Content="Niski"/>
             <ComboBoxItem Content="Średni"/>
             <ComboBoxItem Content="Wysoki"/>
         </ComboBox>
-        <Label Content="Termin zadania:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="377,83,0,0"/>
-        <DatePicker Name="TaskDatePicker" HorizontalAlignment="Left" Margin="490,85,0,0" VerticalAlignment="Top" Width="200" Height="30"/>
-        <Label Content="Status ukończenia:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,200,0,0"/>
-        <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" HorizontalAlignment="Left" Margin="156,206,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
-        <Button Name="AddTaskButton" Content="Dodaj zadanie" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="289,237,0,0" Click="AddTaskButton_Click"/>
-        <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="400,237,0,0" />
-    </Grid>
+
+        <TextBlock Text="Termin zadania:" FontWeight="Bold"/>
+        <DatePicker Name="TaskDatePicker" Width="200" Height="30"/>
+
+        <TextBlock Text="Status ukończenia:" FontWeight="Bold"/>
+        <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" Width="100" Height="30"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Name="AddTaskButton" Content="Dodaj zadanie" Width="100" Height="30" Margin="5" Click="AddTaskButton_Click"/>
+            <Button Content="Anuluj" Width="100" Height="30" Margin="5" Click="CancelButton_Click"/>
+        </StackPanel>
+
+    </StackPanel>
 </Window>
