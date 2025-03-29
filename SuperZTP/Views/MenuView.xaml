@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperZTP.Views"
              mc:Ignorable="d"
-             Width="980" Height="720">
+             Width="980" Height="730">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid>
@@ -22,17 +22,27 @@
                     <!-- Nawigacja -->
                     <Button Content="📋 Notatki" Height="40" Margin="5"/>
                     <Button Content="✅ Zadania" Height="40" Margin="5"/>
-                    <Button Content="📅 Kalendarz" Height="40" Margin="5"/>
-
+                    
                     <!-- Przyciski dodawania -->
                     <Button Content="➕ Dodaj zadanie" Height="40" Margin="5" Command="{Binding AddTaskCommand}"/>
                     <Button Content="📝 Dodaj notatkę" Height="40" Margin="5" Command="{Binding AddNoteCommand}"/>
 
                     <!-- Sekcja filtrów -->
-                    <Expander Header="Filtry" IsExpanded="True" Margin="10 5 0 10">
+                    <Expander Header="Filtry" IsExpanded="True" Margin="5 5 0 10" Foreground="{StaticResource TextPrimary}">
                         <StackPanel>
-                            <TextBlock Text="Opcje sortowania"/>
-                            <ComboBox ItemsSource="{Binding AvailableSortOptionsList}" SelectedItem="{Binding SelectedSort, Mode=TwoWay}" Width="200">
+                            <TextBlock Text="Opcje sortowania" Foreground="{StaticResource Turquoise}"/>
+                            <ComboBox ItemsSource="{Binding AvailableSortOptionsList}" SelectedItem="{Binding SelectedSort, Mode=TwoWay}" Width="200" Background="{StaticResource Turquoise}" BorderBrush="Transparent">
+                                <ComboBox.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
+                                </ComboBox.Resources>
+
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource BackgroundLight}"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
@@ -40,8 +50,19 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <TextBlock Text="Opcje grupowania"/>
+                            <TextBlock Text="Opcje grupowania" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableGroups}" SelectedItem="{Binding SelectedGroupingOption, Mode=TwoWay}" Width="200">
+                                <ComboBox.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
+                                </ComboBox.Resources>
+
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource BackgroundLight}"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
@@ -49,8 +70,19 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <TextBlock Text="Status wykonania"/>
+                            <TextBlock Text="Status wykonania" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableCompletionStatusList}" SelectedItem="{Binding SelectedCompletionStatus, Mode=TwoWay}" Width="200">
+                                <ComboBox.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
+                                </ComboBox.Resources>
+
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource BackgroundLight}"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
@@ -58,27 +90,74 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <TextBlock Text="Kategoria"/>
-                            <ComboBox ItemsSource="{Binding AvailableCategories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Width="200"/>
+                            <TextBlock Text="Kategoria" Foreground="{StaticResource Turquoise}"/>
+                            <ComboBox ItemsSource="{Binding AvailableCategories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Width="200">
+                                <ComboBox.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
+                                </ComboBox.Resources>
 
-                            <TextBlock Text="Tagi"/>
-                            <ComboBox ItemsSource="{Binding AvailableTags}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" Width="200"/>
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource BackgroundLight}"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
 
-                            <TextBlock Text="Termin wykonania"/>
+                            <TextBlock Text="Tagi" Foreground="{StaticResource Turquoise}"/>
+                            <ComboBox ItemsSource="{Binding AvailableTags}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" Width="200">
+                                <ComboBox.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
+                                </ComboBox.Resources>
+
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource BackgroundLight}"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+
+                            <TextBlock Text="Termin wykonania" Foreground="{StaticResource Turquoise}"/>
                             <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="200"/>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                                <Button Content="Zastosuj Filtry" Command="{Binding ApplyAllFiltersCommand}" Foreground="MediumSeaGreen" Padding="5" FontWeight="Bold"/>
-                                <Button Content="Reset" Command="{Binding ClearFiltersCommand}" Foreground="Red" Padding="5" FontWeight="Bold" Margin="10 0"/>
+                                <Button Content="Zastosuj Filtry" Command="{Binding ApplyAllFiltersCommand}" Padding="5" Width="100"/>
+                                <Button Content="Reset" Command="{Binding ClearFiltersCommand}" Padding="5" Margin="5 0" Width="100"/>
                             </StackPanel>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="Generowanie" IsExpanded="True" Margin="5 5 0 10" Foreground="{StaticResource TextPrimary}">
+                        <StackPanel>
+                            <TextBlock Text="Raport:" Foreground="{StaticResource Turquoise}"/>
+                            <ComboBox ItemsSource="{Binding AvailableReportTypes}" SelectedItem="{Binding SelectedReportType, Mode=TwoWay}" Width="200">
+                                <ComboBox.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
+                                </ComboBox.Resources>
 
-                            <TextBlock Text="Raport:"/>
-                            <ComboBox ItemsSource="{Binding AvailableReportTypes}" SelectedItem="{Binding SelectedReportType, Mode=TwoWay}"/>
-                            <Button Content="Generuj" Click="GenerateReportButton_Click" Foreground="Blue" Margin="5" Padding="5"/>
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource BackgroundLight}"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                            <Button Content="Generuj" Click="GenerateReportButton_Click" Foreground="{StaticResource BackgroundDarker}" Background="{StaticResource Turquoise}" Margin="5" Padding="5" Width="200"/>
 
-                            <TextBlock Text="Podsumowanie:"/>
-                            <ComboBox ItemsSource="{Binding AvailableSummaryTypes}" SelectedItem="{Binding SelectedSummaryType, Mode=TwoWay}"/>
-                            <Button Content="Generuj" Click="GenerateSummaryButton_Click" Foreground="DarkOrange" Margin="5" Padding="5"/>
+                            <TextBlock Text="Podsumowanie:" Foreground="{StaticResource Turquoise}"/>
+                            <ComboBox ItemsSource="{Binding AvailableSummaryTypes}" SelectedItem="{Binding SelectedSummaryType, Mode=TwoWay}" Width="200">
+                                <ComboBox.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
+                                </ComboBox.Resources>
+
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource BackgroundLight}"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                            <Button Content="Generuj" Click="GenerateSummaryButton_Click" Foreground="{StaticResource BackgroundDarker}" Background="{StaticResource Turquoise}" Margin="5" Padding="5" Width="200"/>
                         </StackPanel>
                     </Expander>
                 </StackPanel>
@@ -95,8 +174,11 @@
 
                 <!-- Pasek wyszukiwania -->
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="Wyszukaj zadanie" VerticalAlignment="Center" Margin="5"/>
-                    <TextBox Width="300" Text="{Binding SelectedTitle, Mode=TwoWay}"/>
+                    <TextBlock Text="Wyszukaj zadanie" Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Width="530" Text="{Binding SelectedTitle, Mode=TwoWay}"/>
+                    <Button x:Name="SearchButton" Style="{StaticResource IconButtonStyle}" Height="20" Width="20" Margin="5">
+                        <Image Source="../Content/Icons/search.png" Stretch="Uniform"/>
+                    </Button>
                 </StackPanel>
 
                 <!-- Główna zawartość -->
@@ -111,7 +193,7 @@
                     <!-- Oś Czasu (Lista zadań) -->
                     <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Margin="10">
                         <StackPanel>
-                            <TextBlock Text="Oś czasu" FontSize="18" FontWeight="Bold" Margin="10"/>
+                            <TextBlock Text="Lista zadań oraz notatek" Foreground="{StaticResource TextPrimary}" FontSize="18" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
                             <local:DisplayTasksView DataContext="{Binding DisplayTasksViewModel}"/>
                         </StackPanel>
                     </Border>
@@ -119,7 +201,7 @@
                     <!-- Kalendarz + Szczegóły zadania -->
                     <StackPanel Grid.Column="1" Margin="10">
                         <TextBlock Text="Kalendarz" FontSize="18" FontWeight="Bold"/>
-                        <Calendar x:Name="CalendarView"/>
+                        <Calendar x:Name="CalendarView" Background="{StaticResource Turquoise}"/>
                         <local:TaskDetailsView Width="300" Height="400" Margin="10 0 0 10" DataContext="{Binding TaskDetailsViewModel}"/>
                     </StackPanel>
                 </Grid>

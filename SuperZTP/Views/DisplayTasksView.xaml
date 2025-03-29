@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SuperZTP.Views"
              xmlns:custom="clr-namespace:DropdownMenuControl;assembly=DropdownMenuControl"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="800">
     <Grid Background="{DynamicResource BackgroundDarker}">
         <Border BorderBrush="{DynamicResource BorderPrimary}"
                 SnapsToDevicePixels="True"
@@ -45,7 +45,6 @@
                                                 Converter={StaticResource BooleanToVisibilityConverter}}">
 
                                         <TextBlock Text="{Binding Title}" FontSize="16" Foreground="{StaticResource TextPrimary}"/>
-
                                     </StackPanel>
 
                                     <!-- Note -->
@@ -62,13 +61,13 @@
                                                          Margin="10 0 0 0"
                                                          Visibility="{Binding IsTask, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <Border Background="White" 
-                                                BorderBrush="{DynamicResource BorderPrimary}"
+                                                BorderBrush="{DynamicResource Turquoise}"
                                                 BorderThickness="1">
                                             <StackPanel>
                                                 <StackPanel.Resources>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Background" Value="{StaticResource Turquoise}"/>
-                                                        <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                                                        <Setter Property="Foreground" Value="{StaticResource BackgroundDarker}"/>
                                                         <Setter Property="Padding" Value="15 5"/>
                                                         <Setter Property="Cursor" Value="Hand"/>
                                                     </Style>

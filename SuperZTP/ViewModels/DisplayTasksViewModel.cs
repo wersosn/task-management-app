@@ -102,5 +102,6 @@ namespace SuperZTP.ViewModels
             _currentFilter = filter;
             RefreshTasks();
         }
+
     }
 }

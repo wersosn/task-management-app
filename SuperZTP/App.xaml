@@ -53,9 +53,55 @@
             <SolidColorBrush x:Key="ErrorColor" Color="#F44336"/>
             <!-- Czerwony do błędów -->
             
-            <!-- Nowe kolory -->
+            <!-- Nowe elementy -->
             <SolidColorBrush x:Key="Turquoise" Color="#27e9b5"/>
+            <SolidColorBrush x:Key="PersianGreen" Color="#319E8D"/>
             <CornerRadius x:Key="ButtonCornerRadius">10</CornerRadius>
+            <Style TargetType="TextBox">
+                <Setter Property="Padding" Value="0 5 0 0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="5">
+                                <ScrollViewer x:Name="PART_ContentHost" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="#27e9b5"/>
+                <Setter Property="Foreground" Value="{StaticResource BackgroundDarker}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#319E8D"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#319E8D"/>
+                        <Setter Property="Foreground" Value="#f5f5f5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="Button" x:Key="IconButtonStyle">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

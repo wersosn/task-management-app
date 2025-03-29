@@ -5,40 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
-        Title="Dodaj zadanie" Height="450" Width="500" WindowStartupLocation="CenterScreen">
+        Title="Dodaj zadanie" Height="500" Width="500" WindowStartupLocation="CenterScreen" Background="{StaticResource BackgroundDarker}">
     <StackPanel Margin="10">
-        <TextBlock Text="Tytuł zadania:" FontWeight="Bold"/>
+        <TextBlock Text="Tytuł zadania:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
         <TextBox Name="TitleTextBox" Width="200" Height="25"/>
 
-        <TextBlock Text="Opis zadania:" FontWeight="Bold"/>
+        <TextBlock Text="Opis zadania:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
         <TextBox Name="DescriptionTextBox" Width="200" Height="50"/>
 
-        <TextBlock Text="Kategoria:" FontWeight="Bold"/>
+        <TextBlock Text="Kategoria:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
         <ComboBox x:Name="CategoryComboBox" Width="200" Height="24">
             <ComboBoxItem Content="Inne" IsSelected="True"/>
         </ComboBox>
 
-        <TextBlock Text="Tag:" FontWeight="Bold"/>
+        <TextBlock Text="Tag:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
         <ComboBox x:Name="TagComboBox" Width="200" Height="23">
             <ComboBoxItem Content="Inne" IsSelected="True"/>
         </ComboBox>
 
-        <TextBlock Text="Priorytet:" FontWeight="Bold"/>
+        <TextBlock Text="Priorytet:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
         <ComboBox Name="PriorityComboBox" Width="200" Height="30">
             <ComboBoxItem Content="Niski"/>
             <ComboBoxItem Content="Średni"/>
             <ComboBoxItem Content="Wysoki"/>
         </ComboBox>
 
-        <TextBlock Text="Termin zadania:" FontWeight="Bold"/>
+        <TextBlock Text="Termin zadania:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
         <DatePicker Name="TaskDatePicker" Width="200" Height="30"/>
 
-        <TextBlock Text="Status ukończenia:" FontWeight="Bold"/>
-        <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" Width="100" Height="30"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+            <TextBlock Text="Status ukończenia:" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextPrimary}"/>
+            <CheckBox Name="IsCompletedCheckBox" Content="Ukończone" Foreground="{StaticResource TextPrimary}"/>
+        </StackPanel>
+
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-            <Button Name="AddTaskButton" Content="Dodaj zadanie" Width="100" Height="30" Margin="5" Click="AddTaskButton_Click"/>
-            <Button Content="Anuluj" Width="100" Height="30" Margin="5" Click="CancelButton_Click"/>
+            <Button Name="AddTaskButton" Content="Dodaj zadanie" Width="100" Height="30" Margin="5" Click="AddTaskButton_Click" Background="{StaticResource Turquoise}"/>
+            <Button Content="Anuluj" Width="100" Height="30" Margin="5" Click="CancelButton_Click" Background="{StaticResource Turquoise}"/>
         </StackPanel>
 
     </StackPanel>
