@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              FontSize="16">
-    <Grid>
+    <Grid Background="{StaticResource BackgroundDarker}">
         <Border 
             BorderBrush="{StaticResource BorderPrimary}"
             SnapsToDevicePixels="True"
@@ -15,175 +15,82 @@
             CornerRadius="5"
             Padding="15">
             <Grid>
-                <!-- Task not selected -->
+                <!-- Widok bez wybranego zadania -->
                 <Grid>
                     <Grid.Style>
                         <Style TargetType="Grid">
-                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter Property="Visibility" Value="Collapsed"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding HasNoSelection}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                    <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
-                    <TextBlock Text="Wybierz zadanie bądź notatkę aby zobaczyć szczegóły."
+                    <TextBlock Text="Wybierz zadanie, aby zobaczyć jego szczegóły."
                                FontSize="18"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Foreground="{StaticResource TextSecondary}"/>
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               Foreground="{StaticResource TextPrimary}"/>
                 </Grid>
 
-                <!-- Task Details -->
+                <!-- Szczegóły zadania -->
                 <Grid Grid.IsSharedSizeScope="True">
                     <Grid.Style>
                         <Style TargetType="Grid">
-                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter Property="Visibility" Value="Collapsed"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding HasSelectedTask}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                    <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
+
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Title -->
-                    <TextBlock FontSize="24"
-                               FontWeight="Bold"
-                               Text="{Binding Title}"
-                               Margin="0 0 0 10"
-                               Foreground="{StaticResource TextPrimary}"/>
+                    <!-- Tytuł -->
+                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold" Text="{Binding Title}" Margin="0 0 0 10" Foreground="{StaticResource Turquoise}"/>
 
-                    <!-- Category -->
-                    <Grid Grid.Row="1" Grid.Column="0" Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Kategoria: "
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Category}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <!-- Kategoria -->
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Kategoria:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Category}" Foreground="{StaticResource TextPrimary}"/>
 
                     <!-- Tag -->
-                    <Grid Grid.Row="1" Column="1" Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Tag:"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Tag}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Tag:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Tag}" Foreground="{StaticResource TextPrimary}"/>
 
-                    <!-- Priority -->
-                    <Grid Grid.Row="2" Column="0" Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Priorytet: "
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Priority}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <!-- Priorytet -->
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Priorytet:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Priority}" Foreground="{StaticResource TextPrimary}"/>
 
-                    
-                    <!--<Grid Grid.Row="3" Column="1" Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Status:" FontSize="16"
-                           FontWeight="Bold" Margin="0 0 5 0" />
-                         <TextBlock Grid.Column="1"
-                           FontSize="16"
-                           Text="{Binding Status}" />
-                    </Grid> -->
+                    <!-- Status -->
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Status:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding IsDone}" Foreground="{StaticResource TextPrimary}"/>
 
-                    <Grid Grid.Row="2" Column="1" Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label2" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Status:"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"
-                                   Margin="0 0 5 0" />
-                        <TextBlock Grid.Column="1"
-                                   FontSize="16"
-                                   Text="{Binding IsDone}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
+                    <!-- Data wykonania -->
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Data:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy}'}" Foreground="{StaticResource TextPrimary}"/>
 
-                    <!--<Button 
-                        Grid.Row="10" 
-                        Content="{Binding ButtonLabel}" 
-                        Command="{Binding ChangeStatusCommand}" 
-                        IsEnabled="{Binding IsButtonEnabled}" 
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Bottom" 
-                        Margin="0,10" /> -->
-                    
-                    <!-- Deadline -->
-                    <Grid Grid.Row="2" Column="3" Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Data:"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"
-                                   Padding="0 0 10 0"/>
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy}'}"
-                                   Foreground="{StaticResource TextSecondary}"/>
-                    </Grid>
-
-                    <!-- Description -->
-                    <Grid Grid.Row="6" Margin="0 5 0 0" ColumnSpan="3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Opis:"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimary}"
-                                   Padding="0 0 10 0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0"
-                                   Text="{Binding Description}"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource TextSecondary}"
-                                   Margin="0 0 10 0"/>
-                    </Grid>
+                    <!-- Opis -->
+                    <TextBlock Grid.Row="6" Grid.ColumnSpan="2" Text="Opis:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="7" Grid.ColumnSpan="2" Text="{Binding Description}" TextWrapping="Wrap" Foreground="{StaticResource TextPrimary}" Margin="10,5"/>
                 </Grid>
             </Grid>
         </Border>

@@ -43,7 +43,7 @@ namespace SuperZTP.ViewModels
             GroupingOption.GroupByTag
         };
 
-        public IList<CompletionStatus> AvaliableCompletionStatusList { get; } = new List<CompletionStatus>
+        public IList<CompletionStatus> AvailableCompletionStatusList { get; } = new List<CompletionStatus>
         {
             CompletionStatus.Default,
             CompletionStatus.Completed,
@@ -51,7 +51,7 @@ namespace SuperZTP.ViewModels
             CompletionStatus.ShowAll
         };
 
-        public IList<SortOptions> AvaliableSortOptionsList { get; } =
+        public IList<SortOptions> AvailableSortOptionsList { get; } =
             Enum.GetValues(typeof(SortOptions))
                 .Cast<SortOptions>()
                 .ToList();
