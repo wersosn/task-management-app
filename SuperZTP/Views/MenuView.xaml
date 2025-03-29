@@ -17,7 +17,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Lewy panel (Sidebar) -->
-            <Border Grid.Column="0" Background="#F0F0F0" Padding="10">
+            <Border Grid.Column="0" Background="{StaticResource BackgroundDarker}" Padding="10">
                 <StackPanel>
                     <!-- Nawigacja -->
                     <Button Content="📋 Notatki" Height="40" Margin="5"/>
@@ -29,7 +29,7 @@
                     <Button Content="📝 Dodaj notatkę" Height="40" Margin="5" Command="{Binding AddNoteCommand}"/>
 
                     <!-- Sekcja filtrów -->
-                    <Expander Header="Filtry" IsExpanded="False" Margin="10 5 0 10">
+                    <Expander Header="Filtry" IsExpanded="True" Margin="10 5 0 10">
                         <StackPanel>
                             <TextBlock Text="Opcje sortowania"/>
                             <ComboBox ItemsSource="{Binding AvailableSortOptionsList}" SelectedItem="{Binding SelectedSort, Mode=TwoWay}" Width="200">

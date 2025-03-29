@@ -9,11 +9,11 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
             <!-- Tło aplikacji (ciemnoszary) -->
-            <SolidColorBrush x:Key="BackgroundDark" Color="#1E1E1E"/>
+            <SolidColorBrush x:Key="BackgroundDark" Color="#051824"/>
             <!-- Główne tło -->
-            <SolidColorBrush x:Key="BackgroundDarker" Color="#121212"/>
+            <SolidColorBrush x:Key="BackgroundDarker" Color="#162936"/>
             <!-- Bardzo ciemne tło -->
-            <SolidColorBrush x:Key="BackgroundLight" Color="#2E2E2E"/>
+            <SolidColorBrush x:Key="BackgroundLight" Color="#3b5265"/>
             <!-- Kontrastowe sekcje -->
 
             <!-- Tekst -->
@@ -52,6 +52,10 @@
             <!-- Zielony (np. do zaakceptowania) -->
             <SolidColorBrush x:Key="ErrorColor" Color="#F44336"/>
             <!-- Czerwony do błędów -->
+            
+            <!-- Nowe kolory -->
+            <SolidColorBrush x:Key="Turquoise" Color="#27e9b5"/>
+            <CornerRadius x:Key="ButtonCornerRadius">10</CornerRadius>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              FontSize="16">
-    <Grid>
+    <Grid Background="{StaticResource BackgroundDarker}">
         <Border 
             BorderBrush="{StaticResource BorderPrimary}"
             SnapsToDevicePixels="True"
@@ -33,7 +33,7 @@
                                VerticalAlignment="Center"
                                TextWrapping="Wrap"
                                TextAlignment="Center"
-                               Foreground="{StaticResource BackgroundDark}"/>
+                               Foreground="{StaticResource TextPrimary}"/>
                 </Grid>
 
                 <!-- Szczegóły zadania -->
@@ -66,31 +66,31 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Tytuł -->
-                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold" Text="{Binding Title}" Margin="0 0 0 10" Foreground="{StaticResource BackgroundDarker}"/>
+                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold" Text="{Binding Title}" Margin="0 0 0 10" Foreground="{StaticResource Turquoise}"/>
 
                     <!-- Kategoria -->
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Kategoria:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Category}" Foreground="{StaticResource BackgroundDark}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Kategoria:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Category}" Foreground="{StaticResource TextPrimary}"/>
 
                     <!-- Tag -->
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Tag:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Tag}" Foreground="{StaticResource BackgroundDark}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Tag:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Tag}" Foreground="{StaticResource TextPrimary}"/>
 
                     <!-- Priorytet -->
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Priorytet:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
-                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Priority}" Foreground="{StaticResource BackgroundDark}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Priorytet:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Priority}" Foreground="{StaticResource TextPrimary}"/>
 
                     <!-- Status -->
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Status:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
-                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding IsDone}" Foreground="{StaticResource BackgroundDark}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Status:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding IsDone}" Foreground="{StaticResource TextPrimary}"/>
 
                     <!-- Data wykonania -->
-                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Data:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
-                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy}'}" Foreground="{StaticResource BackgroundDark}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Data:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy}'}" Foreground="{StaticResource TextPrimary}"/>
 
                     <!-- Opis -->
-                    <TextBlock Grid.Row="6" Grid.ColumnSpan="2" Text="Opis:" FontWeight="Bold" Foreground="{StaticResource BackgroundDarker}"/>
-                    <TextBlock Grid.Row="7" Grid.ColumnSpan="2" Text="{Binding Description}" TextWrapping="Wrap" Foreground="{StaticResource BackgroundDark}" Margin="10,5"/>
+                    <TextBlock Grid.Row="6" Grid.ColumnSpan="2" Text="Opis:" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+                    <TextBlock Grid.Row="7" Grid.ColumnSpan="2" Text="{Binding Description}" TextWrapping="Wrap" Foreground="{StaticResource TextPrimary}" Margin="10,5"/>
                 </Grid>
             </Grid>
         </Border>

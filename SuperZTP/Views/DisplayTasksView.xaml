@@ -7,14 +7,14 @@
              xmlns:custom="clr-namespace:DropdownMenuControl;assembly=DropdownMenuControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="{DynamicResource BackgroundDarker}">
         <Border BorderBrush="{DynamicResource BorderPrimary}"
                 SnapsToDevicePixels="True"
                 BorderThickness="1"
                 CornerRadius="5"
                 Padding="15">
             <Grid>
-                <ListView BorderThickness="0" SelectedItem="{Binding SelectedTaskViewModel}" ItemsSource="{Binding Previews}">
+                <ListView BorderThickness="0" SelectedItem="{Binding SelectedTaskViewModel}" ItemsSource="{Binding Previews}" Background="{DynamicResource BackgroundDarker}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -34,7 +34,7 @@
                                                Text="{Binding Title}" 
                                                FontWeight="Bold"
                                                FontSize="24"
-                                               Foreground="DarkBlue"
+                                               Foreground="{StaticResource Turquoise}"
                                                Padding="5"
                                                TextAlignment="Center"
                                                Visibility="{Binding IsHeader, Converter={StaticResource BooleanToVisibilityConverter}}"/>
@@ -44,7 +44,7 @@
                                                 Visibility="{Binding IsTask, 
                                                 Converter={StaticResource BooleanToVisibilityConverter}}">
 
-                                        <TextBlock Text="{Binding Title}" FontSize="16"/>
+                                        <TextBlock Text="{Binding Title}" FontSize="16" Foreground="{StaticResource TextPrimary}"/>
 
                                     </StackPanel>
 
@@ -67,8 +67,8 @@
                                             <StackPanel>
                                                 <StackPanel.Resources>
                                                     <Style TargetType="Button">
-                                                        <Setter Property="Background" Value="#f0f0f0"/>
-                                                        <Setter Property="Foreground" Value="#333333"/>
+                                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                                        <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
                                                         <Setter Property="Padding" Value="15 5"/>
                                                         <Setter Property="Cursor" Value="Hand"/>
                                                     </Style>
@@ -78,7 +78,6 @@
                                             </StackPanel>
                                         </Border>
                                     </custom:DropdownMenu>
-
                                 </Grid>
                             </Border>
                         </DataTemplate>
