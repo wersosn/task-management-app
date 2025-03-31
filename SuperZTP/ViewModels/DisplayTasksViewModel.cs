@@ -19,6 +19,7 @@ namespace SuperZTP.ViewModels
         private readonly ObservableCollection<DisplayTaskPreviewViewModel> _previews;
         private readonly Proxy.Proxy _proxy;
         public IEnumerable<DisplayTaskPreviewViewModel> Previews => _previews;
+        private MenuViewModel _viewModel;
 
         private DisplayTaskPreviewViewModel _selectedTaskViewModel;
         public DisplayTaskPreviewViewModel SelectedTaskViewModel
@@ -54,6 +55,7 @@ namespace SuperZTP.ViewModels
             _invoker = invoker;
             _previews = new ObservableCollection<DisplayTaskPreviewViewModel>();
             _proxy = new Proxy.Proxy(_taskState.Tasks, _taskState.Notes);
+            _viewModel = menuViewModel;
             menuViewModel.FilterChanged += ApplyFilter;
 
             RefreshTasks();
@@ -70,7 +72,7 @@ namespace SuperZTP.ViewModels
                     RefreshTasks));
                 foreach (var task in filteredTasks)
                 {
-                    _previews.Add(new DisplayTaskPreviewViewModel(task, _taskState, _invoker, RefreshTasks));
+                    _previews.Add(new DisplayTaskPreviewViewModel(task, _taskState, _invoker, RefreshTasks, _viewModel));
                 }
             }
 

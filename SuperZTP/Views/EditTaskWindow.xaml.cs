@@ -1,5 +1,7 @@
-﻿using SuperZTP.Command;
+﻿using DocumentFormat.OpenXml.Office2021.DocumentTasks;
+using SuperZTP.Command;
 using SuperZTP.Model;
+using SuperZTP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,43 +23,93 @@ namespace SuperZTP.Views
     /// </summary>
     public partial class EditTaskWindow : Window
     {
+        private List<SuperZTP.Model.Task> tasks;
         public Model.Task EditedTask { get; private set; }
         private FileHandler fileHandler;
+        private CommandInvoker invoker;
+        private MenuViewModel _viewModel;
+        private Model.Task originalTask;
 
-        public EditTaskWindow(Model.Task taskToEdit, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
+        public EditTaskWindow(Model.Task taskToEdit, FileHandler fileHandler, List<Category> categories, List<Tag> tags, CommandInvoker invoker, MenuViewModel _viewModel, List<SuperZTP.Model.Task> tasks)
         {
             InitializeComponent();
-            TitleTextBox.Text = taskToEdit.Title;
-            DescriptionTextBox.Text = taskToEdit.Description;
-            LoadCategoriesToComboBox(categories);
-            SelectCategoryInComboBox(taskToEdit.Category);
-            LoadTagsToComboBox(tags);
-            SelectTagInComboBox(taskToEdit.Tag);
-            PriorityComboBox.SelectedItem = PriorityComboBox.Items
-                .Cast<ComboBoxItem>()
-                .FirstOrDefault(item => item.Content.ToString() == taskToEdit.Priority);
-            DeadlineDatePicker.SelectedDate = taskToEdit.Deadline;
-            IsCompletedCheckBox.IsChecked = taskToEdit.IsDone;
-            EditedTask = taskToEdit;
+
+            this.tasks = tasks;
             this.fileHandler = fileHandler;
+            this.invoker = invoker;
+            this._viewModel = _viewModel;
+
+            // Tworzymy kopię zadania, aby nie nadpisywać oryginału przed zapisaniem
+            originalTask = new Model.Task
+            {
+                Id = taskToEdit.Id,
+                Title = taskToEdit.Title,
+                Description = taskToEdit.Description,
+                Tag = taskToEdit.Tag,
+                Category = taskToEdit.Category,
+                Priority = taskToEdit.Priority,
+                Deadline = taskToEdit.Deadline,
+                IsDone = taskToEdit.IsDone
+            };
+
+            EditedTask = new Model.Task
+            {
+                Id = taskToEdit.Id,
+                Title = taskToEdit.Title,
+                Description = taskToEdit.Description,
+                Tag = taskToEdit.Tag,
+                Category = taskToEdit.Category,
+                Priority = taskToEdit.Priority,
+                Deadline = taskToEdit.Deadline,
+                IsDone = taskToEdit.IsDone
+            };
+
+            TitleTextBox.Text = EditedTask.Title;
+            DescriptionTextBox.Text = EditedTask.Description;
+            LoadCategoriesToComboBox(categories);
+            SelectCategoryInComboBox(EditedTask.Category);
+            LoadTagsToComboBox(tags);
+            SelectTagInComboBox(EditedTask.Tag);
+
+            // Obsługa null w PriorityComboBox
+            if (!string.IsNullOrEmpty(EditedTask.Priority))
+            {
+                PriorityComboBox.SelectedItem = PriorityComboBox.Items
+                    .Cast<ComboBoxItem>()
+                    .FirstOrDefault(item => item.Content.ToString() == EditedTask.Priority);
+            }
+
+            DeadlineDatePicker.SelectedDate = EditedTask.Deadline;
+            IsCompletedCheckBox.IsChecked = EditedTask.IsDone;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             EditedTask.Title = TitleTextBox.Text;
             EditedTask.Description = DescriptionTextBox.Text;
+
             if (CategoryComboBox.SelectedItem is ComboBoxItem selectedCategoryItem && selectedCategoryItem.Tag is Category selectedCategory)
             {
                 EditedTask.Category = selectedCategory;
             }
+
             if (TagComboBox.SelectedItem is ComboBoxItem selectedTagItem && selectedTagItem.Tag is Tag selectedTag)
             {
                 EditedTask.Tag = selectedTag;
             }
-            EditedTask.Priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString();
+
+            EditedTask.Priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString() ?? "Brak priorytetu";
             EditedTask.Deadline = DeadlineDatePicker.SelectedDate ?? DateTime.Now;
             EditedTask.IsDone = IsCompletedCheckBox.IsChecked ?? false;
+
+            // Zapisujemy nową wersję zadania i dodajemy do historii
             fileHandler.SaveTasksToFile("tasks.txt");
+
+            var editCommand = new EditTask(tasks, originalTask, EditedTask, EditedTask.Id);
+            invoker.AddCommand(editCommand);
+            invoker.Execute();
+            _viewModel.UpdateHistory();
+
             DialogResult = true;
         }
 

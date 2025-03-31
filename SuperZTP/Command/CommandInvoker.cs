@@ -36,9 +36,9 @@ namespace SuperZTP.Command
             }
         }
 
-        public IEnumerable<string> GetCommandHistory()
+        public IEnumerable<string?> GetLastFiveCommands()
         {
-            return commandHistory.Select(c => c.ToString());
+            return commandHistory.Skip(Math.Max(0, commandHistory.Count - 5)).Select(c => c.ToString());
         }
 
         public void ClearHistory()

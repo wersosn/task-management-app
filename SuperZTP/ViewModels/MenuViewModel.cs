@@ -45,7 +45,7 @@ namespace SuperZTP.ViewModels
             set
             {
                 _historyVisibility = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(HistoryVisibility));
             }
         }
 
@@ -295,29 +295,24 @@ namespace SuperZTP.ViewModels
         private void ToggleHistory()
         {
             HistoryVisibility = HistoryVisibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
-            //UpdateHistory();
+            OnPropertyChanged(nameof(HistoryVisibility));
         }
 
         public void UpdateHistory()
         {
-            CommandHistory.Clear();
-            var history = _invoker.GetCommandHistory();
+            var history = _invoker.GetLastFiveCommands().ToList();
             if (history == null || !history.Any())
             {
-                MessageBox.Show("Brak operacji w historii.");
                 return;
             }
-            foreach (var command in history)
+            if (history.Any())
             {
-                CommandHistory.Add(command.ToString());
+                foreach (var command in history)
+                {
+                    CommandHistory.Add(command.ToString());
+                }
             }
             OnPropertyChanged(nameof(CommandHistory));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

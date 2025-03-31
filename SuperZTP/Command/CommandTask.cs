@@ -46,68 +46,72 @@ namespace SuperZTP.Command
             tasks.Remove(newTask);
             _onTaskAdded?.Invoke();
         }
+
+        public override string ToString()
+        {
+            return $"Dodano zadanie: {newTask.Title}";
+        }
     }
 
     // Modyfikacja zadania
     public class EditTask : ICommand
     {
         private List<Model.Task> tasks;
-        private Model.Task newTaskCopy;
-        private Model.Task oldTask;
+        private Model.Task oldTask; // Stara wersja zadania
+        private Model.Task newTask; // Nowa wersja zadania
         private int id;
 
-        public EditTask(List<Model.Task> tasks, Model.Task newTask, int id)
+        public EditTask(List<Model.Task> tasks, Model.Task oldTask, Model.Task newTask, int id)
         {
             this.tasks = tasks;
             this.id = id;
-            if (id > 0 && id < tasks.Count)
-            {
-                oldTask = new Model.Task // Kopia starej wersji zadania, aby uniknąć pracy na referencji
-                {
-                    Id = tasks[id].Id,
-                    Title = tasks[id].Title,
-                    Description = tasks[id].Description,
-                    Tag = tasks[id].Tag,
-                    Category = tasks[id].Category
-                };
-                oldTask.SetPriority(tasks[id].Priority);
-                oldTask.SetDeadline(tasks[id].Deadline);
-                if (tasks[id].IsDone)
-                {
-                    oldTask.MarkAsDone();
-                }
 
-                newTaskCopy = new Model.Task // Kopia nowej wersji zadania, aby uniknąć pracy na referencji
-                {
-                    Id = newTask.Id,
-                    Title = newTask.Title,
-                    Description = newTask.Description,
-                    Tag = newTask.Tag,
-                    Category = newTask.Category
-                };
-                newTaskCopy.SetPriority(newTask.Priority);
-                newTaskCopy.SetDeadline(newTask.Deadline);
-                if (newTask.IsDone)
-                {
-                    newTaskCopy.MarkAsDone();
-                }
-            }
+            this.oldTask = new Model.Task
+            {
+                Id = oldTask.Id,
+                Title = oldTask.Title,
+                Description = oldTask.Description,
+                Tag = oldTask.Tag,
+                Category = oldTask.Category,
+                Priority = oldTask.Priority,
+                Deadline = oldTask.Deadline,
+                IsDone = oldTask.IsDone
+            };
+
+            this.newTask = new Model.Task
+            {
+                Id = newTask.Id,
+                Title = newTask.Title,
+                Description = newTask.Description,
+                Tag = newTask.Tag,
+                Category = newTask.Category,
+                Priority = newTask.Priority,
+                Deadline = newTask.Deadline,
+                IsDone = newTask.IsDone
+            };
         }
 
         public void Execute()
         {
             if (id >= 0 && id < tasks.Count)
             {
-                tasks[id] = newTaskCopy;
+                tasks[id] = newTask;
             }
         }
 
         public void Undo()
         {
-            if (oldTask != null && id >= 0 && id < tasks.Count)
+            if (id >= 0 && id < tasks.Count)
             {
                 tasks[id] = oldTask;
             }
+        }
+
+        public override string ToString()
+        {
+            return newTask != null
+                ? $"Zedytowano zadanie: {newTask.Title}"
+                : "Edycja zadania nie powiodła się.";
         }
     }
 
@@ -144,6 +148,11 @@ namespace SuperZTP.Command
                 _tasks.Insert(_index, _taskToDelete);
                 _onTaskDeleted?.Invoke(); // Przywracamy taska i odświeżamy widok
             }
+        }
+
+        public override string ToString()
+        {
+            return $"Usunięto zadanie: {_taskToDelete.Title}";
         }
     }
 
