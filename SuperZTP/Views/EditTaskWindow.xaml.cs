@@ -102,7 +102,6 @@ namespace SuperZTP.Views
             EditedTask.Deadline = DeadlineDatePicker.SelectedDate ?? DateTime.Now;
             EditedTask.IsDone = IsCompletedCheckBox.IsChecked ?? false;
 
-            // Zapisujemy nową wersję zadania i dodajemy do historii
             fileHandler.SaveTasksToFile("tasks.txt");
 
             var editCommand = new EditTask(tasks, originalTask, EditedTask, EditedTask.Id);

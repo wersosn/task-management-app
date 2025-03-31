@@ -73,27 +73,24 @@ namespace SuperZTP.ViewModels
         {
             _invoker.AddCommand(new DeleteTask(_tasks, Task, _refreshMenu));
             _invoker.Execute();
+            _viewModel.UpdateHistory();
             _taskState.FileHandler.SaveTasksToFile("tasks.txt");
         }
 
         private void EditTaskCommand()
         {
             var editTaskWindow = new EditTaskWindow(Task, _taskState.FileHandler, _taskState.Categories, _taskState.Tags, _invoker, _viewModel, _tasks);
-
             if (editTaskWindow.ShowDialog() == true)
             {
                 var editedTask = editTaskWindow.EditedTask;
                 var taskIndex = _taskState.Tasks.FindIndex(t => t.Id == editedTask.Id);
-
                 if (taskIndex >= 0)
                 {
                     _taskState.Tasks[taskIndex] = editedTask;
-                    _invoker.AddCommand(new EditTask(_tasks, Task, editedTask, editedTask.Id));
-                    _invoker.Execute();
                 }
-
                 _refreshMenu.Invoke();
             }
+            //proxy.ClearTaskCache();
         }
     }
 }

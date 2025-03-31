@@ -300,6 +300,7 @@ namespace SuperZTP.ViewModels
 
         public void UpdateHistory()
         {
+            CommandHistory.Clear();
             var history = _invoker.GetLastFiveCommands().ToList();
             if (history == null || !history.Any())
             {
