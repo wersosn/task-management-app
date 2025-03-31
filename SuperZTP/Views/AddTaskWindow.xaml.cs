@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SuperZTP.ViewModels;
 
 namespace SuperZTP.Views
 {
@@ -23,16 +24,19 @@ namespace SuperZTP.Views
     public partial class AddTaskWindow : Window
     {
         private List<SuperZTP.Model.Task> tasks;
-        private CommandInvoker invoker = new CommandInvoker();
+        private CommandInvoker invoker;
         private TaskBuilder taskBuilder = new TaskBuilder();
         private FileHandler fileHandler;
         public event Action TaskAdded;
+        private MenuViewModel _viewModel;
 
-        public AddTaskWindow(List<SuperZTP.Model.Task> tasks, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
+        public AddTaskWindow(List<SuperZTP.Model.Task> tasks, FileHandler fileHandler, List<Category> categories, List<Tag> tags, MenuViewModel _viewModel, CommandInvoker invoker)
         {
             InitializeComponent();
             this.tasks = tasks;
             this.fileHandler = fileHandler;
+            this._viewModel = _viewModel;
+            this.invoker = invoker;
             LoadCategoriesToComboBox(categories);
             LoadTagsToComboBox(tags);
         }
@@ -53,6 +57,11 @@ namespace SuperZTP.Views
             DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now;
             bool isCompleted = IsCompletedCheckBox.IsChecked ?? false;
 
+            if(title == null)
+            {
+                MessageBox.Show("Tytuł jest wymagany");
+            }
+
             var zadanie = taskBuilder
                 .setTitle(title)
                 .setDescription(description)
@@ -71,8 +80,10 @@ namespace SuperZTP.Views
             invoker.AddCommand(new AddTask(tasks, zadanie, RefreshTasks));
             invoker.Execute();
             fileHandler.SaveTasksToFile("tasks.txt");
+            _viewModel.UpdateHistory();
             DialogResult = true;
         }
+
         private void RefreshTasks()
         {
             TaskAdded?.Invoke(); // Powiadamiamy `DisplayTasksViewModel`

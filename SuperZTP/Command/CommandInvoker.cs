@@ -36,6 +36,11 @@ namespace SuperZTP.Command
             }
         }
 
+        public IEnumerable<string> GetCommandHistory()
+        {
+            return commandHistory.Select(c => c.ToString());
+        }
+
         public void ClearHistory()
         {
             commandHistory.Clear();
