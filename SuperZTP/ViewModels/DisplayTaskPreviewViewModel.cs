@@ -20,6 +20,7 @@ namespace SuperZTP.ViewModels
         private readonly TaskState _taskState;
         private readonly CommandInvoker _invoker;
         private readonly Action _refreshMenu;
+        private MenuViewModel _viewModel;
 
         public Model.Task Task { get; }
         public Model.Note Note { get; }
@@ -30,7 +31,7 @@ namespace SuperZTP.ViewModels
         public bool IsTask => Task != null;
         public bool IsNote => Note != null;
         public bool IsHeader => Header != null;
-        public DisplayTaskPreviewViewModel(Task task, TaskState state, CommandInvoker invoker, Action refreshMenu)
+        public DisplayTaskPreviewViewModel(Task task, TaskState state, CommandInvoker invoker, Action refreshMenu, MenuViewModel viewModel)
         {
             Task = task;
             _tasks = state.Tasks;
@@ -38,6 +39,7 @@ namespace SuperZTP.ViewModels
             _taskState = state;
             _invoker = invoker;
             _refreshMenu = refreshMenu;
+            _viewModel = viewModel;
 
             DeleteCommand = new RelayCommand(DeleteTaskCommand);
             EditCommand = new RelayCommand(EditTaskCommand);
@@ -71,11 +73,13 @@ namespace SuperZTP.ViewModels
         {
             _invoker.AddCommand(new DeleteTask(_tasks, Task, _refreshMenu));
             _invoker.Execute();
+            _viewModel.UpdateHistory();
             _taskState.FileHandler.SaveTasksToFile("tasks.txt");
         }
+
         private void EditTaskCommand()
         {
-            var editTaskWindow = new EditTaskWindow(Task, _taskState.FileHandler, _taskState.Categories, _taskState.Tags);
+            var editTaskWindow = new EditTaskWindow(Task, _taskState.FileHandler, _taskState.Categories, _taskState.Tags, _invoker, _viewModel, _tasks);
             if (editTaskWindow.ShowDialog() == true)
             {
                 var editedTask = editTaskWindow.EditedTask;
@@ -88,6 +92,5 @@ namespace SuperZTP.ViewModels
             }
             //proxy.ClearTaskCache();
         }
-
     }
 }

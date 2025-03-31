@@ -19,6 +19,9 @@ using System.Windows.Data;
 using SuperZTP.TemplateMethod;
 using System.Reflection.Metadata.Ecma335;
 using System.Windows;
+using DocumentFormat.OpenXml.Office2019.Drawing.Model3D;
+using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 namespace SuperZTP.ViewModels
 {
@@ -29,9 +32,24 @@ namespace SuperZTP.ViewModels
         public NoteDetailsViewModel NoteDetailsViewModel { get; }
         private readonly CommandInvoker _invoker;
         private readonly TaskFilterManager _filterManager;
+        private bool _isHistoryVisible;
         public GenerateTXT txt;
         public GeneratePDF pdf;
         public GenerateDOCX docx;
+
+        public ObservableCollection<string> CommandHistory { get; } = new ObservableCollection<string>();
+
+        public Visibility HistoryVisibility
+        {
+            get => _historyVisibility;
+            set
+            {
+                _historyVisibility = value;
+                OnPropertyChanged(nameof(HistoryVisibility));
+            }
+        }
+
+        private Visibility _historyVisibility = Visibility.Collapsed;
 
         //Enums dla filtrów
         public IList<string> AvailableCategories { get; }
@@ -68,7 +86,7 @@ namespace SuperZTP.ViewModels
 
         public System.Windows.Input.ICommand AddTaskCommand { get; }
         public System.Windows.Input.ICommand AddNoteCommand { get; }
-
+        public System.Windows.Input.ICommand ToggleHistoryCommand { get; }
 
         // Konstruktor
         public MenuViewModel(SelectedTaskStore _selectedTaskStore, TaskState taskState)
@@ -85,6 +103,7 @@ namespace SuperZTP.ViewModels
             NoteDetailsViewModel = new NoteDetailsViewModel(_selectedTaskStore);
             AddTaskCommand = new RelayCommand(() => OpenAddTaskWindow(taskState));
             AddNoteCommand = new RelayCommand(() => OpenAddNoteWindow(taskState));
+            ToggleHistoryCommand = new RelayCommand(ToggleHistory);
 
             // Inicjalizacja dostępnych opcji filtrów
             AvailableCategories = taskState.Categories.Select(c => c.Name.TrimStart()).ToList();
@@ -98,16 +117,17 @@ namespace SuperZTP.ViewModels
         private void OpenAddTaskWindow(TaskState taskState)
         {
 
-            AddTaskWindow addTaskWindow = new AddTaskWindow(taskState.Tasks, taskState.FileHandler, taskState.Categories, taskState.Tags);
+            AddTaskWindow addTaskWindow = new AddTaskWindow(taskState.Tasks, taskState.FileHandler, taskState.Categories, taskState.Tags, this, _invoker);
             addTaskWindow.TaskAdded += DisplayTasksViewModel.RefreshTasks;
             addTaskWindow.ShowDialog();
             addTaskWindow.TaskAdded -= DisplayTasksViewModel.RefreshTasks;
             // proxy.ClearTaskCache();
         }
+
         private void OpenAddNoteWindow(TaskState taskState)
         {
 
-            AddNoteWindow addNoteWindow = new AddNoteWindow(taskState.Notes, taskState.FileHandler, taskState.Categories, taskState.Tags);
+            AddNoteWindow addNoteWindow = new AddNoteWindow(taskState.Notes, taskState.FileHandler, taskState.Categories, taskState.Tags, this, _invoker);
             addNoteWindow.NoteAdded += DisplayTasksViewModel.RefreshTasks;
             addNoteWindow.ShowDialog();
             addNoteWindow.NoteAdded -= DisplayTasksViewModel.RefreshTasks;
@@ -269,6 +289,31 @@ namespace SuperZTP.ViewModels
             if (SelectedSummaryType == "DOCX") docx.GenerateSummary("podsumowanieDOCX.docx");
 
             MessageBox.Show($"Wygenerowano podsumowanie w formacie {SelectedSummaryType}");
+        }
+
+        // Metody potrzebne do wyświetlania historii operacji:
+        private void ToggleHistory()
+        {
+            HistoryVisibility = HistoryVisibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            OnPropertyChanged(nameof(HistoryVisibility));
+        }
+
+        public void UpdateHistory()
+        {
+            CommandHistory.Clear();
+            var history = _invoker.GetLastFiveCommands().ToList();
+            if (history == null || !history.Any())
+            {
+                return;
+            }
+            if (history.Any())
+            {
+                foreach (var command in history)
+                {
+                    CommandHistory.Add(command.ToString());
+                }
+            }
+            OnPropertyChanged(nameof(CommandHistory));
         }
     }
 }

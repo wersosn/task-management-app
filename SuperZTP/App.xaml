@@ -53,10 +53,12 @@
             <SolidColorBrush x:Key="ErrorColor" Color="#F44336"/>
             <!-- Czerwony do błędów -->
             
-            <!-- Nowe elementy -->
+            <!-- Nowe kolory -->
             <SolidColorBrush x:Key="Turquoise" Color="#27e9b5"/>
             <SolidColorBrush x:Key="PersianGreen" Color="#319E8D"/>
-            <CornerRadius x:Key="ButtonCornerRadius">10</CornerRadius>
+            <SolidColorBrush x:Key="MyrtieGreen" Color="#367879"/>
+
+            <!-- Wygląd TextBox -->
             <Style TargetType="TextBox">
                 <Setter Property="Padding" Value="0 5 0 0"/>
                 <Setter Property="Template">
@@ -73,6 +75,7 @@
                 </Setter>
             </Style>
 
+            <!-- Wygląd przycisków -->
             <Style TargetType="Button">
                 <Setter Property="Background" Value="#27e9b5"/>
                 <Setter Property="Foreground" Value="{StaticResource BackgroundDarker}"/>
@@ -88,6 +91,7 @@
                 </Style.Triggers>
             </Style>
 
+            <!-- Wygląd przycisków, które są ikonami -->
             <Style TargetType="Button" x:Key="IconButtonStyle">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderBrush" Value="Transparent"/>

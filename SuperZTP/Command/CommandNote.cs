@@ -41,6 +41,11 @@ namespace SuperZTP.Command
             notes.Remove(newNote);
             _onNoteAdded?.Invoke();
         }
+
+        public override string ToString()
+        {
+            return $"Dodano notatkę: {newNote.Title}";
+        }
     }
 
     // Modyfikacja notatki
