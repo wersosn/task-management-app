@@ -127,7 +127,7 @@ namespace SuperZTP.ViewModels
         private void OpenAddNoteWindow(TaskState taskState)
         {
 
-            AddNoteWindow addNoteWindow = new AddNoteWindow(taskState.Notes, taskState.FileHandler, taskState.Categories, taskState.Tags);
+            AddNoteWindow addNoteWindow = new AddNoteWindow(taskState.Notes, taskState.FileHandler, taskState.Categories, taskState.Tags, this, _invoker);
             addNoteWindow.NoteAdded += DisplayTasksViewModel.RefreshTasks;
             addNoteWindow.ShowDialog();
             addNoteWindow.NoteAdded -= DisplayTasksViewModel.RefreshTasks;

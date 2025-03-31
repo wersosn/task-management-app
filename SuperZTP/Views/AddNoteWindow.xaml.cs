@@ -1,6 +1,7 @@
 ﻿using SuperZTP.Builder;
 using SuperZTP.Command;
 using SuperZTP.Model;
+using SuperZTP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,16 +24,19 @@ namespace SuperZTP.Views
     public partial class AddNoteWindow : Window
     {
         private List<Note> notes;
-        private CommandInvoker invoker = new CommandInvoker();
+        private CommandInvoker invoker;
         private NoteBuilder noteBuilder = new NoteBuilder();
         private FileHandler fileHandler;
         public event Action NoteAdded;
+        private MenuViewModel _viewModel;
 
-        public AddNoteWindow(List<Note> notes, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
+        public AddNoteWindow(List<Note> notes, FileHandler fileHandler, List<Category> categories, List<Tag> tags, MenuViewModel _viewModel, CommandInvoker invoker)
         {
             InitializeComponent();
             this.notes = notes;
             this.fileHandler = fileHandler;
+            this._viewModel = _viewModel;
+            this.invoker = invoker;
             LoadCategoriesToComboBox(categories);
             LoadTagsToComboBox(tags);
         }
@@ -60,6 +64,7 @@ namespace SuperZTP.Views
             invoker.AddCommand(new AddNote(notes, notatka, RefreshNotes));
             invoker.Execute();
             fileHandler.SaveNotesToFile("notes.txt");
+            _viewModel.UpdateHistory();
             DialogResult = true;
         }
         private void RefreshNotes()
