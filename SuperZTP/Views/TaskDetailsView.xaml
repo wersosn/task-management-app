@@ -9,7 +9,7 @@
              FontSize="16">
     <Grid Background="{StaticResource BackgroundDarker}">
         <Border 
-            BorderBrush="{StaticResource BorderPrimary}"
+            BorderBrush="{StaticResource Turquoise}"
             SnapsToDevicePixels="True"
             BorderThickness="1"
             CornerRadius="5"

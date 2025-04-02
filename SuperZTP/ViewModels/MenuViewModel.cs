@@ -315,5 +315,6 @@ namespace SuperZTP.ViewModels
             }
             OnPropertyChanged(nameof(CommandHistory));
         }
+
     }
 }

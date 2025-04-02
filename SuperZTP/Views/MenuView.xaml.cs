@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -21,9 +22,12 @@ namespace SuperZTP.Views
     /// </summary>
     public partial class MenuView : UserControl
     {
+        private DateTime previousDisplayDate;
+
         public MenuView()
         {
             InitializeComponent();
+            previousDisplayDate = CalendarView.DisplayDate;
         }
 
         private void GenerateReportButton_Click(object sender, RoutedEventArgs e)
@@ -48,5 +52,23 @@ namespace SuperZTP.Views
         {
 
         }
+
+        private void CalendarView_DisplayDateChanged(object sender, CalendarDateChangedEventArgs e)
+        {
+            var currentDisplayDate = CalendarView.DisplayDate;
+
+            double animationTo = currentDisplayDate > previousDisplayDate ? -10 : 10; 
+
+            DoubleAnimation pageChangeAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = animationTo,
+                Duration = TimeSpan.FromSeconds(0.3),
+                AutoReverse = true
+            };
+            CalendarTranslateTransform.BeginAnimation(TranslateTransform.XProperty, pageChangeAnimation);
+            previousDisplayDate = currentDisplayDate;
+        }
+
     }
 }
