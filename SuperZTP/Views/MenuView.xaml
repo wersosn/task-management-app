@@ -17,7 +17,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Lewy panel (Sidebar) -->
-            <Border Grid.Column="0" Background="{StaticResource BackgroundDarker}" Padding="10">
+            <Border Grid.Column="0" Padding="10">
                 <StackPanel>
                     <!-- Nawigacja -->
                     <Button Content="📋 Notatki" Height="40" Margin="5"/>
@@ -121,9 +121,9 @@
                             <TextBlock Text="Termin wykonania" Foreground="{StaticResource Turquoise}"/>
                             <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="200"/>
 
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                                <Button Content="Zastosuj Filtry" Command="{Binding ApplyAllFiltersCommand}" Padding="5" Width="100"/>
-                                <Button Content="Reset" Command="{Binding ClearFiltersCommand}" Padding="5" Margin="5 0" Width="100"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="15">
+                                <Button Content="Zastosuj filtry" Command="{Binding ApplyAllFiltersCommand}" Padding="5" Width="90"/>
+                                <Button Content="Reset" Command="{Binding ClearFiltersCommand}" Padding="5" Margin="5 0" Width="90"/>
                             </StackPanel>
                         </StackPanel>
                     </Expander>
@@ -142,7 +142,7 @@
                                     </Style>
                                 </ComboBox.ItemContainerStyle>
                             </ComboBox>
-                            <Button Content="Generuj" Click="GenerateReportButton_Click" Foreground="{StaticResource BackgroundDarker}" Background="{StaticResource Turquoise}" Margin="5" Padding="5" Width="200"/>
+                            <Button Content="Generuj" Click="GenerateReportButton_Click" Margin="10" Padding="5" Width="200"/>
 
                             <TextBlock Text="Podsumowanie:" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableSummaryTypes}" SelectedItem="{Binding SelectedSummaryType, Mode=TwoWay}" Width="200">
@@ -157,7 +157,7 @@
                                     </Style>
                                 </ComboBox.ItemContainerStyle>
                             </ComboBox>
-                            <Button Content="Generuj" Click="GenerateSummaryButton_Click" Foreground="{StaticResource BackgroundDarker}" Background="{StaticResource Turquoise}" Margin="5" Padding="5" Width="200"/>
+                            <Button Content="Generuj" Click="GenerateSummaryButton_Click" Margin="10" Padding="5" Width="200"/>
                         </StackPanel>
                     </Expander>
                 </StackPanel>
@@ -191,7 +191,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Oś Czasu (Lista zadań) -->
-                    <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Margin="10">
+                    <Border Grid.Column="0" BorderBrush="Transparent" BorderThickness="1" Margin="10">
                         <StackPanel>
                             <TextBlock Text="Lista zadań oraz notatek" Foreground="{StaticResource TextPrimary}" FontSize="18" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
                             <local:DisplayTasksView DataContext="{Binding DisplayTasksViewModel}"/>
@@ -200,11 +200,15 @@
 
                     <!-- Kalendarz + Szczegóły zadania -->
                     <StackPanel Grid.Column="1" Margin="10">
-                        <TextBlock Text="Kalendarz" FontSize="18" FontWeight="Bold"/>
-                        <Calendar x:Name="CalendarView" Background="{StaticResource Turquoise}"/>
+                        <TextBlock Text="Kalendarz" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimary}"/>
+                        <Calendar x:Name="CalendarView" Background="{StaticResource Turquoise}" DisplayDateChanged="CalendarView_DisplayDateChanged">
+                            <Calendar.RenderTransform>
+                                <TranslateTransform x:Name="CalendarTranslateTransform" />
+                            </Calendar.RenderTransform>
+                        </Calendar>
                         <local:TaskDetailsView Width="300" Height="400" Margin="10 0 0 10" DataContext="{Binding TaskDetailsViewModel}"/>
-                        <Button Content="Historia operacji" Height="40" Margin="5" Command="{Binding ToggleHistoryCommand}"/>
-                        <ListBox ItemsSource="{Binding CommandHistory}" Visibility="{Binding HistoryVisibility}" Height="100" Margin="10"/>
+                        <Button Content="Historia operacji" Height="40" Margin="5" Command="{Binding ToggleHistoryCommand}" Width="250"/>
+                        <ListBox ItemsSource="{Binding CommandHistory}" Visibility="{Binding HistoryVisibility}" Height="100" Margin="30 0"/>
                     </StackPanel>
                 </Grid>
             </Grid>
