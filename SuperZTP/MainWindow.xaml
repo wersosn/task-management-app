@@ -7,8 +7,14 @@
         xmlns:views="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
         Title="Zarządzanie Terminami i Planami" SizeToContent="WidthAndHeight"
-        WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" Height="550" Width="1000" Background="{StaticResource BackgroundDark}">
-    <Grid Margin="10" Background="{StaticResource BackgroundDark}">
+        WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" Height="550" Width="1000">
+        <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#051824" Offset="0"/>
+            <GradientStop Color="#367879" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background> 
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="244*"/>
