@@ -5,25 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperZTP.Views"
         mc:Ignorable="d"
-        Title="Add notatke" Height="450" Width="800">
-    <Grid>
-        <Label Content="Tytuł notatki:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,59,0,0"/>
-        <TextBox Name="NoteTitleTextBox" HorizontalAlignment="Left" Margin="323,59,0,0" VerticalAlignment="Top" Width="200" Height="25"/>
+        Title="Dodaj notatkę" Height="500" Width="500" WindowStartupLocation="CenterScreen" Background="{StaticResource BackgroundDarker}">
+    <StackPanel Margin="75">
+        <TextBlock Text="Tytuł notatki:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
+        <TextBox Name="NoteTitleTextBox" Width="200" Height="25"/>
 
-        <Label Content="Opis notatki:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="221,123,0,0" RenderTransformOrigin="0.646,0.465"/>
-        <TextBox Name="NoteDescriptionTextBox" HorizontalAlignment="Left" Margin="323,123,0,0" VerticalAlignment="Top" Width="200" Height="50"/>
+        <TextBlock Text="Opis notatki:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
+        <TextBox Name="NoteDescriptionTextBox" Width="200" Height="80"/>
 
-        <Label Content="Kategoria:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="235,190,0,0"/>
-        <ComboBox x:Name="CategoryComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="323,192,0,0" Height="25">
+        <TextBlock Text="Kategoria:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
+        <ComboBox x:Name="CategoryComboBox" Width="200" Height="25">
             <ComboBoxItem Content="Inne" IsSelected="True"/>
         </ComboBox>
 
-        <Label Content="Tag:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="251,236,0,0"/>
-        <ComboBox x:Name="TagComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="323,239,0,0" Height="23">
+        <TextBlock Text="Tag:" HorizontalAlignment="Center" Margin="0 10 0 0" Foreground="{StaticResource TextPrimary}"/>
+        <ComboBox x:Name="TagComboBox" Width="200" Height="25">
             <ComboBoxItem Content="Inne" IsSelected="True"/>
         </ComboBox>
 
-        <Button Name="AddNoteButton" Content="Dodaj notatkę" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="289,296,0,0" Click="AddNoteButton_Click"/>
-        <Button Content="Anuluj" Click="CancelButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Margin="400,296,0,0" />
-    </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Name="AddNoteButton" Content="Dodaj notatkę" Width="100" Height="30" Margin="5" Click="AddNoteButton_Click"/>
+            <Button Content="Anuluj" Click="CancelButton_Click" Width="100" Height="30" Margin="5" />
+        </StackPanel>
+    </StackPanel>
 </Window>

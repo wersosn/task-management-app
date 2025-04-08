@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DocumentFormat.OpenXml.Drawing;
+using SuperZTP.ViewModels;
+using System.Windows.Media.Animation;
 
 namespace SuperZTP
 {
@@ -31,5 +33,26 @@ namespace SuperZTP
             InitializeComponent();
         }
 
+        // Zdarzenie, które uruchamia animację zaciemniania
+        public void StartFadeOutAnimation()
+        {
+            var fadeOutStoryboard = (Storyboard)Application.Current.Resources["FadeOutStoryboard"];
+            fadeOutStoryboard?.Begin(this);
+        }
+
+        // Zdarzenie, które uruchamia animację powrotu do normalnego stanu
+        public void StartFadeInAnimation()
+        {
+            var fadeInStoryboard = (Storyboard)Application.Current.Resources["FadeInStoryboard"];
+            fadeInStoryboard?.Begin(this);
+        }
+
+        // Metoda do otwierania okien modalnych
+        public void OpenModalWindow(Window modalWindow)
+        {
+            StartFadeOutAnimation();
+            modalWindow.ShowDialog();
+            StartFadeInAnimation();
+        }
     }
 }

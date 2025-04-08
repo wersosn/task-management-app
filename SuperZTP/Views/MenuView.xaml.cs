@@ -69,6 +69,5 @@ namespace SuperZTP.Views
             CalendarTranslateTransform.BeginAnimation(TranslateTransform.XProperty, pageChangeAnimation);
             previousDisplayDate = currentDisplayDate;
         }
-
     }
 }

@@ -44,7 +44,6 @@
             <SolidColorBrush x:Key="InputBorder" Color="#555555"/>
             <!-- Obramowania pól -->
 
-            
             <!-- Nowe kolory -->
             <SolidColorBrush x:Key="Turquoise" Color="#27e9b5"/>
             <SolidColorBrush x:Key="PersianGreen" Color="#319E8D"/>
@@ -113,7 +112,22 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-  
+
+            <!-- Animacja FadeOut (zaciemnianie) -->
+            <Storyboard x:Key="FadeOutStoryboard">
+                <DoubleAnimation
+                    Storyboard.TargetName="Dimmer"
+                    Storyboard.TargetProperty="Opacity"
+                    From="0" To="0.5" Duration="0:0:1"/>
+            </Storyboard>
+
+            <!-- Animacja FadeIn (powrót do normalnego stanu) -->
+            <Storyboard x:Key="FadeInStoryboard">
+                <DoubleAnimation
+                    Storyboard.TargetName="Dimmer"
+                    Storyboard.TargetProperty="Opacity"
+                    From="0.5" To="0" Duration="0:0:1"/>
+            </Storyboard>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -92,5 +92,29 @@ namespace SuperZTP.ViewModels
             }
             //proxy.ClearTaskCache();
         }
+
+        private void DeleteNoteCommand()
+        {
+            //_invoker.AddCommand(new DeleteNote(_tasks, Task, _refreshMenu));
+            _invoker.Execute();
+            _viewModel.UpdateHistory();
+            _taskState.FileHandler.SaveTasksToFile("notes.txt");
+        }
+
+        private void EditNoteCommand()
+        {
+            var editTaskWindow = new EditTaskWindow(Task, _taskState.FileHandler, _taskState.Categories, _taskState.Tags, _invoker, _viewModel, _tasks);
+            if (editTaskWindow.ShowDialog() == true)
+            {
+                var editedTask = editTaskWindow.EditedTask;
+                var taskIndex = _taskState.Tasks.FindIndex(t => t.Id == editedTask.Id);
+                if (taskIndex >= 0)
+                {
+                    _taskState.Tasks[taskIndex] = editedTask;
+                }
+                _refreshMenu.Invoke();
+            }
+            //proxy.ClearTaskCache();
+        }
     }
 }
