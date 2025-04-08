@@ -27,7 +27,6 @@ namespace SuperZTP.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
-        private readonly MainWindow _mainWindow;
         public DisplayTasksViewModel DisplayTasksViewModel { get; }
         public TaskDetailsViewModel TaskDetailsViewModel { get; }
         public NoteDetailsViewModel NoteDetailsViewModel { get; }
@@ -92,7 +91,6 @@ namespace SuperZTP.ViewModels
         // Konstruktor
         public MenuViewModel(SelectedTaskStore _selectedTaskStore, TaskState taskState)
         {
-            _mainWindow = new MainWindow();
             _invoker = new CommandInvoker();
             _filterManager = new TaskFilterManager();
             _filterManager.FilterChanged += OnFilterChanged;
@@ -129,8 +127,7 @@ namespace SuperZTP.ViewModels
         {
             AddNoteWindow addNoteWindow = new AddNoteWindow(taskState.Notes, taskState.FileHandler, taskState.Categories, taskState.Tags, this, _invoker);
             addNoteWindow.NoteAdded += DisplayTasksViewModel.RefreshTasks;
-           // _mainWindow.OpenModalWindow(addNoteWindow);
-            //addNoteWindow.ShowDialog();
+            addNoteWindow.ShowDialog();
             addNoteWindow.NoteAdded -= DisplayTasksViewModel.RefreshTasks;
             // proxy.ClearTaskCache();
         }

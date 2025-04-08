@@ -52,8 +52,7 @@
                                                 Visibility="{Binding IsNote,
                                                 Converter={StaticResource BooleanToVisibilityConverter}}">
 
-                                        <TextBlock Text="{Binding Title}" FontSize="16" FontStyle="Italic" Foreground="Gray"/>
-
+                                        <TextBlock Text="{Binding Title}" FontSize="16" Foreground="{StaticResource TextPrimary}"/>
                                     </StackPanel>
 
                                     <!-- Menu dla tasków -->
@@ -74,6 +73,28 @@
                                                 </StackPanel.Resources>
                                                 <Button Content="Edit" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"/>
                                                 <Button Content="Delete" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </custom:DropdownMenu>
+
+                                    <!-- Menu dla notatek -->
+                                    <custom:DropdownMenu Grid.Column="1"
+                                                        Margin="10 0 0 0"
+                                                        Visibility="{Binding IsNote, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Border Background="White" 
+                                                BorderBrush="{DynamicResource Turquoise}"
+                                                BorderThickness="1">
+                                            <StackPanel>
+                                                <StackPanel.Resources>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                                                        <Setter Property="Foreground" Value="{StaticResource BackgroundDarker}"/>
+                                                        <Setter Property="Padding" Value="15 5"/>
+                                                        <Setter Property="Cursor" Value="Hand"/>
+                                                    </Style>
+                                                </StackPanel.Resources>
+                                                <Button Content="Edit" Command="{Binding EditNCommand}"/>
+                                                <Button Content="Delete" Command="{Binding DeleteNCommand}"/>
                                             </StackPanel>
                                         </Border>
                                     </custom:DropdownMenu>
