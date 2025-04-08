@@ -104,44 +104,45 @@ namespace SuperZTP.Command
         }
     }
 
-    // Usuwanie zadania
+    // Usuwanie notatki
     public class DeleteNote : ICommand
     {
-        private List<Note> notes;
-        private Note noteCopy;
-        private int id;
+        private readonly List<Note> _notes;
+        private readonly Note _noteToDelete;
+        private readonly int _index;
+        private readonly Action _onNoteDeleted;
 
-        public DeleteNote(List<Note> notes, Note deleteNote, int id)
+        public DeleteNote(List<Note> notes, Note note, Action onNoteDeleted)
         {
-            this.notes = notes;
-            this.id = id;
-            if(id >= 0 && id <= notes.Count)
-            {
-                noteCopy = new Note // Kopia notatki, aby uniknąć pracy na referencji
-                {
-                    Id = deleteNote.Id,
-                    Title = deleteNote.Title,
-                    Description = deleteNote.Description,
-                    Tag = deleteNote.Tag,
-                    Category = deleteNote.Category
-                };
-            }
+            _notes = notes ?? throw new ArgumentNullException(nameof(notes));
+            _noteToDelete = note ?? throw new ArgumentNullException(nameof(note));
+            _onNoteDeleted = onNoteDeleted ?? throw new ArgumentNullException(nameof(onNoteDeleted));
+            _index = _notes.FindIndex(n => n.Id == note.Id);
         }
 
-        public void Execute() 
-        { 
-            if(id >= 0 && id <= notes.Count)
+        public void Execute()
+        {
+            if (_index >= 0)
             {
-                notes.RemoveAt(id);
+                _notes.RemoveAt(_index);
+                _onNoteDeleted?.Invoke();
             }
         }
 
         public void Undo()
         {
-            if(noteCopy != null && id >= 0 && id <= notes.Count)
+            if (_index >= 0)
             {
-                notes.Insert(id, noteCopy);
+                _notes.Insert(_index, _noteToDelete);
+                _onNoteDeleted?.Invoke();
             }
+        }
+
+        public override string ToString()
+        {
+            return _noteToDelete != null
+                ? $"Usunięto notatkę: {_noteToDelete.Title}"
+                : "Usunięcie notatki nie powiodło się.";
         }
     }
 
