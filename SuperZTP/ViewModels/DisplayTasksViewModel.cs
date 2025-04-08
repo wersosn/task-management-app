@@ -83,7 +83,7 @@ namespace SuperZTP.ViewModels
                     RefreshTasks));
                 foreach (var note in filteredNotes)
                 {
-                    _previews.Add(new DisplayTaskPreviewViewModel(note, _taskState, _invoker, RefreshTasks));
+                    _previews.Add(new DisplayTaskPreviewViewModel(note, _taskState, _invoker, RefreshTasks, _viewModel));
                 }
 
             }

@@ -67,10 +67,12 @@ namespace SuperZTP.Views
             _viewModel.UpdateHistory();
             DialogResult = true;
         }
+
         private void RefreshNotes()
         {
             NoteAdded?.Invoke(); // Powiadamiamy `DisplayTasksViewModel`
         }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;

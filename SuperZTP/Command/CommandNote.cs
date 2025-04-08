@@ -52,51 +52,55 @@ namespace SuperZTP.Command
     public class EditNote : ICommand
     {
         private List<Note> notes;
-        private Note newNoteCopy;
+        private Note newNote;
         private Note oldNote;
         private int id;
 
-        public EditNote(List<Note> notes, Note editNote, int id)
+        public EditNote(List<Note> notes, Note oldNote, Note newNote, int id)
         {
             this.notes = notes;
             this.id = id;
 
-            if(id >= 0 && id <= notes.Count)
+            this.oldNote = new Note // Kopia starej wersji notatki, aby uniknąć pracy na referencji
             {
-                oldNote = new Note // Kopia starej wersji notatki, aby uniknąć pracy na referencji
-                {
-                    Id = notes[id].Id,
-                    Title = notes[id].Title,
-                    Description = notes[id].Description,
-                    Tag = notes[id].Tag,
-                    Category = notes[id].Category
-                };
+                Id = oldNote.Id,
+                Title = oldNote.Title,
+                Description = oldNote.Description,
+                Tag = oldNote.Tag,
+                Category = oldNote.Category
+            };
 
-                newNoteCopy = new Note // Kopia nowej wersji notatki, aby uniknąć pracy na referencji
-                {
-                    Id = editNote.Id,
-                    Title = editNote.Title,
-                    Description = editNote.Description,
-                    Tag = editNote.Tag,
-                    Category = editNote.Category
-                };
-            }
+            this.newNote = new Note // Kopia nowej wersji notatki, aby uniknąć pracy na referencji
+            {
+                Id = newNote.Id,
+                Title = newNote.Title,
+                Description = newNote.Description,
+                Tag = newNote.Tag,
+                Category = newNote.Category
+            };
         }
 
         public void Execute()
         {
-            if(id >= 0 && id <= notes.Count)
+            if (id >= 0 && id < notes.Count)
             {
-                notes[id] = newNoteCopy;
+                notes[id] = newNote;
             }
         }
 
         public void Undo()
         {
-            if(oldNote != null && id >= 0 && id <= notes.Count)
+            if (oldNote != null && id >= 0 && id <= notes.Count)
             {
                 notes[id] = oldNote;
             }
+        }
+
+        public override string ToString()
+        {
+            return newNote != null
+                ? $"Zedytowano notatkę: {newNote.Title}"
+                : "Edycja zadania nie powiodła się.";
         }
     }
 
