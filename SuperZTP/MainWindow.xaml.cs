@@ -18,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DocumentFormat.OpenXml.Drawing;
+using SuperZTP.ViewModels;
+using System.Windows.Media.Animation;
 
 namespace SuperZTP
 {
@@ -30,6 +32,5 @@ namespace SuperZTP
         {
             InitializeComponent();
         }
-
     }
 }

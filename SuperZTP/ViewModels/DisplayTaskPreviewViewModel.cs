@@ -28,6 +28,8 @@ namespace SuperZTP.ViewModels
         public string Title => Task?.Title ?? Note?.Title ?? Header.Title;
         public System.Windows.Input.ICommand EditCommand { get; }
         public System.Windows.Input.ICommand DeleteCommand { get; }
+        public System.Windows.Input.ICommand EditNCommand { get; }
+        public System.Windows.Input.ICommand DeleteNCommand { get; }
         public bool IsTask => Task != null;
         public bool IsNote => Note != null;
         public bool IsHeader => Header != null;
@@ -44,7 +46,7 @@ namespace SuperZTP.ViewModels
             DeleteCommand = new RelayCommand(DeleteTaskCommand);
             EditCommand = new RelayCommand(EditTaskCommand);
         }
-        public DisplayTaskPreviewViewModel(Note note, TaskState state, CommandInvoker invoker, Action refreshMenu)
+        public DisplayTaskPreviewViewModel(Note note, TaskState state, CommandInvoker invoker, Action refreshMenu, MenuViewModel viewModel)
         {
             Note = note;
             _tasks = state.Tasks;
@@ -52,9 +54,10 @@ namespace SuperZTP.ViewModels
             _taskState = state;
             _invoker = invoker;
             _refreshMenu = refreshMenu;
+            _viewModel = viewModel;
 
-            DeleteCommand = new RelayCommand(DeleteTaskCommand);
-            EditCommand = new RelayCommand(EditTaskCommand);
+            DeleteNCommand = new RelayCommand(DeleteNoteCommand);
+            EditNCommand = new RelayCommand(EditNoteCommand);
         }
 
         public DisplayTaskPreviewViewModel(Header header, TaskState state, CommandInvoker invoker, Action refreshMenu)
@@ -87,6 +90,30 @@ namespace SuperZTP.ViewModels
                 if (taskIndex >= 0)
                 {
                     _taskState.Tasks[taskIndex] = editedTask;
+                }
+                _refreshMenu.Invoke();
+            }
+            //proxy.ClearTaskCache();
+        }
+
+        private void DeleteNoteCommand()
+        {
+            _invoker.AddCommand(new DeleteNote(_notes, Note, _refreshMenu));
+            _invoker.Execute();
+            _viewModel.UpdateHistory();
+            _taskState.FileHandler.SaveNotesToFile("notes.txt");
+        }
+
+        private void EditNoteCommand()
+        {
+            var editNoteWindow = new EditNoteWindow(Note, _taskState.FileHandler, _taskState.Categories, _taskState.Tags, _invoker, _viewModel, _notes);
+            if (editNoteWindow.ShowDialog() == true)
+            {
+                var editedNote = editNoteWindow.EditedNote;
+                var noteIndex = _taskState.Notes.FindIndex(n => n.Id == editedNote.Id);
+                if (noteIndex >= 0)
+                {
+                    _taskState.Notes[noteIndex] = editedNote;
                 }
                 _refreshMenu.Invoke();
             }

@@ -1,4 +1,6 @@
-﻿using SuperZTP.Model;
+﻿using SuperZTP.Command;
+using SuperZTP.Model;
+using SuperZTP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,34 +23,73 @@ namespace SuperZTP.Views
     public partial class EditNoteWindow : Window
     {
         public Note EditedNote { get; set; }
+        private Note originalNote;
         private FileHandler fileHandler;
+        private CommandInvoker invoker;
+        private MenuViewModel _viewModel;
+        private List<Note> notes;
 
-        public EditNoteWindow(Note noteToEdit, FileHandler fileHandler, List<Category> categories, List<Tag> tags)
+        public EditNoteWindow(Note noteToEdit, FileHandler fileHandler, List<Category> categories, List<Tag> tags, CommandInvoker invoker, MenuViewModel _viewModel, List<Note> notes)
         {
             InitializeComponent();
-            NoteTitleTextBox.Text = noteToEdit.Title;
-            NoteDescriptionTextBox.Text = noteToEdit.Description;
-            LoadCategoriesToComboBox(categories);
-            SelectCategoryInComboBox(noteToEdit.Category);
-            LoadTagsToComboBox(tags);
-            SelectTagInComboBox(noteToEdit.Tag);
-            EditedNote = noteToEdit;
+
+            this.notes = notes;
             this.fileHandler = fileHandler;
+            this.invoker = invoker;
+            this._viewModel = _viewModel;
+
+            originalNote = new Note
+            {
+                Id = noteToEdit.Id,
+                Title = noteToEdit.Title,
+                Description = noteToEdit.Description,
+                Tag = noteToEdit.Tag,
+                Category = noteToEdit.Category
+            };
+
+            EditedNote = new Note
+            {
+                Id = noteToEdit.Id,
+                Title = noteToEdit.Title,
+                Description = noteToEdit.Description,
+                Tag = noteToEdit.Tag,
+                Category = noteToEdit.Category
+            };
+
+            NoteTitleTextBox.Text = EditedNote.Title;
+            NoteDescriptionTextBox.Text = EditedNote.Description;
+            LoadCategoriesToComboBox(categories);
+            SelectCategoryInComboBox(EditedNote.Category);
+            LoadTagsToComboBox(tags);
+            SelectTagInComboBox(EditedNote.Tag);
         }
 
-        public void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             EditedNote.Title = NoteTitleTextBox.Text;
             EditedNote.Description = NoteDescriptionTextBox.Text;
+
             if (CategoryComboBox.SelectedItem is ComboBoxItem selectedCategoryItem && selectedCategoryItem.Tag is Category selectedCategory)
             {
                 EditedNote.Category = selectedCategory;
             }
+
             if (TagComboBox.SelectedItem is ComboBoxItem selectedTagItem && selectedTagItem.Tag is Tag selectedTag)
             {
                 EditedNote.Tag = selectedTag;
             }
+
+            var noteIndex = notes.FindIndex(n => n.Id == EditedNote.Id);
+            if (noteIndex >= 0)
+            {
+                notes[noteIndex] = EditedNote;
+            }
+
             fileHandler.SaveNotesToFile("notes.txt");
+            var editCommand = new EditNote(notes, originalNote, EditedNote, EditedNote.Id);
+            invoker.AddCommand(editCommand);
+            invoker.Execute();
+            _viewModel.UpdateHistory();
             DialogResult = true;
         }
 
