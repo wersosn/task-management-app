@@ -98,11 +98,10 @@ namespace SuperZTP.ViewModels
 
         private void DeleteNoteCommand()
         {
-            //_invoker.AddCommand(new DeleteNote(_notes, Note.Id));
-            //_invoker.AddCommand(new DeleteNote(_tasks, Task, _refreshMenu));
+            _invoker.AddCommand(new DeleteNote(_notes, Note, _refreshMenu));
             _invoker.Execute();
             _viewModel.UpdateHistory();
-            _taskState.FileHandler.SaveTasksToFile("notes.txt");
+            _taskState.FileHandler.SaveNotesToFile("notes.txt");
         }
 
         private void EditNoteCommand()

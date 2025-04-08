@@ -130,14 +130,13 @@ namespace SuperZTP.Command
             _onTaskDeleted = onTaskDeleted ?? throw new ArgumentNullException(nameof(onTaskDeleted));
             _index = _tasks.FindIndex(t => t.Id == task.Id);
         }
-        
 
         public void Execute()
         {
              if (_index >= 0)
              {
                 _tasks.RemoveAt(_index);
-                _onTaskDeleted?.Invoke(); // Powiadamiamy `DisplayTasksViewModel` o zmianie
+                _onTaskDeleted?.Invoke();
              }
         }
 
@@ -146,7 +145,7 @@ namespace SuperZTP.Command
             if (_index >= 0)
             {
                 _tasks.Insert(_index, _taskToDelete);
-                _onTaskDeleted?.Invoke(); // Przywracamy taska i odświeżamy widok
+                _onTaskDeleted?.Invoke();
             }
         }
 
