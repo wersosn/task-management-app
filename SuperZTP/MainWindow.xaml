@@ -8,17 +8,18 @@
         mc:Ignorable="d"
         Title="Zarządzanie Terminami i Planami" SizeToContent="WidthAndHeight"
         WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" Height="550" Width="1000">
-        <Window.Background>
+    <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#051824" Offset="0"/>
             <GradientStop Color="#367879" Offset="1"/>
         </LinearGradientBrush>
-    </Window.Background> 
+    </Window.Background>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="244*"/>
         </Grid.ColumnDefinitions>
         <views:MenuView Grid.ColumnSpan="2" Margin="0,0,0,-16" />
+        <Rectangle Name="Dimmer" Fill="Black" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </Window>
