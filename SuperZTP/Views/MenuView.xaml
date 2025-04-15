@@ -4,13 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperZTP.Views"
-             mc:Ignorable="d"
-             Width="980" Height="730">
+             mc:Ignorable="d">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="0.5*"/>
                 <!-- Sidebar powiększony na filtry -->
                 <ColumnDefinition Width="*"/>
                 <!-- Główna zawartość -->
@@ -20,7 +19,7 @@
             <Border Grid.Column="0" Padding="10">
                 <StackPanel>
                     <!-- Nawigacja -->
-                    <Button Content="📋 Notatki" Height="40" Margin="5"/>
+                    <Button Content="📋 Notatka" Height="40" Margin="5"/>
                     <Button Content="✅ Zadania" Height="40" Margin="5"/>
                     
                     <!-- Przyciski dodawania -->
@@ -175,8 +174,17 @@
                 <!-- Pasek wyszukiwania -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <TextBlock Text="Wyszukaj zadanie" Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center" Margin="5"/>
-                    <TextBox Width="530" Text="{Binding SelectedTitle, Mode=TwoWay}"/>
-                    <Button x:Name="SearchButton" Style="{StaticResource IconButtonStyle}" Height="20" Width="20" Margin="5">
+                    <TextBox Width="530" 
+                             Text="{Binding SelectedTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding ApplyAllFiltersCommand}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+
+                    <Button x:Name="SearchButton" Style="{StaticResource IconButtonStyle}" 
+                            Height="20" Width="20" Margin="5"
+                            Command="{Binding ApplyAllFiltersCommand}"
+                            Cursor="Hand">
                         <Image Source="../Content/Icons/search.png" Stretch="Uniform"/>
                     </Button>
                 </StackPanel>

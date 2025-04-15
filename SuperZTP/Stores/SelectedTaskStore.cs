@@ -12,6 +12,7 @@ namespace SuperZTP.Stores
     {
         private Task _selectedTask;
         private Note _selectedNote;
+        private int _selectedDay;
 
         public Task SelectedTask
         {
@@ -35,7 +36,20 @@ namespace SuperZTP.Stores
             }
         }
 
+        public int SelectedDay
+        {
+            get => _selectedDay;
+            set
+            {
+                _selectedDay = value;
+                SelectedDayChanged?.Invoke();
+                SelectedNoteChanged?.Invoke();
+                SelectedTaskChanged?.Invoke();
+            }
+        }
+
         public event Action SelectedTaskChanged;
         public event Action SelectedNoteChanged;
+        public event Action SelectedDayChanged;
     }
 }

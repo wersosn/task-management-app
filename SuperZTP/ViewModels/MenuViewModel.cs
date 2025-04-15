@@ -39,6 +39,33 @@ namespace SuperZTP.ViewModels
 
         public ObservableCollection<string> CommandHistory { get; } = new ObservableCollection<string>();
 
+        // Konstruktor
+        public MenuViewModel(SelectedTaskStore _selectedTaskStore, TaskState taskState)
+        {
+            _invoker = new CommandInvoker();
+            _filterManager = new TaskFilterManager();
+            _filterManager.FilterChanged += OnFilterChanged;
+            txt = new GenerateTXT(taskState.Tasks);
+            pdf = new GeneratePDF(taskState.Tasks);
+            docx = new GenerateDOCX(taskState.Tasks);
+
+            DisplayTasksViewModel = new DisplayTasksViewModel(_selectedTaskStore, taskState, _invoker, this);
+            TaskDetailsViewModel = new TaskDetailsViewModel(_selectedTaskStore);
+            NoteDetailsViewModel = new NoteDetailsViewModel(_selectedTaskStore);
+            AddTaskCommand = new RelayCommand(() => OpenAddTaskWindow(taskState));
+            AddNoteCommand = new RelayCommand(() => OpenAddNoteWindow(taskState));
+            ToggleHistoryCommand = new RelayCommand(ToggleHistory);
+
+            // Inicjalizacja dostępnych opcji filtrów
+            AvailableCategories = taskState.Categories.Select(c => c.Name.TrimStart()).ToList();
+            AvailableTags = taskState.Tags.Select(c => c.Name.TrimStart()).ToList();
+
+            // Inicjalizacja komend filtrów
+            ClearFiltersCommand = new RelayCommand(_filterManager.ClearFilters);
+            ApplyAllFiltersCommand = new RelayCommand(ApplyAllFilters);
+        }
+
+
         public Visibility HistoryVisibility
         {
             get => _historyVisibility;
@@ -87,32 +114,6 @@ namespace SuperZTP.ViewModels
         public System.Windows.Input.ICommand AddTaskCommand { get; }
         public System.Windows.Input.ICommand AddNoteCommand { get; }
         public System.Windows.Input.ICommand ToggleHistoryCommand { get; }
-
-        // Konstruktor
-        public MenuViewModel(SelectedTaskStore _selectedTaskStore, TaskState taskState)
-        {
-            _invoker = new CommandInvoker();
-            _filterManager = new TaskFilterManager();
-            _filterManager.FilterChanged += OnFilterChanged;
-            txt = new GenerateTXT(taskState.Tasks);
-            pdf = new GeneratePDF(taskState.Tasks);
-            docx = new GenerateDOCX(taskState.Tasks);
-
-            DisplayTasksViewModel = new DisplayTasksViewModel(_selectedTaskStore, taskState, _invoker, this);
-            TaskDetailsViewModel = new TaskDetailsViewModel(_selectedTaskStore);
-            NoteDetailsViewModel = new NoteDetailsViewModel(_selectedTaskStore);
-            AddTaskCommand = new RelayCommand(() => OpenAddTaskWindow(taskState));
-            AddNoteCommand = new RelayCommand(() => OpenAddNoteWindow(taskState));
-            ToggleHistoryCommand = new RelayCommand(ToggleHistory);
-
-            // Inicjalizacja dostępnych opcji filtrów
-            AvailableCategories = taskState.Categories.Select(c => c.Name.TrimStart()).ToList();
-            AvailableTags = taskState.Tags.Select(c => c.Name.TrimStart()).ToList();
-
-            // Inicjalizacja komend filtrów
-            ClearFiltersCommand = new RelayCommand(_filterManager.ClearFilters);
-            ApplyAllFiltersCommand = new RelayCommand(ApplyAllFilters);
-        }
 
         private void OpenAddTaskWindow(TaskState taskState)
         {
