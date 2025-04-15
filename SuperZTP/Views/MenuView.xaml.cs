@@ -55,7 +55,7 @@ namespace SuperZTP.Views
 
         private void CalendarView_DisplayDateChanged(object sender, CalendarDateChangedEventArgs e)
         {
-            var currentDisplayDate = CalendarView.DisplayDate;
+            var currentDisplayDate = DateTime.Now;
 
             double animationTo = currentDisplayDate > previousDisplayDate ? -10 : 10; 
 

@@ -20,6 +20,6 @@
             <ColumnDefinition Width="244*"/>
         </Grid.ColumnDefinitions>
         <views:MenuView Grid.ColumnSpan="2" Margin="0,0,0,-16" />
-        <Rectangle Name="Dimmer" Fill="Black" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Rectangle Grid.Column="0" Name="Dimmer" Fill="Black" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </Window>
