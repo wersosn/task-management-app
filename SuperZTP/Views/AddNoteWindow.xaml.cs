@@ -52,20 +52,27 @@ namespace SuperZTP.Views
             var selectedTagItem = (ComboBoxItem)TagComboBox.SelectedItem;
             var selectedTag = selectedTagItem?.Tag as Tag;
 
-            var notatka = noteBuilder
+            if(title != "")
+            {
+                var notatka = noteBuilder
                 .setTitle(title)
                 .setDescription(description)
                 .setTag(selectedTag ?? new Tag("Inna"))
                 .setCategory(selectedCategory ?? new Category("Inna"))
                 .build();
 
-            notatka.Id = GetNextNoteId(notes);
+                notatka.Id = GetNextNoteId(notes);
 
-            invoker.AddCommand(new AddNote(notes, notatka, RefreshNotes));
-            invoker.Execute();
-            fileHandler.SaveNotesToFile("notes.txt");
-            _viewModel.UpdateHistory();
-            DialogResult = true;
+                invoker.AddCommand(new AddNote(notes, notatka, RefreshNotes));
+                invoker.Execute();
+                fileHandler.SaveNotesToFile("notes.txt");
+                _viewModel.UpdateHistory();
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Tytuł jest wymagany!");
+            }
         }
 
         private void RefreshNotes()

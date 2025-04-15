@@ -66,31 +66,38 @@ namespace SuperZTP.Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            EditedNote.Title = NoteTitleTextBox.Text;
-            EditedNote.Description = NoteDescriptionTextBox.Text;
-
-            if (CategoryComboBox.SelectedItem is ComboBoxItem selectedCategoryItem && selectedCategoryItem.Tag is Category selectedCategory)
+            if (NoteTitleTextBox.Text != "")
             {
-                EditedNote.Category = selectedCategory;
-            }
+                EditedNote.Title = NoteTitleTextBox.Text;
+                EditedNote.Description = NoteDescriptionTextBox.Text;
 
-            if (TagComboBox.SelectedItem is ComboBoxItem selectedTagItem && selectedTagItem.Tag is Tag selectedTag)
+                if (CategoryComboBox.SelectedItem is ComboBoxItem selectedCategoryItem && selectedCategoryItem.Tag is Category selectedCategory)
+                {
+                    EditedNote.Category = selectedCategory;
+                }
+
+                if (TagComboBox.SelectedItem is ComboBoxItem selectedTagItem && selectedTagItem.Tag is Tag selectedTag)
+                {
+                    EditedNote.Tag = selectedTag;
+                }
+
+                var noteIndex = notes.FindIndex(n => n.Id == EditedNote.Id);
+                if (noteIndex >= 0)
+                {
+                    notes[noteIndex] = EditedNote;
+                }
+
+                fileHandler.SaveNotesToFile("notes.txt");
+                var editCommand = new EditNote(notes, originalNote, EditedNote, EditedNote.Id);
+                invoker.AddCommand(editCommand);
+                invoker.Execute();
+                _viewModel.UpdateHistory();
+                DialogResult = true;
+            }
+            else
             {
-                EditedNote.Tag = selectedTag;
+                MessageBox.Show("Tytuł jest wymagany!");
             }
-
-            var noteIndex = notes.FindIndex(n => n.Id == EditedNote.Id);
-            if (noteIndex >= 0)
-            {
-                notes[noteIndex] = EditedNote;
-            }
-
-            fileHandler.SaveNotesToFile("notes.txt");
-            var editCommand = new EditNote(notes, originalNote, EditedNote, EditedNote.Id);
-            invoker.AddCommand(editCommand);
-            invoker.Execute();
-            _viewModel.UpdateHistory();
-            DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

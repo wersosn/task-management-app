@@ -27,7 +27,7 @@
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
-                    <TextBlock Text="Wybierz zadanie, aby zobaczyć jego szczegóły."
+                    <TextBlock Text="Tutaj wyświetlą się szczegóły wybranego zadania."
                                FontSize="18"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"

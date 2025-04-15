@@ -57,31 +57,33 @@ namespace SuperZTP.Views
             DateTime selectedDate = TaskDatePicker.SelectedDate ?? DateTime.Now;
             bool isCompleted = IsCompletedCheckBox.IsChecked ?? false;
 
-            if(title == null)
+            if(title != "")
             {
-                MessageBox.Show("Tytuł jest wymagany");
+                var zadanie = taskBuilder
+               .setTitle(title)
+               .setDescription(description)
+               .setTag(selectedTag ?? new Tag("Inna"))
+               .setCategory(selectedCategory ?? new Category("Inna"))
+               .build();
+
+                zadanie.Id = GetNextTaskId(tasks);
+                zadanie.SetDeadline(selectedDate);
+                zadanie.SetPriority(priority);
+                if (isCompleted)
+                {
+                    zadanie.MarkAsDone();
+                }
+
+                invoker.AddCommand(new AddTask(tasks, zadanie, RefreshTasks));
+                invoker.Execute();
+                fileHandler.SaveTasksToFile("tasks.txt");
+                _viewModel.UpdateHistory();
+                DialogResult = true;
             }
-
-            var zadanie = taskBuilder
-                .setTitle(title)
-                .setDescription(description)
-                .setTag(selectedTag ?? new Tag("Inna"))
-                .setCategory(selectedCategory ?? new Category("Inna"))
-                .build();
-
-            zadanie.Id = GetNextTaskId(tasks);
-            zadanie.SetDeadline(selectedDate);
-            zadanie.SetPriority(priority);
-            if (isCompleted)
+            else
             {
-                zadanie.MarkAsDone();
+                MessageBox.Show("Tytuł jest wymagany!");
             }
-
-            invoker.AddCommand(new AddTask(tasks, zadanie, RefreshTasks));
-            invoker.Execute();
-            fileHandler.SaveTasksToFile("tasks.txt");
-            _viewModel.UpdateHistory();
-            DialogResult = true;
         }
 
         private void RefreshTasks()

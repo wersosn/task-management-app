@@ -7,15 +7,35 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              FontSize="16">
-    <Grid>
+    <Grid Background="{StaticResource BackgroundDarker}">
         <Border 
-            BorderBrush="{StaticResource BorderPrimary}"
+            BorderBrush="{StaticResource Turquoise}"
             SnapsToDevicePixels="True"
             BorderThickness="1"
             CornerRadius="5"
             Padding="15">
             <Grid>
-
+                <!-- Widok bez wybranego zadania -->
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasNoSelection}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <TextBlock Text="Tutaj wyświetlą się szczegóły wybranej notatki."
+                    FontSize="18"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"
+                    Foreground="{StaticResource TextPrimary}"/>
+                </Grid>
+                
                 <!-- Note Details -->
                 <Grid Grid.IsSharedSizeScope="True">
                     <Grid.Style>
@@ -36,8 +56,7 @@
                     </Grid.RowDefinitions>
 
                     <!-- Title -->
-                    <TextBlock FontSize="24"
-                               Text="{Binding Title}" />
+                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold" Text="{Binding Title}" Margin="0 0 0 10" Foreground="{StaticResource Turquoise}"/>
 
                     <!-- Category -->
                     <Grid Grid.Row="1">
@@ -46,10 +65,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Kategoria:"
-                                   FontWeight="Bold" Margin="0 0 5 0" />
+                                   FontWeight="Bold" Margin="0 0 5 0" Foreground="{StaticResource Turquoise}" />
                         <TextBlock Grid.Column="1"
                                    FontSize="16"
-                                   Text="{Binding Category}" />
+                                   Text="{Binding Category}" Foreground="{StaticResource TextPrimary}"/>
                     </Grid>
 
                     <!-- Tag -->
@@ -59,10 +78,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Tag:"
-                                   FontWeight="Bold" Margin="0 0 5 0" />
+                                   FontWeight="Bold" Margin="0 0 5 0" Foreground="{StaticResource Turquoise}"/>
                         <TextBlock Grid.Column="1"
                                    FontSize="16"
-                                   Text="{Binding Tag}" />
+                                   Text="{Binding Tag}" Foreground="{StaticResource TextPrimary}"/>
                     </Grid>
 
                     <!-- Description -->
@@ -72,11 +91,11 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Opis:"
-                                   FontWeight="Bold" Margin="0 0 5 0" />
+                                   FontWeight="Bold" Margin="0 0 5 0" Foreground="{StaticResource Turquoise}"/>
                         <TextBlock Grid.Column="1"
                                    FontSize="16"
                                    TextWrapping="Wrap"
-                                   Text="{Binding Description}" />
+                                   Text="{Binding Description}" Foreground="{StaticResource TextPrimary}"/>
                     </Grid>
                 </Grid>
             </Grid>

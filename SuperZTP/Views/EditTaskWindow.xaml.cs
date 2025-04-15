@@ -85,31 +85,39 @@ namespace SuperZTP.Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            EditedTask.Title = TitleTextBox.Text;
-            EditedTask.Description = DescriptionTextBox.Text;
-
-            if (CategoryComboBox.SelectedItem is ComboBoxItem selectedCategoryItem && selectedCategoryItem.Tag is Category selectedCategory)
+            if (TitleTextBox.Text != "")
             {
-                EditedTask.Category = selectedCategory;
-            }
+                EditedTask.Title = TitleTextBox.Text;
+                EditedTask.Description = DescriptionTextBox.Text;
 
-            if (TagComboBox.SelectedItem is ComboBoxItem selectedTagItem && selectedTagItem.Tag is Tag selectedTag)
+                if (CategoryComboBox.SelectedItem is ComboBoxItem selectedCategoryItem && selectedCategoryItem.Tag is Category selectedCategory)
+                {
+                    EditedTask.Category = selectedCategory;
+                }
+
+                if (TagComboBox.SelectedItem is ComboBoxItem selectedTagItem && selectedTagItem.Tag is Tag selectedTag)
+                {
+                    EditedTask.Tag = selectedTag;
+                }
+
+                EditedTask.Priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString() ?? "Brak priorytetu";
+                EditedTask.Deadline = DeadlineDatePicker.SelectedDate ?? DateTime.Now;
+                EditedTask.IsDone = IsCompletedCheckBox.IsChecked ?? false;
+
+
+                fileHandler.SaveTasksToFile("tasks.txt");
+
+                var editCommand = new EditTask(tasks, originalTask, EditedTask, EditedTask.Id);
+                invoker.AddCommand(editCommand);
+                invoker.Execute();
+                _viewModel.UpdateHistory();
+
+                DialogResult = true;
+            }
+            else
             {
-                EditedTask.Tag = selectedTag;
+                MessageBox.Show("Tytuł jest wymagany!");
             }
-
-            EditedTask.Priority = ((ComboBoxItem)PriorityComboBox.SelectedItem)?.Content.ToString() ?? "Brak priorytetu";
-            EditedTask.Deadline = DeadlineDatePicker.SelectedDate ?? DateTime.Now;
-            EditedTask.IsDone = IsCompletedCheckBox.IsChecked ?? false;
-
-            fileHandler.SaveTasksToFile("tasks.txt");
-
-            var editCommand = new EditTask(tasks, originalTask, EditedTask, EditedTask.Id);
-            invoker.AddCommand(editCommand);
-            invoker.Execute();
-            _viewModel.UpdateHistory();
-
-            DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
