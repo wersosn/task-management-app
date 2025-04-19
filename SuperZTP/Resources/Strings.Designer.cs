@@ -160,6 +160,15 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Wykonane zadania:.
+        /// </summary>
+        public static string CompletedTasksTitle {
+            get {
+                return ResourceManager.GetString("CompletedTasksTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Względem daty ↑.
         /// </summary>
         public static string Date {
@@ -484,7 +493,7 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu 📋 Notatka.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu 📋 Notatki.
         /// </summary>
         public static string Notes {
             get {
@@ -498,6 +507,15 @@ namespace SuperZTP.Resources {
         public static string Other {
             get {
                 return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zaległe zadania:.
+        /// </summary>
+        public static string OverdueTasksTitle {
+            get {
+                return ResourceManager.GetString("OverdueTasksTitle", resourceCulture);
             }
         }
         
@@ -579,6 +597,15 @@ namespace SuperZTP.Resources {
         public static string ReportMessage {
             get {
                 return ResourceManager.GetString("ReportMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tytuł jest wymagany!.
+        /// </summary>
+        public static string RequiredTitle {
+            get {
+                return ResourceManager.GetString("RequiredTitle", resourceCulture);
             }
         }
         
@@ -682,11 +709,38 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Wykonane.
+        /// </summary>
+        public static string TaskStatus_Done {
+            get {
+                return ResourceManager.GetString("TaskStatus_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Niewykonane.
+        /// </summary>
+        public static string TaskStatus_NotDone {
+            get {
+                return ResourceManager.GetString("TaskStatus_NotDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tytuł:.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zbliżające się terminy wykonania zadań:.
+        /// </summary>
+        public static string UpcomingTasksTitle {
+            get {
+                return ResourceManager.GetString("UpcomingTasksTitle", resourceCulture);
             }
         }
     }

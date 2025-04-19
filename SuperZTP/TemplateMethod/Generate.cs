@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using SuperZTP.Resources;
 
 namespace SuperZTP.TemplateMethod
 {
@@ -28,8 +29,14 @@ namespace SuperZTP.TemplateMethod
 
         public string GenerateUpcomingTaskReport(IEnumerable<Model.Task> tasks)
         {
-            return "Zbliżające się terminy wykonania zadań:\n" +
-                   string.Join("\n", tasks.Select(task => $"{task.Title} - Deadline: {task.Deadline:yyyy-MM-dd}")) + "\n\n";
+            var sb = new StringBuilder();
+            sb.AppendLine(Strings.UpcomingTasksTitle);
+            foreach (var task in tasks)
+            {
+                sb.AppendLine($"{task.Title} - {Strings.Deadline} {task.Deadline:yyyy-MM-dd}");
+            }
+            sb.AppendLine();
+            return sb.ToString();
         }
 
         // Generowanie podsumowania
@@ -37,22 +44,32 @@ namespace SuperZTP.TemplateMethod
         {
             var completedTasks = tasks.Where(task => task.IsDone);
             var overdueTasks = tasks.Where(task => !task.IsDone && task.Deadline < DateTime.Now);
-            var content1 = GenerateCompletedTasksReport(completedTasks);
-            var content2 = GenerateOverdueTasksReport(overdueTasks);
-            var content = content1 + content2;
+            var content = GenerateCompletedTasksReport(completedTasks) + GenerateOverdueTasksReport(overdueTasks);
             Save(filepath, content);
         }
 
         public string GenerateCompletedTasksReport(IEnumerable<Model.Task> completedTasks)
         {
-            return "Wykonane zadania:\n" +
-                   string.Join("\n", completedTasks.Select(task => $"{task.Title} - Deadline: {task.Deadline:yyyy-MM-dd} - Status: Wykonane")) + "\n\n";
+            var sb = new StringBuilder();
+            sb.AppendLine(Strings.CompletedTasksTitle);
+            foreach (var task in completedTasks)
+            {
+                sb.AppendLine($"{task.Title} - {Strings.Deadline} {task.Deadline:yyyy-MM-dd} - {Strings.TaskStatus_Done}");
+            }
+            sb.AppendLine();
+            return sb.ToString();
         }
 
         public string GenerateOverdueTasksReport(IEnumerable<Model.Task> overdueTasks)
         {
-            return "Zaległe zadania:\n" +
-                   string.Join("\n", overdueTasks.Select(task => $"{task.Title} - Deadline: {task.Deadline:yyyy-MM-dd} - Status: Niewykonane")) + "\n\n";
+            var sb = new StringBuilder();
+            sb.AppendLine(Strings.OverdueTasksTitle);
+            foreach (var task in overdueTasks)
+            {
+                sb.AppendLine($"{task.Title} - {Strings.Deadline} {task.Deadline:yyyy-MM-dd} - {Strings.TaskStatus_NotDone}");
+            }
+            sb.AppendLine();
+            return sb.ToString();
         }
     }
 }

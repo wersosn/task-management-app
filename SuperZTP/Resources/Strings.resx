@@ -150,6 +150,9 @@
   <data name="Completed" xml:space="preserve">
     <value>Pokaż ukończone</value>
   </data>
+  <data name="CompletedTasksTitle" xml:space="preserve">
+    <value>Wykonane zadania:</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Względem daty ↑</value>
   </data>
@@ -259,10 +262,13 @@
     <value>Pokaż nieukończone</value>
   </data>
   <data name="Notes" xml:space="preserve">
-    <value>📋 Notatka</value>
+    <value>📋 Notatki</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Inne</value>
+  </data>
+  <data name="OverdueTasksTitle" xml:space="preserve">
+    <value>Zaległe zadania:</value>
   </data>
   <data name="PHigh" xml:space="preserve">
     <value>Wysoki</value>
@@ -290,6 +296,9 @@
   </data>
   <data name="ReportMessage" xml:space="preserve">
     <value>Wygenerowano raport w formacie {0}</value>
+  </data>
+  <data name="RequiredTitle" xml:space="preserve">
+    <value>Tytuł jest wymagany!</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
@@ -324,7 +333,16 @@
   <data name="Tasks" xml:space="preserve">
     <value>✅ Zadania</value>
   </data>
+  <data name="TaskStatus_Done" xml:space="preserve">
+    <value>Wykonane</value>
+  </data>
+  <data name="TaskStatus_NotDone" xml:space="preserve">
+    <value>Niewykonane</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Tytuł:</value>
+  </data>
+  <data name="UpcomingTasksTitle" xml:space="preserve">
+    <value>Zbliżające się terminy wykonania zadań:</value>
   </data>
 </root>

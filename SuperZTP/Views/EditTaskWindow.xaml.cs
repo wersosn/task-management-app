@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SuperZTP.Resources;
 
 namespace SuperZTP.Views
 {
@@ -116,7 +117,7 @@ namespace SuperZTP.Views
             }
             else
             {
-                MessageBox.Show("Tytuł jest wymagany!");
+                MessageBox.Show(Strings.RequiredTitle);
             }
         }
 
