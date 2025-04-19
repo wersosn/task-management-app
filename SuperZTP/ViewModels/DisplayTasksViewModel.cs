@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
+using DocumentFormat.OpenXml.Office2010.CustomUI;
 using SuperZTP.Command;
 using SuperZTP.Decorator;
 using SuperZTP.Facade;
@@ -65,10 +67,14 @@ namespace SuperZTP.ViewModels
         public void RefreshTasks()
         {
             _previews.Clear();
+            var language = CultureInfo.CurrentCulture.Name;
+            string tasksHeader = language == "en" ? "--Tasks--" : "--Zadania--";
+            string notesHeader = language == "en" ? "--Notes--" : "--Notatki--";
+            string noneHeader = language == "en" ? "No tasks or notes" : "Brak zadań oraz notatek";
             IEnumerable<Task> filteredTasks = _currentFilter?.ApplyFilter(_taskState.Tasks) ?? _taskState.Tasks;
             if (filteredTasks.Any())
             {
-                _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Zadania--"), _taskState, _invoker,
+                _previews.Add(new DisplayTaskPreviewViewModel(new Header(tasksHeader), _taskState, _invoker,
                     RefreshTasks));
                 foreach (var task in filteredTasks)
                 {
@@ -79,7 +85,7 @@ namespace SuperZTP.ViewModels
             IEnumerable<Note> filteredNotes = _taskState.Notes;
             if (filteredNotes.Any())
             {
-                _previews.Add(new DisplayTaskPreviewViewModel(new Header("--Notatki--"), _taskState, _invoker,
+                _previews.Add(new DisplayTaskPreviewViewModel(new Header(notesHeader), _taskState, _invoker,
                     RefreshTasks));
                 foreach (var note in filteredNotes)
                 {
@@ -90,7 +96,7 @@ namespace SuperZTP.ViewModels
 
             if (!filteredTasks.Any() && !filteredNotes.Any())
             {
-                _previews.Add(new DisplayTaskPreviewViewModel(new Header("Brak zadań oraz notatek"), _taskState, _invoker,
+                _previews.Add(new DisplayTaskPreviewViewModel(new Header(noneHeader), _taskState, _invoker,
                     RefreshTasks));
             }
             OnPropertyChanged(nameof(Previews));

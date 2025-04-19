@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperZTP.Views"
+             xmlns:resx="clr-namespace:SuperZTP.Resources"
              xmlns:custom="clr-namespace:DropdownMenuControl;assembly=DropdownMenuControl"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800">
@@ -71,8 +72,8 @@
                                                         <Setter Property="Cursor" Value="Hand"/>
                                                     </Style>
                                                 </StackPanel.Resources>
-                                                <Button Content="Edit" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"/>
-                                                <Button Content="Delete" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"/>
+                                                <Button Content="{x:Static resx:Strings.Edit}" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"/>
+                                                <Button Content="{x:Static resx:Strings.Delete}" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListViewItem}}"/>
                                             </StackPanel>
                                         </Border>
                                     </custom:DropdownMenu>
@@ -93,8 +94,8 @@
                                                         <Setter Property="Cursor" Value="Hand"/>
                                                     </Style>
                                                 </StackPanel.Resources>
-                                                <Button Content="Edit" Command="{Binding EditNCommand}"/>
-                                                <Button Content="Delete" Command="{Binding DeleteNCommand}"/>
+                                                <Button Content="{x:Static resx:Strings.Edit}" Command="{Binding EditNCommand}"/>
+                                                <Button Content="{x:Static resx:Strings.Delete}" Command="{Binding DeleteNCommand}"/>
                                             </StackPanel>
                                         </Border>
                                     </custom:DropdownMenu>

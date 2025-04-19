@@ -147,11 +147,17 @@
   <data name="Deadline" xml:space="preserve">
     <value>Termin wykonania</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Ukończone</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edytuj</value>
   </data>
   <data name="EditNote" xml:space="preserve">
     <value>Edytuj notatkę</value>
