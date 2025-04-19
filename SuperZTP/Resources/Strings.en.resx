@@ -129,6 +129,9 @@
   <data name="AddTaskButton" xml:space="preserve">
     <value>➕ Add Task</value>
   </data>
+  <data name="Alphabetical" xml:space="preserve">
+    <value>A-Z</value>
+  </data>
   <data name="ApplyFilters" xml:space="preserve">
     <value>Apply Filters</value>
   </data>
@@ -142,16 +145,31 @@
     <value>Cancel</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category</value>
+    <value>Category:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Show completed</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date ↑</value>
+  </data>
+  <data name="DateAZ" xml:space="preserve">
+    <value>A-Z and date ↑</value>
+  </data>
+  <data name="DateZA" xml:space="preserve">
+    <value>Z-A and date ↓</value>
   </data>
   <data name="Deadline" xml:space="preserve">
-    <value>Deadline</value>
+    <value>Deadline:</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>Description:</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Done</value>
@@ -174,17 +192,71 @@
   <data name="GenerateFile" xml:space="preserve">
     <value>Generate file</value>
   </data>
+  <data name="GroupByCategory" xml:space="preserve">
+    <value>Group by category</value>
+  </data>
+  <data name="GroupByTag" xml:space="preserve">
+    <value>Group by tag</value>
+  </data>
   <data name="GroupingOptions" xml:space="preserve">
-    <value>Grouping options</value>
+    <value>Grouping options:</value>
+  </data>
+  <data name="HisAddNote" xml:space="preserve">
+    <value>Added note: {0}</value>
+  </data>
+  <data name="HisAddNoteFailed" xml:space="preserve">
+    <value>Failed to add note.</value>
+  </data>
+  <data name="HisAddTask" xml:space="preserve">
+    <value>Added task: {0}</value>
+  </data>
+  <data name="HisAddTaskFailed" xml:space="preserve">
+    <value>Failed to add task.</value>
+  </data>
+  <data name="HisDeleteNote" xml:space="preserve">
+    <value>Deleted note: {0}</value>
+  </data>
+  <data name="HisDeleteNoteFailed" xml:space="preserve">
+    <value>Failed to delete note.</value>
+  </data>
+  <data name="HisDeleteTask" xml:space="preserve">
+    <value>Deleted task: {0}</value>
+  </data>
+  <data name="HisDeleteTaskFailed" xml:space="preserve">
+    <value>Failed to delete task.</value>
+  </data>
+  <data name="HisEditNote" xml:space="preserve">
+    <value>Edited note: {0}</value>
+  </data>
+  <data name="HisEditNoteFailed" xml:space="preserve">
+    <value>Failed to edit note.</value>
+  </data>
+  <data name="HisEditTask" xml:space="preserve">
+    <value>Edited task: {0}</value>
+  </data>
+  <data name="HisEditTaskFailed" xml:space="preserve">
+    <value>Failed to edit task.</value>
   </data>
   <data name="History" xml:space="preserve">
-    <value>Operations history</value>
+    <value>Operation history</value>
   </data>
   <data name="IsDone" xml:space="preserve">
-    <value>Status</value>
+    <value>Status:</value>
   </data>
   <data name="List" xml:space="preserve">
     <value>List of tasks and notes</value>
+  </data>
+  <data name="NoGroup" xml:space="preserve">
+    <value>No grouping</value>
+  </data>
+  <data name="NoNoteSelected" xml:space="preserve">
+    <value>Details of the selected note will be displayed here.</value>
+  </data>
+  <data name="NoTaskSelected" xml:space="preserve">
+    <value>Details of the selected task will be displayed here.</value>
+  </data>
+  <data name="NotCompleted" xml:space="preserve">
+    <value>Show not completed</value>
   </data>
   <data name="Notes" xml:space="preserve">
     <value>📋 Note</value>
@@ -202,13 +274,31 @@
     <value>Medium</value>
   </data>
   <data name="Priority" xml:space="preserve">
-    <value>Priority</value>
+    <value>Priority:</value>
+  </data>
+  <data name="PriorityHighToLow" xml:space="preserve">
+    <value>Priority ↑ (High -&gt; Low)</value>
+  </data>
+  <data name="PriorityLowToHigh" xml:space="preserve">
+    <value>Priority ↓ (Low -&gt; High)</value>
+  </data>
+  <data name="RandomOrder" xml:space="preserve">
+    <value>Random order</value>
   </data>
   <data name="Raport" xml:space="preserve">
-    <value>Raport</value>
+    <value>Report</value>
+  </data>
+  <data name="RaportMessage" xml:space="preserve">
+    <value>Generated report in format {0}</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
+  </data>
+  <data name="ReverseAlphabetical" xml:space="preserve">
+    <value>Z-A</value>
+  </data>
+  <data name="ReverseDate" xml:space="preserve">
+    <value>Date ↓</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save changes</value>
@@ -216,19 +306,25 @@
   <data name="Search" xml:space="preserve">
     <value>Search task</value>
   </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show all</value>
+  </data>
   <data name="SortingOptions" xml:space="preserve">
-    <value>Sorting options</value>
+    <value>Sorting options:</value>
   </data>
   <data name="Summary" xml:space="preserve">
     <value>Summary</value>
   </data>
+  <data name="SummaryMessage" xml:space="preserve">
+    <value>Generated summary in format {0}</value>
+  </data>
   <data name="Tag" xml:space="preserve">
-    <value>Tag</value>
+    <value>Tag:</value>
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>✅ Tasks</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Title:</value>
   </data>
 </root>

@@ -127,7 +127,7 @@
                                 </ComboBox.ItemContainerStyle>
                             </ComboBox>
 
-                            <TextBlock Text="Termin wykonania" Foreground="{StaticResource Turquoise}"/>
+                            <TextBlock Text="{x:Static resx:Strings.Deadline}" Foreground="{StaticResource Turquoise}"/>
                             <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="200"/>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="15">

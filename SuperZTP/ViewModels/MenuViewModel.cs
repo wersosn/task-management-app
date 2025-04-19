@@ -332,7 +332,7 @@ namespace SuperZTP.ViewModels
             if (SelectedReportType == "PDF") pdf.GenerateRaport("raportPDF.pdf");
             if (SelectedReportType == "DOCX") docx.GenerateRaport("raportDOCX.docx");
 
-            MessageBox.Show($"Wygenerowano raport w formacie {SelectedReportType}");
+            MessageBox.Show(string.Format(Strings.ReportMessage, SelectedReportType));
         }
 
         public void GenerateSelectedSummary()
@@ -341,7 +341,7 @@ namespace SuperZTP.ViewModels
             if (SelectedSummaryType == "PDF") pdf.GenerateSummary("podsumowaniePDF.pdf");
             if (SelectedSummaryType == "DOCX") docx.GenerateSummary("podsumowanieDOCX.docx");
 
-            MessageBox.Show($"Wygenerowano podsumowanie w formacie {SelectedSummaryType}");
+            MessageBox.Show(string.Format(Strings.SummaryMessage, SelectedSummaryType));
         }
 
         // Metody potrzebne do wyświetlania historii operacji:

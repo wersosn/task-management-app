@@ -97,6 +97,15 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu A-Z.
+        /// </summary>
+        public static string Alphabetical {
+            get {
+                return ResourceManager.GetString("Alphabetical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zastosuj filtry.
         /// </summary>
         public static string ApplyFilters {
@@ -133,7 +142,7 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Kategoria.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Kategoria:.
         /// </summary>
         public static string Category {
             get {
@@ -142,11 +151,56 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Termin wykonania.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Pokaż ukończone.
+        /// </summary>
+        public static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Względem daty ↑.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu A-Z Względem daty ↑.
+        /// </summary>
+        public static string DateAZ {
+            get {
+                return ResourceManager.GetString("DateAZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Z-A Względem daty ↓.
+        /// </summary>
+        public static string DateZA {
+            get {
+                return ResourceManager.GetString("DateZA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Termin:.
         /// </summary>
         public static string Deadline {
             get {
                 return ResourceManager.GetString("Deadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Domyślny.
+        /// </summary>
+        public static string Default {
+            get {
+                return ResourceManager.GetString("Default", resourceCulture);
             }
         }
         
@@ -160,7 +214,7 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Opis.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Opis:.
         /// </summary>
         public static string Description {
             get {
@@ -232,11 +286,137 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Opcje grupowania.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Grupuj kategoriami.
+        /// </summary>
+        public static string GroupByCategory {
+            get {
+                return ResourceManager.GetString("GroupByCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Grupuj tagami.
+        /// </summary>
+        public static string GroupByTag {
+            get {
+                return ResourceManager.GetString("GroupByTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Opcje grupowania:.
         /// </summary>
         public static string GroupingOptions {
             get {
                 return ResourceManager.GetString("GroupingOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dodano notatkę: {0}.
+        /// </summary>
+        public static string HisAddNote {
+            get {
+                return ResourceManager.GetString("HisAddNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dodanie notatki nie powiodło się..
+        /// </summary>
+        public static string HisAddNoteFailed {
+            get {
+                return ResourceManager.GetString("HisAddNoteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dodano zadanie: {0}.
+        /// </summary>
+        public static string HisAddTask {
+            get {
+                return ResourceManager.GetString("HisAddTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dodanie zadania nie powiodło się..
+        /// </summary>
+        public static string HisAddTaskFailed {
+            get {
+                return ResourceManager.GetString("HisAddTaskFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Usunięto notatkę: {0}.
+        /// </summary>
+        public static string HisDeleteNote {
+            get {
+                return ResourceManager.GetString("HisDeleteNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Usunięcie notatki nie powiodło się..
+        /// </summary>
+        public static string HisDeleteNoteFailed {
+            get {
+                return ResourceManager.GetString("HisDeleteNoteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Usunięto zadanie: {0}.
+        /// </summary>
+        public static string HisDeleteTask {
+            get {
+                return ResourceManager.GetString("HisDeleteTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Usunięcie zadanie nie powiodło się..
+        /// </summary>
+        public static string HisDeleteTaskFailed {
+            get {
+                return ResourceManager.GetString("HisDeleteTaskFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zedytowano notatkę: {0}.
+        /// </summary>
+        public static string HisEditNote {
+            get {
+                return ResourceManager.GetString("HisEditNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Edycja notatki nie powiodła się..
+        /// </summary>
+        public static string HisEditNoteFailed {
+            get {
+                return ResourceManager.GetString("HisEditNoteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zedytowano zadanie: {0}.
+        /// </summary>
+        public static string HisEditTask {
+            get {
+                return ResourceManager.GetString("HisEditTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Edycja zadania nie powiodła się..
+        /// </summary>
+        public static string HisEditTaskFailed {
+            get {
+                return ResourceManager.GetString("HisEditTaskFailed", resourceCulture);
             }
         }
         
@@ -250,7 +430,7 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Status wykonania.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Status:.
         /// </summary>
         public static string IsDone {
             get {
@@ -264,6 +444,42 @@ namespace SuperZTP.Resources {
         public static string List {
             get {
                 return ResourceManager.GetString("List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Brak grupowania.
+        /// </summary>
+        public static string NoGroup {
+            get {
+                return ResourceManager.GetString("NoGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tutaj wyświetlą się szczegóły wybranej notatki..
+        /// </summary>
+        public static string NoNoteSelected {
+            get {
+                return ResourceManager.GetString("NoNoteSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tutaj wyświetlą się szczegóły wybranego zadania..
+        /// </summary>
+        public static string NoTaskSelected {
+            get {
+                return ResourceManager.GetString("NoTaskSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Pokaż nieukończone.
+        /// </summary>
+        public static string NotCompleted {
+            get {
+                return ResourceManager.GetString("NotCompleted", resourceCulture);
             }
         }
         
@@ -313,11 +529,38 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Priorytet.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Priorytet:.
         /// </summary>
         public static string Priority {
             get {
                 return ResourceManager.GetString("Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Priorytet ↑ (Wysoki -&gt; Niski).
+        /// </summary>
+        public static string PriorityHighToLow {
+            get {
+                return ResourceManager.GetString("PriorityHighToLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Priorytet ↓ (Niski -&gt; Wysoki).
+        /// </summary>
+        public static string PriorityLowToHigh {
+            get {
+                return ResourceManager.GetString("PriorityLowToHigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Losowa kolejność.
+        /// </summary>
+        public static string RandomOrder {
+            get {
+                return ResourceManager.GetString("RandomOrder", resourceCulture);
             }
         }
         
@@ -331,11 +574,38 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Wygenerowano raport w formacie {0}.
+        /// </summary>
+        public static string ReportMessage {
+            get {
+                return ResourceManager.GetString("ReportMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Reset.
         /// </summary>
         public static string Reset {
             get {
                 return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Z-A.
+        /// </summary>
+        public static string ReverseAlphabetical {
+            get {
+                return ResourceManager.GetString("ReverseAlphabetical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Względem daty ↓.
+        /// </summary>
+        public static string ReverseDate {
+            get {
+                return ResourceManager.GetString("ReverseDate", resourceCulture);
             }
         }
         
@@ -358,7 +628,16 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Opcje sortowania.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Pokaż wszystkie.
+        /// </summary>
+        public static string ShowAll {
+            get {
+                return ResourceManager.GetString("ShowAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Opcje sortowania:.
         /// </summary>
         public static string SortingOptions {
             get {
@@ -376,7 +655,16 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tag.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Wygenerowano podsumowanie w formacie {0}.
+        /// </summary>
+        public static string SummaryMessage {
+            get {
+                return ResourceManager.GetString("SummaryMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tag:.
         /// </summary>
         public static string Tag {
             get {
@@ -394,7 +682,7 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tytuł.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tytuł:.
         /// </summary>
         public static string Title {
             get {

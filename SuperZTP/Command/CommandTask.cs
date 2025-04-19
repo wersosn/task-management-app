@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Wordprocessing;
 using SuperZTP.Model;
+using SuperZTP.Resources;
 
 namespace SuperZTP.Command
 {
@@ -49,7 +51,9 @@ namespace SuperZTP.Command
 
         public override string ToString()
         {
-            return $"Dodano zadanie: {newTask.Title}";
+            return newTask != null
+                ? string.Format(Strings.HisAddTask, newTask.Title)
+                : Strings.HisAddTaskFailed;
         }
     }
 
@@ -110,8 +114,8 @@ namespace SuperZTP.Command
         public override string ToString()
         {
             return newTask != null
-                ? $"Zedytowano zadanie: {newTask.Title}"
-                : "Edycja zadania nie powiodła się.";
+                ? string.Format(Strings.HisEditTask, newTask.Title)
+                : Strings.HisEditTaskFailed;
         }
     }
 
@@ -151,7 +155,9 @@ namespace SuperZTP.Command
 
         public override string ToString()
         {
-            return $"Usunięto zadanie: {_taskToDelete.Title}";
+            return _taskToDelete != null 
+                ? string.Format(Strings.HisDeleteTask, _taskToDelete.Title)
+                : Strings.HisDeleteTaskFailed;
         }
     }
 

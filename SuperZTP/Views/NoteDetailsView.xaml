@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperZTP.Views"
+             xmlns:resx="clr-namespace:SuperZTP.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              FontSize="16">
@@ -27,7 +28,7 @@
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
-                    <TextBlock Text="Tutaj wyświetlą się szczegóły wybranej notatki."
+                    <TextBlock Text="{x:Static resx:Strings.NoTaskSelected}"
                     FontSize="18"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -64,7 +65,7 @@
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Kategoria:"
+                        <TextBlock Grid.Column="0" Text="{x:Static resx:Strings.Category}"
                                    FontWeight="Bold" Margin="0 0 5 0" Foreground="{StaticResource Turquoise}" />
                         <TextBlock Grid.Column="1"
                                    FontSize="16"
@@ -77,7 +78,7 @@
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Tag:"
+                        <TextBlock Grid.Column="0" Text="{x:Static resx:Strings.Tag}"
                                    FontWeight="Bold" Margin="0 0 5 0" Foreground="{StaticResource Turquoise}"/>
                         <TextBlock Grid.Column="1"
                                    FontSize="16"
@@ -90,7 +91,7 @@
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Opis:"
+                        <TextBlock Grid.Column="0" Text="{x:Static resx:Strings.Description}"
                                    FontWeight="Bold" Margin="0 0 5 0" Foreground="{StaticResource Turquoise}"/>
                         <TextBlock Grid.Column="1"
                                    FontSize="16"

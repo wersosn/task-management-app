@@ -129,6 +129,9 @@
   <data name="AddTaskButton" xml:space="preserve">
     <value>➕ Dodaj zadanie</value>
   </data>
+  <data name="Alphabetical" xml:space="preserve">
+    <value>A-Z</value>
+  </data>
   <data name="ApplyFilters" xml:space="preserve">
     <value>Zastosuj filtry</value>
   </data>
@@ -142,16 +145,31 @@
     <value>Anuluj</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Kategoria</value>
+    <value>Kategoria:</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Pokaż ukończone</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Względem daty ↑</value>
+  </data>
+  <data name="DateAZ" xml:space="preserve">
+    <value>A-Z Względem daty ↑</value>
+  </data>
+  <data name="DateZA" xml:space="preserve">
+    <value>Z-A Względem daty ↓</value>
   </data>
   <data name="Deadline" xml:space="preserve">
-    <value>Termin wykonania</value>
+    <value>Termin:</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Domyślny</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Usuń</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Opis</value>
+    <value>Opis:</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Ukończone</value>
@@ -174,17 +192,71 @@
   <data name="GenerateFile" xml:space="preserve">
     <value>Generowanie</value>
   </data>
+  <data name="GroupByCategory" xml:space="preserve">
+    <value>Grupuj kategoriami</value>
+  </data>
+  <data name="GroupByTag" xml:space="preserve">
+    <value>Grupuj tagami</value>
+  </data>
   <data name="GroupingOptions" xml:space="preserve">
-    <value>Opcje grupowania</value>
+    <value>Opcje grupowania:</value>
+  </data>
+  <data name="HisAddNote" xml:space="preserve">
+    <value>Dodano notatkę: {0}</value>
+  </data>
+  <data name="HisAddNoteFailed" xml:space="preserve">
+    <value>Dodanie notatki nie powiodło się.</value>
+  </data>
+  <data name="HisAddTask" xml:space="preserve">
+    <value>Dodano zadanie: {0}</value>
+  </data>
+  <data name="HisAddTaskFailed" xml:space="preserve">
+    <value>Dodanie zadania nie powiodło się.</value>
+  </data>
+  <data name="HisDeleteNote" xml:space="preserve">
+    <value>Usunięto notatkę: {0}</value>
+  </data>
+  <data name="HisDeleteNoteFailed" xml:space="preserve">
+    <value>Usunięcie notatki nie powiodło się.</value>
+  </data>
+  <data name="HisDeleteTask" xml:space="preserve">
+    <value>Usunięto zadanie: {0}</value>
+  </data>
+  <data name="HisDeleteTaskFailed" xml:space="preserve">
+    <value>Usunięcie zadanie nie powiodło się.</value>
+  </data>
+  <data name="HisEditNote" xml:space="preserve">
+    <value>Zedytowano notatkę: {0}</value>
+  </data>
+  <data name="HisEditNoteFailed" xml:space="preserve">
+    <value>Edycja notatki nie powiodła się.</value>
+  </data>
+  <data name="HisEditTask" xml:space="preserve">
+    <value>Zedytowano zadanie: {0}</value>
+  </data>
+  <data name="HisEditTaskFailed" xml:space="preserve">
+    <value>Edycja zadania nie powiodła się.</value>
   </data>
   <data name="History" xml:space="preserve">
     <value>Historia operacji</value>
   </data>
   <data name="IsDone" xml:space="preserve">
-    <value>Status wykonania</value>
+    <value>Status:</value>
   </data>
   <data name="List" xml:space="preserve">
     <value>Lista zadań oraz notatek</value>
+  </data>
+  <data name="NoGroup" xml:space="preserve">
+    <value>Brak grupowania</value>
+  </data>
+  <data name="NoNoteSelected" xml:space="preserve">
+    <value>Tutaj wyświetlą się szczegóły wybranej notatki.</value>
+  </data>
+  <data name="NoTaskSelected" xml:space="preserve">
+    <value>Tutaj wyświetlą się szczegóły wybranego zadania.</value>
+  </data>
+  <data name="NotCompleted" xml:space="preserve">
+    <value>Pokaż nieukończone</value>
   </data>
   <data name="Notes" xml:space="preserve">
     <value>📋 Notatka</value>
@@ -202,13 +274,31 @@
     <value>Średni</value>
   </data>
   <data name="Priority" xml:space="preserve">
-    <value>Priorytet</value>
+    <value>Priorytet:</value>
+  </data>
+  <data name="PriorityHighToLow" xml:space="preserve">
+    <value>Priorytet ↑ (Wysoki -&gt; Niski)</value>
+  </data>
+  <data name="PriorityLowToHigh" xml:space="preserve">
+    <value>Priorytet ↓ (Niski -&gt; Wysoki)</value>
+  </data>
+  <data name="RandomOrder" xml:space="preserve">
+    <value>Losowa kolejność</value>
   </data>
   <data name="Raport" xml:space="preserve">
     <value>Raport</value>
   </data>
+  <data name="ReportMessage" xml:space="preserve">
+    <value>Wygenerowano raport w formacie {0}</value>
+  </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
+  </data>
+  <data name="ReverseAlphabetical" xml:space="preserve">
+    <value>Z-A</value>
+  </data>
+  <data name="ReverseDate" xml:space="preserve">
+    <value>Względem daty ↓</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Zapisz zmiany</value>
@@ -216,19 +306,25 @@
   <data name="Search" xml:space="preserve">
     <value>Wyszukaj zadanie</value>
   </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Pokaż wszystkie</value>
+  </data>
   <data name="SortingOptions" xml:space="preserve">
-    <value>Opcje sortowania</value>
+    <value>Opcje sortowania:</value>
   </data>
   <data name="Summary" xml:space="preserve">
     <value>Podsumowanie</value>
   </data>
+  <data name="SummaryMessage" xml:space="preserve">
+    <value>Wygenerowano podsumowanie w formacie {0}</value>
+  </data>
   <data name="Tag" xml:space="preserve">
-    <value>Tag</value>
+    <value>Tag:</value>
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>✅ Zadania</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Tytuł</value>
+    <value>Tytuł:</value>
   </data>
 </root>

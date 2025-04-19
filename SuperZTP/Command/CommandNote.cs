@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperZTP.Resources;
 
 namespace SuperZTP.Command
 {
@@ -44,7 +45,9 @@ namespace SuperZTP.Command
 
         public override string ToString()
         {
-            return $"Dodano notatkę: {newNote.Title}";
+            return newNote != null
+                ? string.Format(Strings.HisAddNote, newNote.Title)
+                : Strings.HisAddNoteFailed;
         }
     }
 
@@ -99,8 +102,8 @@ namespace SuperZTP.Command
         public override string ToString()
         {
             return newNote != null
-                ? $"Zedytowano notatkę: {newNote.Title}"
-                : "Edycja zadania nie powiodła się.";
+                ? string.Format(Strings.HisEditNote, newNote.Title)
+                : Strings.HisEditNoteFailed;
         }
     }
 
@@ -141,8 +144,8 @@ namespace SuperZTP.Command
         public override string ToString()
         {
             return _noteToDelete != null
-                ? $"Usunięto notatkę: {_noteToDelete.Title}"
-                : "Usunięcie notatki nie powiodło się.";
+                ? string.Format(Strings.HisDeleteNote, _noteToDelete.Title)
+                : Strings.HisDeleteNoteFailed;
         }
     }
 

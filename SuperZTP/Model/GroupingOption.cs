@@ -4,50 +4,53 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperZTP.Resources;
 
 namespace SuperZTP.Model
 {
     public enum GroupingOption
     {
-        [Description("Brak grupowania")]
+        [LocalizedDescription("NoGroup", typeof(Strings))]
         NoGroup,
-        [Description("Grupuj kategoriami")]
+
+        [LocalizedDescription("GroupByCategory", typeof(Strings))]
         GroupByCategory,
-        [Description("Grupuj tagami")]
+
+        [LocalizedDescription("GroupByTag", typeof(Strings))]
         GroupByTag
     }
 
     public enum CompletionStatus
     {
-        [Description("Domyślny")]
+        [LocalizedDescription("Default", typeof(Strings))]
         Default,
-        [Description("Pokaż ukończone")]
+        [LocalizedDescription("Completed", typeof(Strings))]
         Completed,
-        [Description("Pokaż nieukończone")]
+        [LocalizedDescription("NotCompleted", typeof(Strings))]
         NotCompleted,
-        [Description("Pokaż wszystkie")]
+        [LocalizedDescription("ShowAll", typeof(Strings))]
         ShowAll
     }
 
     public enum SortOptions
     {
-        [Description("Losowa kolejność")]
+        [LocalizedDescription("RandomOrder", typeof(Strings))]
         RandomOrder,
-        [Description("A-Z")]
+        [LocalizedDescription("Alphabetical", typeof(Strings))]
         Alphabetical,
-        [Description("Z-A")]
+        [LocalizedDescription("ReverseAlphabetical", typeof(Strings))]
         ReverseAlphabetical,
-        [Description("Względem daty \u2191 ")]
+        [LocalizedDescription("Date", typeof(Strings))]
         Date,
-        [Description("Względem daty \t\u2193 ")]
+        [LocalizedDescription("ReverseDare", typeof(Strings))]
         ReverseDate,
-        [Description("A-Z Względem daty \u2191 ")]
+        [LocalizedDescription("DateAZ", typeof(Strings))]
         DateAZ,
-        [Description("Z-A Względem daty \t\u2193 ")]
+        [LocalizedDescription("DateZA", typeof(Strings))]
         DateZA,
-        [Description("Priorytet \u2191 (Wysoki -> Niski)")]
+        [LocalizedDescription("PriorityHighToLow", typeof(Strings))]
         PriorityHighToLow,
-        [Description("Priorytet \u2193 (Niski -> Wysoki)")]
+        [LocalizedDescription("PriorityLowToHigh", typeof(Strings))]
         PriorityLowToHigh
     }
 }
