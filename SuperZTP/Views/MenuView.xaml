@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperZTP.Views"
+             xmlns:resx="clr-namespace:SuperZTP.Resources"
              mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -22,17 +23,23 @@
             <Border Grid.Column="0" Padding="10">
                 <StackPanel>
                     <!-- Nawigacja -->
-                    <Button Content="📋 Notatka" Height="40" Margin="5"/>
-                    <Button Content="✅ Zadania" Height="40" Margin="5"/>
-                    
+                    <Button Content="{x:Static resx:Strings.Notes}" Height="40" Margin="5"/>
+                    <Button Content="{x:Static resx:Strings.Tasks}" Height="40" Margin="5"/>
+
                     <!-- Przyciski dodawania -->
-                    <Button Content="➕ Dodaj zadanie" Height="40" Margin="5" Command="{Binding AddTaskCommand}"/>
-                    <Button Content="📝 Dodaj notatkę" Height="40" Margin="5" Command="{Binding AddNoteCommand}"/>
+                    <Button Content="{x:Static resx:Strings.AddTaskButton}" Height="40" Margin="5" Command="{Binding AddTaskCommand}"/>
+                    <Button Content="{x:Static resx:Strings.AddNoteButton}" Height="40" Margin="5" Command="{Binding AddNoteCommand}"/>
+
+                    <!-- Opcje językowe -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="PL" Command="{Binding ChangeLanguageToPolishCommand}" Height="40" Width="80" Margin="5"/>
+                        <Button Content="EN" Command="{Binding ChangeLanguageToEnglishCommand}" Height="40" Width="80" Margin="5"/>
+                    </StackPanel>
 
                     <!-- Sekcja filtrów -->
-                    <Expander Header="Filtry" IsExpanded="True" Margin="5 5 0 10" Foreground="{StaticResource TextPrimary}">
+                    <Expander Header="{x:Static resx:Strings.Filters}" IsExpanded="True" Margin="5 5 0 10" Foreground="{StaticResource TextPrimary}">
                         <StackPanel>
-                            <TextBlock Text="Opcje sortowania" Foreground="{StaticResource Turquoise}"/>
+                            <TextBlock Text="{x:Static resx:Strings.SortingOptions}" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableSortOptionsList}" SelectedItem="{Binding SelectedSort, Mode=TwoWay}" Width="200" Background="{StaticResource Turquoise}" BorderBrush="Transparent">
                                 <ComboBox.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
@@ -52,7 +59,7 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <TextBlock Text="Opcje grupowania" Foreground="{StaticResource Turquoise}"/>
+                            <TextBlock Text="{x:Static resx:Strings.GroupingOptions}" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableGroups}" SelectedItem="{Binding SelectedGroupingOption, Mode=TwoWay}" Width="200">
                                 <ComboBox.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
@@ -72,7 +79,7 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <TextBlock Text="Status wykonania" Foreground="{StaticResource Turquoise}"/>
+                            <TextBlock Text="{x:Static resx:Strings.IsDone}" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableCompletionStatusList}" SelectedItem="{Binding SelectedCompletionStatus, Mode=TwoWay}" Width="200">
                                 <ComboBox.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
@@ -92,7 +99,7 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <TextBlock Text="Kategoria" Foreground="{StaticResource Turquoise}"/>
+                            <TextBlock Text="{x:Static resx:Strings.Category}" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableCategories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" Width="200">
                                 <ComboBox.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
@@ -106,7 +113,7 @@
                                 </ComboBox.ItemContainerStyle>
                             </ComboBox>
 
-                            <TextBlock Text="Tagi" Foreground="{StaticResource Turquoise}"/>
+                            <TextBlock Text="{x:Static resx:Strings.Tag}" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableTags}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" Width="200">
                                 <ComboBox.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
@@ -124,14 +131,14 @@
                             <DatePicker SelectedDate="{Binding SelectedDueDate, Mode=TwoWay}" Width="200"/>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="15">
-                                <Button Content="Zastosuj filtry" Command="{Binding ApplyAllFiltersCommand}" Padding="5" Width="90"/>
-                                <Button Content="Reset" Command="{Binding ClearFiltersCommand}" Padding="5" Margin="5 0" Width="90"/>
+                                <Button Content="{x:Static resx:Strings.ApplyFilters}" Command="{Binding ApplyAllFiltersCommand}" Padding="5" Width="90"/>
+                                <Button Content="{x:Static resx:Strings.Reset}" Command="{Binding ClearFiltersCommand}" Padding="5" Margin="5 0" Width="90"/>
                             </StackPanel>
                         </StackPanel>
                     </Expander>
-                    <Expander Header="Generowanie" IsExpanded="True" Margin="5 5 0 10" Foreground="{StaticResource TextPrimary}">
+                    <Expander Header="{x:Static resx:Strings.GenerateFile}" IsExpanded="True" Margin="5 5 0 10" Foreground="{StaticResource TextPrimary}">
                         <StackPanel>
-                            <TextBlock Text="Raport:" Foreground="{StaticResource Turquoise}"/>
+                            <TextBlock Text="{x:Static resx:Strings.Raport}" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableReportTypes}" SelectedItem="{Binding SelectedReportType, Mode=TwoWay}" Width="200">
                                 <ComboBox.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
@@ -144,9 +151,9 @@
                                     </Style>
                                 </ComboBox.ItemContainerStyle>
                             </ComboBox>
-                            <Button Content="Generuj" Click="GenerateReportButton_Click" Margin="10" Padding="5" Width="200"/>
+                            <Button Content="{x:Static resx:Strings.Generate}" Click="GenerateReportButton_Click" Margin="10" Padding="5" Width="200"/>
 
-                            <TextBlock Text="Podsumowanie:" Foreground="{StaticResource Turquoise}"/>
+                            <TextBlock Text="{x:Static resx:Strings.Summary}" Foreground="{StaticResource Turquoise}"/>
                             <ComboBox ItemsSource="{Binding AvailableSummaryTypes}" SelectedItem="{Binding SelectedSummaryType, Mode=TwoWay}" Width="200">
                                 <ComboBox.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#27e9b5"/>
@@ -159,7 +166,7 @@
                                     </Style>
                                 </ComboBox.ItemContainerStyle>
                             </ComboBox>
-                            <Button Content="Generuj" Click="GenerateSummaryButton_Click" Margin="10" Padding="5" Width="200"/>
+                            <Button Content="{x:Static resx:Strings.Generate}" Click="GenerateSummaryButton_Click" Margin="10" Padding="5" Width="200"/>
                         </StackPanel>
                     </Expander>
                 </StackPanel>
@@ -176,7 +183,7 @@
 
                 <!-- Pasek wyszukiwania -->
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="Wyszukaj zadanie" Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Text="{x:Static resx:Strings.Search}" Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center" Margin="5"/>
                     <TextBox Width="530" 
                              Text="{Binding SelectedTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.InputBindings>
@@ -204,14 +211,14 @@
                     <!-- Oś Czasu (Lista zadań) -->
                     <Border Grid.Column="0" BorderBrush="Transparent" BorderThickness="1" Margin="10">
                         <StackPanel>
-                            <TextBlock Text="Lista zadań oraz notatek" Foreground="{StaticResource TextPrimary}" FontSize="18" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{x:Static resx:Strings.List}" Foreground="{StaticResource TextPrimary}" FontSize="18" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
                             <local:DisplayTasksView DataContext="{Binding DisplayTasksViewModel}"/>
                         </StackPanel>
                     </Border>
 
                     <!-- Kalendarz + Szczegóły zadania -->
                     <StackPanel Grid.Column="1" Margin="10">
-                        <TextBlock Text="Kalendarz" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimary}"/>
+                        <TextBlock Text="{x:Static resx:Strings.CalendarTitle}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimary}"/>
                         <Calendar x:Name="CalendarView" Background="{StaticResource Turquoise}" DisplayDateChanged="CalendarView_DisplayDateChanged">
                             <Calendar.RenderTransform>
                                 <TranslateTransform x:Name="CalendarTranslateTransform" />
@@ -221,7 +228,7 @@
                             <local:TaskDetailsView Visibility="{Binding TaskDetailsVisibility}" DataContext="{Binding TaskDetailsViewModel}" Width="300" Height="400" Margin="0" />
                             <local:NoteDetailsView Visibility="{Binding NoteDetailsVisibility}" DataContext="{Binding NoteDetailsViewModel}" Width="300" Height="400" Margin="0" />
                         </StackPanel>
-                        <Button Content="Historia operacji" Height="40" Margin="5" Command="{Binding ToggleHistoryCommand}" Width="250"/>
+                        <Button Content="{x:Static resx:Strings.History}" Height="40" Margin="5" Command="{Binding ToggleHistoryCommand}" Width="250"/>
                         <ListBox ItemsSource="{Binding CommandHistory}" Visibility="{Binding HistoryVisibility}" Height="100" Margin="30 0"/>
                     </StackPanel>
                 </Grid>

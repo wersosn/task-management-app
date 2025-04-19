@@ -11,6 +11,7 @@ using SuperZTP.Facade;
 using SuperZTP.Model;
 using SuperZTP.Stores;
 using SuperZTP.Views;
+using SuperZTP.Resources;
 using Task = SuperZTP.Model.Task;
 using SuperZTP.Builder;
 using System.ComponentModel;
@@ -35,11 +36,14 @@ namespace SuperZTP.ViewModels
         private readonly CommandInvoker _invoker;
         private readonly TaskFilterManager _filterManager;
         private readonly SelectedTaskStore _selectedTaskStore;
+        private readonly TaskState taskState;
         private bool _isHistoryVisible;
         public GenerateTXT txt;
         public GeneratePDF pdf;
         public GenerateDOCX docx;
 
+        public TaskState GetTaskState() => taskState;
+        public SelectedTaskStore GetSelectedTaskStore() => _selectedTaskStore;
         public ObservableCollection<string> CommandHistory { get; } = new ObservableCollection<string>();
 
         // Konstruktor
@@ -49,6 +53,7 @@ namespace SuperZTP.ViewModels
             _filterManager = new TaskFilterManager();
             _filterManager.FilterChanged += OnFilterChanged;
             this._selectedTaskStore = _selectedTaskStore;
+            this.taskState = taskState;
             txt = new GenerateTXT(taskState.Tasks);
             pdf = new GeneratePDF(taskState.Tasks);
             docx = new GenerateDOCX(taskState.Tasks);
@@ -114,7 +119,7 @@ namespace SuperZTP.ViewModels
                 }
             }
         }*/
-
+      
         public Visibility HistoryVisibility
         {
             get => _historyVisibility;
@@ -364,5 +369,37 @@ namespace SuperZTP.ViewModels
             OnPropertyChanged(nameof(CommandHistory));
         }
 
+        // Zmiana języka aplikacji:
+        public System.Windows.Input.ICommand ChangeLanguageToPolishCommand => new RelayCommand(() =>
+        {
+            LanguageManager.ChangeLanguage("pl");
+            RestartUI();
+        });
+
+        public System.Windows.Input.ICommand ChangeLanguageToEnglishCommand => new RelayCommand(() =>
+        {
+            LanguageManager.ChangeLanguage("en");
+            RestartUI();
+        });
+
+        private void RestartUI()
+        {
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            var currentWindow = Application.Current.MainWindow;
+            if (currentWindow.DataContext is MenuViewModel oldViewModel)
+            {
+                var taskState = oldViewModel.GetTaskState();
+                var selectedTaskStore = oldViewModel.GetSelectedTaskStore();
+
+                var newWindow = new MainWindow(selectedTaskStore, taskState);
+                Application.Current.MainWindow = newWindow;
+                newWindow.Show();
+
+                currentWindow.Close();
+            }
+
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+        }
     }
 }

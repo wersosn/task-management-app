@@ -20,6 +20,8 @@ using System.Windows.Shapes;
 using DocumentFormat.OpenXml.Drawing;
 using SuperZTP.ViewModels;
 using System.Windows.Media.Animation;
+using SuperZTP.Facade;
+using SuperZTP.Stores;
 
 namespace SuperZTP
 {
@@ -28,9 +30,10 @@ namespace SuperZTP
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(SelectedTaskStore selectedTaskStore, TaskState taskState)
         {
             InitializeComponent();
+            DataContext = new MenuViewModel(selectedTaskStore, taskState);
         }
     }
 }

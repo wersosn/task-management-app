@@ -46,7 +46,7 @@ namespace SuperZTP
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = new MainWindow()
+            MainWindow = new MainWindow(_selectedTaskStore, taskState)
             {
                 DataContext = new MenuViewModel(_selectedTaskStore, taskState)
             };
