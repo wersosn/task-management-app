@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddNote" xml:space="preserve">
+    <value>Add note</value>
+  </data>
   <data name="AddNoteButton" xml:space="preserve">
     <value>📝 Add Note</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Add task</value>
   </data>
   <data name="AddTaskButton" xml:space="preserve">
     <value>➕ Add Task</value>
@@ -132,11 +138,26 @@
   <data name="CalendarTitle" xml:space="preserve">
     <value>Calendar</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>Category</value>
   </data>
   <data name="Deadline" xml:space="preserve">
     <value>Deadline</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="EditNote" xml:space="preserve">
+    <value>Edit note</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Edit task</value>
   </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
@@ -162,11 +183,29 @@
   <data name="Notes" xml:space="preserve">
     <value>📋 Note</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="PHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="PLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="PMedium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
   <data name="Raport" xml:space="preserve">
     <value>Raport</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search task</value>
@@ -182,5 +221,8 @@
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>✅ Tasks</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
   </data>
 </root>
