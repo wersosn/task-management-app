@@ -9,8 +9,11 @@ using SuperZTP.Model;
 namespace SuperZTP.Model
 {
     // Model Zadania
-    public class Task
+    public class Task : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         // Atrybuty:
         public int Id { get; set; }
         public string Title { get; set; }
@@ -19,10 +22,23 @@ namespace SuperZTP.Model
         public Category Category { get; set; }
         public DateTime Deadline { get; set; }
         public string Priority { get; set; }
-        public bool IsDone { get; set; }
+
         public bool IsHeader { get; set; } = false;
 		public ITaskState CurrentState { get; set; }
 		public Task() { }
+        private bool _isDone;
+        public bool IsDone
+        {
+            get => _isDone;
+            set
+            {
+                if (_isDone != value)
+                {
+                    _isDone = value;
+                    OnPropertyChanged(nameof(IsDone));
+                }
+            }
+        }
 
         public Task(int id, string title, string description, Tag tag, Category category, DateTime deadline, string priority, bool isDone, ITaskState currentState)
         {

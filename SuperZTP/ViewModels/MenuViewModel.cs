@@ -72,6 +72,22 @@ namespace SuperZTP.ViewModels
             ClearFiltersCommand = new RelayCommand(_filterManager.ClearFilters);
             ApplyAllFiltersCommand = new RelayCommand(ApplyAllFilters);
         }
+        private DateTime? _selectedCalendarDate;
+        public DateTime? SelectedCalendarDate
+        {
+            get => _selectedCalendarDate;
+            set
+            {
+                _selectedCalendarDate = value;
+                OnPropertyChanged(nameof(SelectedCalendarDate));
+
+                if (value != null)
+                {
+                    // Przekazujemy filtr tylko po dacie
+                    FilterChanged?.Invoke(new DateFilter(value.Value));
+                }
+            }
+        }
 
         /*public RelayCommand SelectTaskCommand { get; }
         private void SelectTask()
@@ -116,7 +132,7 @@ namespace SuperZTP.ViewModels
                 }
             }
         }*/
-      
+
         public Visibility HistoryVisibility
         {
             get => _historyVisibility;

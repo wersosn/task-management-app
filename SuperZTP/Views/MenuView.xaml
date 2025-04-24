@@ -219,7 +219,10 @@
                     <!-- Kalendarz + Szczegóły zadania -->
                     <StackPanel Grid.Column="1" Margin="10">
                         <TextBlock Text="{x:Static resx:Strings.CalendarTitle}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimary}"/>
-                        <Calendar x:Name="CalendarView" Background="{StaticResource Turquoise}" DisplayDateChanged="CalendarView_DisplayDateChanged">
+                        <Calendar x:Name="CalendarView"
+                        Background="{StaticResource Turquoise}"
+                        SelectedDate="{Binding SelectedCalendarDate, Mode=TwoWay}"
+                        DisplayDateChanged="CalendarView_DisplayDateChanged">
                             <Calendar.RenderTransform>
                                 <TranslateTransform x:Name="CalendarTranslateTransform" />
                             </Calendar.RenderTransform>

@@ -42,10 +42,14 @@
 
                                     <!-- Task -->
                                     <StackPanel Grid.Column="0" Orientation="Horizontal" 
-                                                Visibility="{Binding IsTask, 
-                                                Converter={StaticResource BooleanToVisibilityConverter}}">
-
-                                        <TextBlock Text="{Binding Title}" FontSize="16" Foreground="{StaticResource TextPrimary}"/>
+                                                    Visibility="{Binding IsTask, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <CheckBox VerticalAlignment="Center"
+                                                    Margin="0,0,5,0"
+                                                    IsChecked="{Binding Task.IsDone, Mode=TwoWay}" />
+                                        <TextBlock Text="{Binding Title}"
+                                                    FontSize="16"
+                                                    Foreground="{StaticResource TextPrimary}"
+                                    TextDecorations="{Binding Task.IsDone, Converter={StaticResource DoneToStrikeConverter}}" />
                                     </StackPanel>
 
                                     <!-- Note -->
