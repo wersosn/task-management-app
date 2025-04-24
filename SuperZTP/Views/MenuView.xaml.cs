@@ -69,5 +69,14 @@ namespace SuperZTP.Views
             CalendarTranslateTransform.BeginAnimation(TranslateTransform.XProperty, pageChangeAnimation);
             previousDisplayDate = currentDisplayDate;
         }
+        private void TasksButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MenuViewModel viewModel)
+            {
+                viewModel.ShowAllTasksCommand.Execute(null);
+            }
+        }
+
+
     }
 }

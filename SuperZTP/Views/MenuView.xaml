@@ -23,8 +23,10 @@
             <Border Grid.Column="0" Padding="10">
                 <StackPanel>
                     <!-- Nawigacja -->
-                    <Button Content="{x:Static resx:Strings.Notes}" Height="40" Margin="5"/>
-                    <Button Content="{x:Static resx:Strings.Tasks}" Height="40" Margin="5"/>
+                    <Button Content="{x:Static resx:Strings.Tasks}"
+        Height="40"
+        Margin="5"
+        Click="TasksButton_Click" />
 
                     <!-- Przyciski dodawania -->
                     <Button Content="{x:Static resx:Strings.AddTaskButton}" Height="40" Margin="5" Command="{Binding AddTaskCommand}"/>

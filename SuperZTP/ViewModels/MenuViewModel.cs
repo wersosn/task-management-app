@@ -38,6 +38,7 @@ namespace SuperZTP.ViewModels
         public GenerateTXT txt;
         public GeneratePDF pdf;
         public GenerateDOCX docx;
+        public System.Windows.Input.ICommand ShowAllTasksCommand { get; }
 
         public TaskState GetTaskState() => taskState;
         public SelectedTaskStore GetSelectedTaskStore() => _selectedTaskStore;
@@ -45,7 +46,8 @@ namespace SuperZTP.ViewModels
 
         // Konstruktor
         public MenuViewModel(SelectedTaskStore _selectedTaskStore, TaskState taskState)
-        {
+        { 
+            ShowAllTasksCommand = new RelayCommand(ShowAllTasks);
             _invoker = new CommandInvoker();
             _filterManager = new TaskFilterManager();
             _filterManager.FilterChanged += OnFilterChanged;
@@ -54,7 +56,7 @@ namespace SuperZTP.ViewModels
             txt = new GenerateTXT(taskState.Tasks);
             pdf = new GeneratePDF(taskState.Tasks);
             docx = new GenerateDOCX(taskState.Tasks);
-
+           
             DisplayTasksViewModel = new DisplayTasksViewModel(_selectedTaskStore, taskState, _invoker, this);
             TaskDetailsViewModel = new TaskDetailsViewModel(_selectedTaskStore);
             NoteDetailsViewModel = new NoteDetailsViewModel(_selectedTaskStore);
@@ -413,6 +415,12 @@ namespace SuperZTP.ViewModels
             }
 
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+        }
+        private void ShowAllTasks()
+        {
+            _filterManager.ClearFilters(); // tylko czyści
+            DisplayTasksViewModel.ClearFilter(); // resetuje filtr w ViewModelu
+            DisplayTasksViewModel.RefreshTasks(); // ręcznie odśwież widok
         }
     }
 }

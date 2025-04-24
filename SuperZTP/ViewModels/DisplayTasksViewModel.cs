@@ -110,6 +110,11 @@ namespace SuperZTP.ViewModels
             _currentFilter = filter;
             RefreshTasks();
         }
+        public void ClearFilter()
+        {
+            _currentFilter = null;
+        }
+
 
     }
 }
