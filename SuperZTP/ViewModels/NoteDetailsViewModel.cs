@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SuperZTP.ViewModels
 {
@@ -16,6 +17,8 @@ namespace SuperZTP.ViewModels
         public string Description => _selectedTaskStore.SelectedNote?.Description;
         public string Category => _selectedTaskStore.SelectedNote?.Category?.Name.Trim() ?? null;
         public string Tag => _selectedTaskStore.SelectedNote?.Tag?.Name.Trim() ?? null;
+        public Visibility NoteDetailsVisibility => HasSelectedNote ? Visibility.Visible : Visibility.Collapsed;
+
 
         public NoteDetailsViewModel(SelectedTaskStore selectedTaskStore)
         {

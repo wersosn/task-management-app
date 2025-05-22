@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
 using DocumentFormat.OpenXml.Office2010.CustomUI;
 using SuperZTP.Command;
 using SuperZTP.Decorator;

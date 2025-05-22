@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 using SuperZTP.Stores;
 using WpfCommand = System.Windows.Input.ICommand;
@@ -22,17 +23,18 @@ namespace SuperZTP.ViewModels
         public string Tag => _selectedTaskStore.SelectedTask?.Tag?.Name.Trim() ?? null;
         public string Priority => _selectedTaskStore.SelectedTask?.Priority ?? null;
         public string IsDone => _selectedTaskStore.SelectedTask?.IsDone == true ? "Ukończone" : "Nie ukończone";
+        public Visibility TaskDetailsVisibility => HasSelectedTask ? Visibility.Visible : (HasSelectedNote ? Visibility.Collapsed : Visibility.Visible);
 
-		//state
-		//public string Status => _selectedTaskStore.SelectedTask?.CurrentState?.GetStateName() ?? "Unknown";
+        //state
+        //public string Status => _selectedTaskStore.SelectedTask?.CurrentState?.GetStateName() ?? "Unknown";
 
-		//// do obsługi przycisku odznaczenia zadania
-		//public WpfCommand ChangeStatusCommand { get; }
-		//public string ButtonLabel => _selectedTaskStore.SelectedTask?.CurrentState?.ButtonLabel ?? "N/A";
-		//public bool IsButtonEnabled => _selectedTaskStore.SelectedTask?.CurrentState?.IsButtonEnabled ?? false;
+        //// do obsługi przycisku odznaczenia zadania
+        //public WpfCommand ChangeStatusCommand { get; }
+        //public string ButtonLabel => _selectedTaskStore.SelectedTask?.CurrentState?.ButtonLabel ?? "N/A";
+        //public bool IsButtonEnabled => _selectedTaskStore.SelectedTask?.CurrentState?.IsButtonEnabled ?? false;
 
 
-		public TaskDetailsViewModel(SelectedTaskStore selectedTaskStore)
+        public TaskDetailsViewModel(SelectedTaskStore selectedTaskStore)
         {
             _selectedTaskStore = selectedTaskStore;
 
