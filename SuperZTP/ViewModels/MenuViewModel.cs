@@ -35,6 +35,7 @@ public class MenuViewModel : BaseViewModel
     private readonly TaskFilterManager _filterManager;
     private readonly SelectedTaskStore _selectedTaskStore;
     private readonly TaskState _taskState;
+    private readonly FileHandler _files;
     private bool TaskSelected => _selectedTaskStore != null ? true : false;
     public GenerateTXT Txt;
     public GeneratePDF Pdf;
@@ -62,6 +63,7 @@ public class MenuViewModel : BaseViewModel
         _filterManager.FilterChanged += OnFilterChanged;
         _selectedTaskStore            = selectedTaskStore;
         _taskState                    = taskState;
+        _files                        = new FileHandler(taskState.Tasks, taskState.Notes, taskState.Categories, taskState.Tags);
         Txt                           = new GenerateTXT(taskState.Tasks);
         Pdf                           = new GeneratePDF(taskState.Tasks);
         Docx                          = new GenerateDOCX(taskState.Tasks);
@@ -71,14 +73,16 @@ public class MenuViewModel : BaseViewModel
         NoteDetailsViewModel          = new NoteDetailsViewModel(selectedTaskStore);
         AddTaskCommand                = new RelayCommand(() => OpenAddTaskWindow(taskState));
         AddNoteCommand                = new RelayCommand(() => OpenAddNoteWindow(taskState));
+        AddCategoryCommand            = new RelayCommand(() => OpenAddCategoryWindow(taskState));
+        AddTagCommand                 = new RelayCommand(() => OpenAddTagWindow(taskState));
         ToggleHistoryCommand          = new RelayCommand(ToggleHistory);
 
         // Inicjalizacja dostępnych opcji filtrów
-        AvailableCategories           = taskState.Categories.Select(c => c.Name.TrimStart()).ToList();
-        AvailableTags                 = taskState.Tags.Select(c => c.Name.TrimStart()).ToList();
+        AvailableCategories           = new ObservableCollection<string>(taskState.Categories.Select(c => c.Name.TrimStart()));
+        AvailableTags                 = new ObservableCollection<string>(taskState.Tags.Select(t => t.Name.TrimStart()));
 
         // Inicjalizacja komend filtrów
-        ClearFiltersCommand           = new RelayCommand(_filterManager.ClearFilters);
+        ClearFiltersCommand = new RelayCommand(_filterManager.ClearFilters);
         ApplyAllFiltersCommand        = new RelayCommand(ApplyAllFilters);
     }
 
@@ -137,8 +141,8 @@ public class MenuViewModel : BaseViewModel
     private Visibility _historyVisibility = Visibility.Collapsed;
 
     //Enums dla filtrów
-    public IList<string> AvailableCategories { get; }
-    public IList<string> AvailableTags { get; }
+    public ObservableCollection<string> AvailableCategories { get; private set; }
+    public ObservableCollection<string> AvailableTags { get; private set; }
 
     public IList<GroupingOption> AvailableGroups { get; } = new List<GroupingOption>
     {
@@ -173,6 +177,8 @@ public class MenuViewModel : BaseViewModel
 
     public ICommand AddTaskCommand         { get; }
     public ICommand AddNoteCommand         { get; }
+    public ICommand AddCategoryCommand     { get; }
+    public ICommand AddTagCommand          { get; }
     public ICommand ToggleHistoryCommand   { get; }
 
     private void OpenAddTaskWindow(TaskState taskState)
@@ -193,6 +199,20 @@ public class MenuViewModel : BaseViewModel
         addNoteWindow.ShowDialog();
         addNoteWindow.NoteAdded -= DisplayTasksViewModel.RefreshTasks;
         // proxy.ClearTaskCache();
+    }
+
+    private void OpenAddCategoryWindow(TaskState taskState)
+    {
+        var addCategoryWindow = new AddCategoryWindow(taskState.Categories, taskState.FileHandler);
+        addCategoryWindow.ShowDialog();
+        RefreshAvailableCategories();
+    }
+
+    private void OpenAddTagWindow(TaskState taskState)
+    {
+        var addTagWindow = new AddTagWindow(taskState.Tags, taskState.FileHandler);
+        addTagWindow.ShowDialog();
+        RefreshAvailableTags();
     }
 
     private void OnFilterChanged(ITaskFilter filter)
@@ -418,5 +438,22 @@ public class MenuViewModel : BaseViewModel
         _filterManager.ClearFilters(); // tylko czyści
         DisplayTasksViewModel.ClearFilter(); // resetuje filtr w ViewModelu
         DisplayTasksViewModel.RefreshTasks(); // ręcznie odśwież widok
+    }
+
+    // Restart filtrów po dodaniu nowej kategorii/tagu:
+    private void RefreshAvailableCategories()
+    {
+        AvailableCategories.Clear();
+        foreach (var category in _taskState.Categories.Select(c => c.Name.TrimStart()))
+            AvailableCategories.Add(category);
+        OnPropertyChanged(nameof(AvailableCategories));
+    }
+
+    private void RefreshAvailableTags()
+    {
+        AvailableTags.Clear();
+        foreach (var tag in _taskState.Tags.Select(t => t.Name.TrimStart()))
+            AvailableTags.Add(tag);
+        OnPropertyChanged(nameof(AvailableTags));
     }
 }

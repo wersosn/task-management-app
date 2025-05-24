@@ -32,6 +32,10 @@
                     <Button Content="{x:Static resx:Strings.AddTaskButton}" Height="40" Margin="5" Command="{Binding AddTaskCommand}"/>
                     <Button Content="{x:Static resx:Strings.AddNoteButton}" Height="40" Margin="5" Command="{Binding AddNoteCommand}"/>
 
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="{x:Static resx:Strings.AddCategory}" Command="{Binding AddCategoryCommand}" Height="40" Width="90" Margin="5"/>
+                        <Button Content="{x:Static resx:Strings.AddTag}" Command="{Binding AddTagCommand}" Height="40" Width="90" Margin="5"/>
+                    </StackPanel>
                     <!-- Opcje językowe -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Content="PL" Command="{Binding ChangeLanguageToPolishCommand}" Height="40" Width="80" Margin="5"/>
