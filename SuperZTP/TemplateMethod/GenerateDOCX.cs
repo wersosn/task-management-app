@@ -33,22 +33,21 @@ namespace SuperZTP.TemplateMethod
                     var lines = section.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
                     if (lines.Length == 0) continue;
 
+                    // Nagłówek:
                     string header = lines[0];
-
-                    // Nagłówek
                     Paragraph headerParagraph = new Paragraph(
                         new Run(
                             new RunProperties(
                                 new Bold(),
-                                new Color { Val = "00008B" }, // dark blue
-                                new FontSize { Val = "28" } // 14 pt
+                                new Color { Val = "00008B" },
+                                new FontSize { Val = "28" }
                             ),
                             new Text(header)
                         )
                     );
                     docBody.Append(headerParagraph);
 
-                    // Lista zadań
+                    // Lista zadań:
                     for (int i = 1; i < lines.Length; i++)
                     {
                         var parts = lines[i].Split(" - ");
@@ -71,7 +70,7 @@ namespace SuperZTP.TemplateMethod
                         }
                         else
                         {
-                            lineText = lines[i].Trim(); // fallback
+                            lineText = lines[i].Trim();
                         }
 
                         Paragraph taskParagraph = new Paragraph(
@@ -89,10 +88,9 @@ namespace SuperZTP.TemplateMethod
                         docBody.Append(taskParagraph);
                     }
 
-                    // Odstęp między sekcjami
+                    // Odstęp między sekcjami:
                     docBody.Append(new Paragraph(new Run(new Text(""))));
                 }
-
                 mainPart.Document.Append(docBody);
                 mainPart.Document.Save();
             }
