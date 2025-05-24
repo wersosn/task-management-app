@@ -82,7 +82,7 @@ public class MenuViewModel : BaseViewModel
         AvailableTags                 = new ObservableCollection<string>(taskState.Tags.Select(t => t.Name.TrimStart()));
 
         // Inicjalizacja komend filtrów
-        ClearFiltersCommand = new RelayCommand(_filterManager.ClearFilters);
+        ClearFiltersCommand           = new RelayCommand(_filterManager.ClearFilters);
         ApplyAllFiltersCommand        = new RelayCommand(ApplyAllFilters);
     }
 

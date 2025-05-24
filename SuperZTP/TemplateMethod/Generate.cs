@@ -22,7 +22,7 @@ namespace SuperZTP.TemplateMethod
         // Generowanie raportu
         public void GenerateRaport(string filepath)
         {
-            var upcomingDeadlines = tasks.Where(task => task.Deadline > DateTime.Now && task.Deadline <= DateTime.Now.AddDays(7));
+            var upcomingDeadlines = tasks.Where(task => task.Deadline >= DateTime.Now && task.Deadline <= DateTime.Now.AddDays(3));
             var content = GenerateUpcomingTaskReport(upcomingDeadlines);
             Save(filepath, content);
         }
@@ -42,8 +42,8 @@ namespace SuperZTP.TemplateMethod
         // Generowanie podsumowania
         public void GenerateSummary(string filepath)
         {
-            var completedTasks = tasks.Where(task => task.IsDone);
-            var overdueTasks = tasks.Where(task => !task.IsDone && task.Deadline < DateTime.Now);
+            var completedTasks = tasks.Where(task => task.IsDone == true);
+            var overdueTasks = tasks.Where(task => task.IsDone == false && task.Deadline < DateTime.Now);
             var content = GenerateCompletedTasksReport(completedTasks) + GenerateOverdueTasksReport(overdueTasks);
             Save(filepath, content);
         }
