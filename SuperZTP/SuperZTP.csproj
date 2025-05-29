@@ -10,17 +10,9 @@
 
   <ItemGroup>
     <Compile Remove="Composite\**" />
-    <Compile Remove="Converters\Nowy folder\**" />
-    <Compile Remove="Nowy folder\Nowy folder\**" />
     <EmbeddedResource Remove="Composite\**" />
-    <EmbeddedResource Remove="Converters\Nowy folder\**" />
-    <EmbeddedResource Remove="Nowy folder\Nowy folder\**" />
     <None Remove="Composite\**" />
-    <None Remove="Converters\Nowy folder\**" />
-    <None Remove="Nowy folder\Nowy folder\**" />
     <Page Remove="Composite\**" />
-    <Page Remove="Converters\Nowy folder\**" />
-    <Page Remove="Nowy folder\Nowy folder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,10 +53,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Nowy folder\" />
   </ItemGroup>
 
 </Project>
