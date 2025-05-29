@@ -1,6 +1,7 @@
 ﻿<Application x:Class="SuperZTP.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:tb="http://www.hardcodet.net/taskbar"
              xmlns:local="clr-namespace:SuperZTP"
              xmlns:conv="clr-namespace:SuperZTP.Converters">
     <Application.Resources>
@@ -8,6 +9,19 @@
             <local:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <conv:DoneToStrikeConverter x:Key="DoneToStrikeConverter"/>
+            
+            <!-- Tray icon -->
+            <tb:TaskbarIcon x:Key="TrayIcon"
+                    IconSource="pack://application:,,,/Content/Icons/journal.ico"
+                    ToolTipText="Aplikacja do zarządzania zadaniami i notatkami"
+                    Visibility="Visible">
+                <tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Pokaż" Click="Show_Click"/>
+                        <MenuItem Header="Wyjdź" Click="Exit_Click"/>
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>
+            </tb:TaskbarIcon>
 
             <!-- Tło aplikacji (ciemnoszary) -->
             <SolidColorBrush x:Key="BackgroundDark" Color="#051824"/>

@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using Hardcodet.Wpf.TaskbarNotification;
 using SuperZTP.Command;
 using SuperZTP.Facade;
 using SuperZTP.Model;
@@ -8,6 +9,7 @@ using SuperZTP.Stores;
 using SuperZTP.TemplateMethod;
 using SuperZTP.ViewModels;
 using SuperZTP.Views;
+
 
 namespace SuperZTP
 {
@@ -32,6 +34,7 @@ namespace SuperZTP
         private SuperZTP.Proxy.Proxy proxy;
         private DisplayTasksView _displayTaskView = new DisplayTasksView();
         private TaskState taskState;
+        private TaskbarIcon _trayIcon;
 
         public App()
         {
@@ -44,8 +47,23 @@ namespace SuperZTP
             taskState = new TaskState(tasks, notes, categories, tags, fileHandler);
             _selectedTaskStore = new SelectedTaskStore();
         }
+
+        private void Show_Click(object sender, RoutedEventArgs e)
+        {
+            Current.MainWindow.Show();
+            Current.MainWindow.WindowState = WindowState.Normal;
+            Current.MainWindow.Activate();
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Shutdown();
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
+            _trayIcon = (TaskbarIcon)FindResource("TrayIcon");
+
             MainWindow = new MainWindow(_selectedTaskStore, taskState)
             {
                 DataContext = new MenuViewModel(_selectedTaskStore, taskState)
@@ -54,6 +72,6 @@ namespace SuperZTP
 
             base.OnStartup(e);
         }
-    }
 
+    }
 }
