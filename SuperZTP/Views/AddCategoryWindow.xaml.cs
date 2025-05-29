@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SuperZTP.Command;
 using SuperZTP.Model;
+using SuperZTP.Resources;
 
 namespace SuperZTP.Views
 {
@@ -35,9 +36,9 @@ namespace SuperZTP.Views
         private void AddCategoryButton_Click(object sender, RoutedEventArgs e)
         {
             string categoryName = CategoryNameTextBox.Text.Trim();
-            if (categories.Any(cat => cat.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase)))
+            if (categories.Any(cat => cat.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase)) || categoryName == "")
             {
-                MessageBox.Show("Kategoria o tej nazwie już istnieje.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.RequiredName, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             var newCategory = new Category(categoryName);

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SuperZTP.Command;
 using SuperZTP.Model;
+using SuperZTP.Resources;
 
 namespace SuperZTP.Views
 {
@@ -35,9 +36,9 @@ namespace SuperZTP.Views
         private void AddTagButton_Click(object sender, RoutedEventArgs e)
         {
             string tagName = TagNameTextBox.Text.Trim();
-            if (tags.Any(tag => tag.Name.Equals(tagName, StringComparison.OrdinalIgnoreCase)))
+            if (tags.Any(tag => tag.Name.Equals(tagName, StringComparison.OrdinalIgnoreCase)) || tagName == "")
             {
-                MessageBox.Show("Tag o tej nazwie już istnieje.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.RequiredName, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             var newTag = new Tag(tagName);

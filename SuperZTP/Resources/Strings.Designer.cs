@@ -286,6 +286,15 @@ namespace SuperZTP.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Błąd.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Filtry.
         /// </summary>
         public static string Filters {
@@ -624,6 +633,15 @@ namespace SuperZTP.Resources {
         public static string ReportMessage {
             get {
                 return ResourceManager.GetString("ReportMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Nazwa jest wymagana!.
+        /// </summary>
+        public static string RequiredName {
+            get {
+                return ResourceManager.GetString("RequiredName", resourceCulture);
             }
         }
         

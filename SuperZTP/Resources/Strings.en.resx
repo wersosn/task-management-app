@@ -192,6 +192,9 @@
   <data name="EditTask" xml:space="preserve">
     <value>Edit task</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
   </data>
@@ -305,6 +308,9 @@
   </data>
   <data name="ReportMessage" xml:space="preserve">
     <value>Generated report in format {0}</value>
+  </data>
+  <data name="RequiredName" xml:space="preserve">
+    <value>Name is required!</value>
   </data>
   <data name="RequiredTitle" xml:space="preserve">
     <value>Title is required!</value>
