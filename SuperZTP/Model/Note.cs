@@ -52,6 +52,22 @@ namespace SuperZTP.Model
                 Category = new Category(values[4])
             };
         }
+
+        public Task ToTask()
+        {
+            var task = new Task()
+            {
+                Title = Title,
+                Description = Description,
+                Tag = Tag,
+                Category = Category,
+                Priority = "Notatka",
+                Deadline = DateTime.Now,
+                IsDone = true
+            };
+
+            return task;
+        }
     }
 }
 

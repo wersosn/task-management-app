@@ -78,7 +78,10 @@
                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Tag}" Foreground="{StaticResource TextPrimary}"/>
 
                     <!-- Priorytet -->
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static resx:Strings.Priority}" FontWeight="Bold" Foreground="{StaticResource Turquoise}"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static resx:Strings.Priority}" FontWeight="Bold" Foreground="{StaticResource Turquoise}">
+                        
+                    </TextBlock>
                     <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Priority}" Foreground="{StaticResource TextPrimary}"/>
 
                     <!-- Status -->

@@ -23,7 +23,7 @@ namespace SuperZTP.ViewModels
         public string Tag => _selectedTaskStore.SelectedTask?.Tag?.Name.Trim() ?? null;
         public string Priority => _selectedTaskStore.SelectedTask?.Priority ?? null;
         public string IsDone => _selectedTaskStore.SelectedTask?.IsDone == true ? "Ukończone" : "Nie ukończone";
-        public Visibility TaskDetailsVisibility => HasSelectedTask ? Visibility.Visible : (HasSelectedNote ? Visibility.Collapsed : Visibility.Visible);
+        public bool TaskDetailsVisibility;
 
         //state
         //public string Status => _selectedTaskStore.SelectedTask?.CurrentState?.GetStateName() ?? "Unknown";
@@ -54,6 +54,7 @@ namespace SuperZTP.ViewModels
             OnPropertyChanged(nameof(Priority));
             //OnPropertyChanged(nameof(Status));
             OnPropertyChanged(nameof(IsDone));
+
         }
 
         protected override void Dispose()

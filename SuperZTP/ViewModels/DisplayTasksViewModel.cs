@@ -36,12 +36,11 @@ namespace SuperZTP.ViewModels
                 if (_selectedTaskViewModel?.Task != null)
                 {
                     _selectedTaskStore.SelectedTask = _selectedTaskViewModel.Task;
-                    _selectedTaskStore.SelectedNote = null;
+                    //_selectedTaskStore.SelectedNote = null;
                 }
                 else if (_selectedTaskViewModel?.Note != null)
                 {
-                    _selectedTaskStore.SelectedNote = _selectedTaskViewModel.Note;
-                    _selectedTaskStore.SelectedTask = null;
+                    _selectedTaskStore.SelectedTask = _selectedTaskViewModel.Note.ToTask();
                 }
                 else
                 {
